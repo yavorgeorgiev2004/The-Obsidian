@@ -1,0 +1,596 @@
+/* ============================================
+   THE OBSIDIAN — PORTAL STYLES
+   Shared styles for login, guest, staff pages
+   ============================================ */
+
+:root {
+  --obsidian: #0D0D0D;
+  --dark-grey: #1A1A1A;
+  --mid-grey: #2C2C2C;
+  --white: #F5F5F5;
+  --off-white: #E8E8E8;
+  --gold: #C9A84C;
+  --gold-pale: #E8D5A3;
+  --gold-dim: #8C6A3F;
+  --green: #4caf50;
+  --amber: #c9a84c;
+  --red: #ef5350;
+  --blue: #5c7cfa;
+  --font-display: 'Cormorant Garamond', Georgia, serif;
+  --font-body: 'Montserrat', sans-serif;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { font-size: 16px; scroll-behavior: smooth; }
+body { background: var(--obsidian); color: var(--white); font-family: var(--font-body); font-weight: 300; line-height: 1.7; }
+a { text-decoration: none; color: inherit; }
+ul { list-style: none; }
+button, input, select, textarea { font-family: inherit; }
+::-webkit-scrollbar { width: 4px; } ::-webkit-scrollbar-track { background: var(--obsidian); } ::-webkit-scrollbar-thumb { background: var(--gold-dim); }
+::selection { background: var(--gold); color: var(--obsidian); }
+em { color: var(--gold); font-style: italic; }
+
+/* Portal nav */
+.portal-nav {
+  position: sticky; top: 0; z-index: 100;
+  background: rgba(13,13,13,0.97);
+  border-bottom: 1px solid rgba(201,168,76,0.15);
+  padding: 0 2rem;
+  height: 60px;
+  display: flex; align-items: center; justify-content: space-between;
+  backdrop-filter: blur(12px);
+}
+.portal-nav-logo { display: flex; align-items: center; gap: 0.6rem; }
+.portal-nav-logo a { display: flex; align-items: center; gap: 0.6rem; color: var(--white); }
+.portal-logo-diamond { color: var(--gold); font-size: 0.7rem; }
+.portal-logo-name { font-size: 0.7rem; letter-spacing: 0.28em; font-family: var(--font-body); font-weight: 300; }
+.portal-nav-right { display: flex; align-items: center; gap: 1.5rem; }
+.portal-user { font-size: 0.68rem; letter-spacing: 0.08em; color: rgba(232,232,232,0.55); }
+.portal-user strong { color: var(--gold); font-weight: 400; }
+.portal-role-badge { font-size: 0.55rem; letter-spacing: 0.15em; padding: 0.22rem 0.7rem; border: 1px solid rgba(201,168,76,0.3); color: var(--gold); }
+.portal-logout { font-size: 0.6rem; letter-spacing: 0.15em; color: rgba(232,232,232,0.4); cursor: pointer; transition: color 0.2s; border: none; background: none; }
+.portal-logout:hover { color: var(--gold); }
+
+/* Portal layout */
+.portal-layout { display: flex; min-height: calc(100vh - 60px); }
+.portal-sidebar {
+  width: 220px; flex-shrink: 0;
+  background: var(--dark-grey);
+  border-right: 1px solid rgba(201,168,76,0.08);
+  padding: 2rem 0;
+}
+.portal-sidebar-section { margin-bottom: 2rem; }
+.portal-sidebar-label { font-size: 0.52rem; letter-spacing: 0.25em; color: rgba(201,168,76,0.45); padding: 0 1.5rem; margin-bottom: 0.5rem; display: block; }
+.portal-sidebar a {
+  display: flex; align-items: center; gap: 0.8rem;
+  padding: 0.7rem 1.5rem;
+  font-size: 0.72rem; letter-spacing: 0.08em;
+  color: rgba(232,232,232,0.55);
+  transition: all 0.2s;
+  border-left: 2px solid transparent;
+}
+.portal-sidebar a:hover { color: var(--white); background: rgba(201,168,76,0.04); }
+.portal-sidebar a.active { color: var(--gold); border-left-color: var(--gold); background: rgba(201,168,76,0.06); }
+.portal-sidebar a .nav-icon { font-size: 0.9rem; width: 18px; }
+.portal-main { flex: 1; padding: 2.5rem; overflow-x: hidden; }
+
+/* Page heading */
+.portal-page-title { margin-bottom: 2rem; }
+.portal-page-title p { font-size: 0.58rem; letter-spacing: 0.22em; color: var(--gold); margin-bottom: 0.5rem; }
+.portal-page-title h1 { font-family: var(--font-display); font-size: 2rem; font-weight: 300; }
+.portal-page-title h1 em { color: var(--gold); font-style: italic; }
+
+/* Cards */
+.card { background: var(--dark-grey); border: 1px solid rgba(201,168,76,0.08); padding: 1.8rem; }
+.card-title { font-family: var(--font-display); font-size: 1.1rem; font-weight: 400; margin-bottom: 0.3rem; }
+.card-sub { font-size: 0.68rem; color: rgba(232,232,232,0.4); letter-spacing: 0.06em; margin-bottom: 1.2rem; }
+
+/* Stat cards */
+.stats-row { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1px; background: rgba(201,168,76,0.08); margin-bottom: 2rem; }
+.stat-card { background: var(--dark-grey); padding: 1.5rem 1.8rem; }
+.stat-card-label { font-size: 0.58rem; letter-spacing: 0.18em; color: rgba(201,168,76,0.6); margin-bottom: 0.5rem; display: block; }
+.stat-card-value { font-family: var(--font-display); font-size: 2.2rem; font-weight: 300; color: var(--gold); line-height: 1; }
+.stat-card-sub { font-size: 0.62rem; color: rgba(232,232,232,0.35); margin-top: 0.3rem; }
+
+/* Tables */
+.data-table { width: 100%; border-collapse: collapse; }
+.data-table th { font-size: 0.55rem; letter-spacing: 0.2em; color: var(--gold); padding: 0.7rem 1rem; text-align: left; border-bottom: 1px solid rgba(201,168,76,0.12); font-weight: 400; }
+.data-table td { font-size: 0.75rem; padding: 0.85rem 1rem; border-bottom: 1px solid rgba(255,255,255,0.04); color: rgba(232,232,232,0.75); vertical-align: middle; }
+.data-table tr:hover td { background: rgba(201,168,76,0.03); }
+.data-table tr:last-child td { border-bottom: none; }
+
+/* Buttons */
+.btn { display: inline-block; font-size: 0.62rem; letter-spacing: 0.18em; padding: 0.6rem 1.4rem; cursor: pointer; transition: all 0.2s; border: none; font-family: var(--font-body); }
+.btn-gold { background: var(--gold); color: var(--obsidian); }
+.btn-gold:hover { background: var(--gold-pale); }
+.btn-outline { background: transparent; border: 1px solid rgba(201,168,76,0.3); color: var(--gold); }
+.btn-outline:hover { border-color: var(--gold); background: rgba(201,168,76,0.08); }
+.btn-ghost { background: transparent; border: 1px solid rgba(255,255,255,0.12); color: rgba(232,232,232,0.6); }
+.btn-ghost:hover { border-color: rgba(255,255,255,0.3); color: var(--white); }
+.btn-danger { background: transparent; border: 1px solid rgba(239,83,80,0.3); color: #ef5350; }
+.btn-danger:hover { background: rgba(239,83,80,0.1); }
+.btn-sm { padding: 0.35rem 0.8rem; font-size: 0.55rem; }
+.btn-xs { padding: 0.22rem 0.6rem; font-size: 0.5rem; }
+
+/* Form elements */
+.form-group { margin-bottom: 1.2rem; }
+.form-label { display: block; font-size: 0.58rem; letter-spacing: 0.18em; color: var(--gold); margin-bottom: 0.5rem; }
+.form-control { width: 100%; background: #111; border: 1px solid rgba(201,168,76,0.18); color: var(--white); padding: 0.7rem 1rem; font-size: 0.8rem; outline: none; transition: border-color 0.2s; font-family: var(--font-body); }
+.form-control:focus { border-color: var(--gold); }
+.form-control option { background: #111; }
+.form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+
+/* Grid layouts */
+.grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; }
+.grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; }
+.grid-4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1rem; }
+
+/* Room status colours */
+.status-vacant     { color: #888; }
+.status-occupied   { color: #4caf50; }
+.status-booked     { color: #8c7cff; }
+.status-maintenance{ color: #ff6b35; }
+
+/* Alerts */
+.alert { padding: 1rem 1.2rem; font-size: 0.75rem; border-left: 3px solid; margin-bottom: 1rem; }
+.alert-success { background: rgba(76,175,80,0.08); border-color: #4caf50; color: #4caf50; }
+.alert-warning { background: rgba(201,168,76,0.08); border-color: var(--gold); color: var(--gold); }
+.alert-error   { background: rgba(239,83,80,0.08); border-color: #ef5350; color: #ef5350; }
+.alert-info    { background: rgba(92,124,250,0.08); border-color: #5c7cfa; color: #8ca5ff; }
+
+/* Tabs */
+.tabs { display: flex; gap: 0; border-bottom: 1px solid rgba(201,168,76,0.12); margin-bottom: 2rem; }
+.tab { font-size: 0.65rem; letter-spacing: 0.15em; padding: 0.8rem 1.5rem; cursor: pointer; color: rgba(232,232,232,0.4); border-bottom: 2px solid transparent; transition: all 0.2s; background: none; border-top: none; border-left: none; border-right: none; font-family: var(--font-body); }
+.tab:hover { color: var(--white); }
+.tab.active { color: var(--gold); border-bottom-color: var(--gold); }
+.tab-content { display: none; }
+.tab-content.active { display: block; }
+
+/* Modal */
+.modal-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.75); z-index: 1000; display: flex; align-items: center; justify-content: center; padding: 2rem; opacity: 0; pointer-events: none; transition: opacity 0.3s; }
+.modal-overlay.open { opacity: 1; pointer-events: all; }
+.modal { background: var(--dark-grey); border: 1px solid rgba(201,168,76,0.2); padding: 2.5rem; max-width: 540px; width: 100%; max-height: 85vh; overflow-y: auto; position: relative; }
+.modal-title { font-family: var(--font-display); font-size: 1.4rem; margin-bottom: 0.3rem; }
+.modal-sub { font-size: 0.68rem; color: rgba(232,232,232,0.4); margin-bottom: 2rem; }
+.modal-close { position: absolute; top: 1.2rem; right: 1.5rem; background: none; border: none; color: rgba(232,232,232,0.4); font-size: 1.2rem; cursor: pointer; transition: color 0.2s; }
+.modal-close:hover { color: var(--white); }
+
+/* Package cards */
+.package-card { background: #111; border: 1px solid rgba(201,168,76,0.1); padding: 1.2rem; display: flex; align-items: flex-start; gap: 1rem; cursor: pointer; transition: border-color 0.2s; }
+.package-card:hover { border-color: rgba(201,168,76,0.3); }
+.package-card.selected { border-color: var(--gold); background: rgba(201,168,76,0.05); }
+.package-icon { font-size: 1.3rem; flex-shrink: 0; }
+.package-name { font-size: 0.78rem; color: var(--white); margin-bottom: 0.2rem; }
+.package-desc { font-size: 0.68rem; color: rgba(232,232,232,0.45); line-height: 1.6; margin-bottom: 0.3rem; }
+.package-price { font-size: 0.75rem; color: var(--gold); }
+
+/* Toast */
+.obs-toast { position: fixed; bottom: 1.5rem; right: 1.5rem; background: var(--dark-grey); border: 1px solid var(--gold); color: var(--white); padding: 1rem 1.5rem; font-size: 0.78rem; line-height: 1.7; z-index: 9999; max-width: 340px; opacity: 0; transform: translateY(16px); transition: all 0.35s ease; box-shadow: 0 0 30px rgba(201,168,76,0.12); }
+.obs-toast.show { opacity: 1; transform: translateY(0); }
+
+/* Divider */
+.divider { border: none; border-top: 1px solid rgba(201,168,76,0.1); margin: 1.5rem 0; }
+
+/* Helper */
+.text-gold { color: var(--gold); }
+.text-muted { color: rgba(232,232,232,0.38); font-size: 0.72rem; }
+.text-sm { font-size: 0.72rem; }
+.mb-1 { margin-bottom: 0.5rem; } .mb-2 { margin-bottom: 1rem; } .mb-3 { margin-bottom: 1.5rem; } .mb-4 { margin-bottom: 2rem; }
+.mt-1 { margin-top: 0.5rem; }  .mt-2 { margin-top: 1rem; }  .mt-3 { margin-top: 1.5rem; } .mt-4 { margin-top: 2rem; }
+.flex { display: flex; } .items-center { align-items: center; } .justify-between { justify-content: space-between; }
+.gap-1 { gap: 0.5rem; } .gap-2 { gap: 1rem; } .gap-3 { gap: 1.5rem; }
+.w-full { width: 100%; }
+
+@media (max-width: 900px) {
+  .portal-layout { flex-direction: column; }
+  .portal-sidebar { width: 100%; padding: 1rem 0; border-right: none; border-bottom: 1px solid rgba(201,168,76,0.08); display: flex; overflow-x: auto; }
+  .portal-sidebar-section { margin-bottom: 0; display: flex; }
+  .portal-sidebar-label { display: none; }
+  .portal-sidebar a { white-space: nowrap; border-left: none; border-bottom: 2px solid transparent; padding: 0.8rem 1.2rem; }
+  .portal-sidebar a.active { border-left: none; border-bottom-color: var(--gold); }
+  .portal-main { padding: 1.5rem; }
+  .stats-row { grid-template-columns: 1fr 1fr; }
+  .grid-3, .grid-4 { grid-template-columns: 1fr 1fr; }
+  .form-row { grid-template-columns: 1fr; }
+}
+@media (max-width: 600px) {
+  .stats-row { grid-template-columns: 1fr 1fr; }
+  .grid-2, .grid-3, .grid-4 { grid-template-columns: 1fr; }
+}
+
+/* ============================================
+   BOOKING FLOW — dates-first, gallery, payment
+   Added for the new booking experience.
+   ============================================ */
+
+/* Dates-first search form */
+.search-hero { max-width: 720px; margin: 0 auto; }
+.search-card { background: var(--dark-grey); border: 1px solid rgba(201,168,76,0.15); padding: 2.5rem; }
+.search-row { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 1rem; margin-bottom: 1.5rem; }
+
+/* Room-type gallery */
+.gallery-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 1.5rem; }
+.gallery-card { background: var(--dark-grey); border: 1px solid rgba(201,168,76,0.12); overflow: hidden; transition: border-color 0.25s, transform 0.25s; display: flex; flex-direction: column; }
+.gallery-card:hover { border-color: rgba(201,168,76,0.35); transform: translateY(-3px); }
+.gallery-card.is-full { opacity: 0.55; }
+.gallery-card.is-full:hover { transform: none; border-color: rgba(201,168,76,0.12); }
+.gallery-card-img { height: 180px; background: linear-gradient(135deg, #1a1a1a 0%, #0d0d0d 100%); position: relative; display: flex; align-items: center; justify-content: center; }
+.gallery-card-img .diamond { font-size: 2rem; color: rgba(201,168,76,0.25); }
+.gallery-card-badge { position: absolute; top: 1rem; right: 1rem; font-size: 0.55rem; letter-spacing: 0.12em; padding: 0.3rem 0.7rem; border: 1px solid; }
+.gallery-badge-available { background: rgba(76,175,80,0.12); color: #4caf50; border-color: rgba(76,175,80,0.3); }
+.gallery-badge-last { background: rgba(201,168,76,0.12); color: var(--gold); border-color: rgba(201,168,76,0.4); }
+.gallery-badge-full { background: rgba(239,83,80,0.12); color: #ef5350; border-color: rgba(239,83,80,0.3); }
+.gallery-card-body { padding: 1.5rem; flex: 1; display: flex; flex-direction: column; }
+.gallery-card-body h3 { font-family: var(--font-display); font-size: 1.3rem; font-weight: 400; margin-bottom: 0.3rem; }
+.gallery-card-desc { font-size: 0.72rem; color: rgba(232,232,232,0.5); line-height: 1.6; margin-bottom: 1rem; flex: 1; }
+.gallery-card-foot { display: flex; align-items: center; justify-content: space-between; margin-top: auto; }
+.gallery-card-price { font-size: 0.85rem; }
+.gallery-card-price strong { color: var(--gold); font-size: 1.1rem; }
+.gallery-availability { font-size: 0.62rem; letter-spacing: 0.08em; margin-bottom: 1rem; }
+
+/* Suggestion banner when a chosen type is full */
+.suggestion-banner { background: rgba(201,168,76,0.06); border: 1px solid rgba(201,168,76,0.2); border-left: 3px solid var(--gold); padding: 1rem 1.2rem; margin-bottom: 1.5rem; font-size: 0.78rem; }
+.suggestion-banner a { color: var(--gold); text-decoration: underline; }
+
+/* Payment breakdown box — shown to guest, reception and manager */
+.payment-box { background: rgba(0,0,0,0.25); border: 1px solid rgba(201,168,76,0.12); padding: 1.2rem; margin: 1rem 0; }
+.payment-row { display: flex; justify-content: space-between; padding: 0.35rem 0; font-size: 0.78rem; }
+.payment-row.total { border-top: 1px solid rgba(201,168,76,0.15); margin-top: 0.4rem; padding-top: 0.6rem; font-size: 0.85rem; }
+.payment-row .label { color: rgba(232,232,232,0.55); }
+.payment-row .value { color: var(--off-white); }
+.payment-row .value.gold { color: var(--gold); }
+.payment-row .value.paid { color: #4caf50; }
+.payment-row .value.owed { color: #ff9800; }
+.payment-status { display: inline-block; font-size: 0.55rem; letter-spacing: 0.12em; padding: 0.2rem 0.6rem; border: 1px solid; margin-top: 0.5rem; }
+.payment-status.paid { background: rgba(76,175,80,0.1); color: #4caf50; border-color: rgba(76,175,80,0.3); }
+.payment-status.unpaid { background: rgba(239,83,80,0.1); color: #ef5350; border-color: rgba(239,83,80,0.3); }
+
+/* Package selectable cards with clear selected state */
+.pkg-select { background: #111; border: 1px solid rgba(201,168,76,0.1); padding: 1.1rem; display: flex; align-items: flex-start; gap: 0.8rem; cursor: pointer; transition: all 0.2s; position: relative; }
+.pkg-select:hover { border-color: rgba(201,168,76,0.3); }
+.pkg-select.selected { border-color: var(--gold); background: rgba(201,168,76,0.06); }
+.pkg-select input { position: absolute; opacity: 0; }
+.pkg-select .pkg-check { width: 18px; height: 18px; border: 1px solid rgba(201,168,76,0.4); flex-shrink: 0; display: flex; align-items: center; justify-content: center; font-size: 0.7rem; color: var(--obsidian); transition: all 0.2s; }
+.pkg-select.selected .pkg-check { background: var(--gold); border-color: var(--gold); }
+/* Fill the custom checkmark from the native checked state too, so radio
+   options (which have no JS toggling a class) show as ticked when chosen. */
+.pkg-select:has(input:checked) .pkg-check { background: var(--gold); border-color: var(--gold); }
+.pkg-select:has(input:checked) { border-color: var(--gold); background: rgba(201,168,76,0.06); }
+.pkg-select-icon { font-size: 1.3rem; }
+.pkg-select-name { font-size: 0.8rem; margin-bottom: 0.15rem; }
+.pkg-select-desc { font-size: 0.68rem; color: rgba(232,232,232,0.45); line-height: 1.5; margin-bottom: 0.3rem; }
+.pkg-select-price { font-size: 0.78rem; color: var(--gold); }
+
+/* Live total bar on the booking form */
+.live-total { position: sticky; bottom: 0; background: rgba(13,13,13,0.97); border-top: 1px solid rgba(201,168,76,0.2); padding: 1.2rem 0; margin-top: 1.5rem; display: flex; align-items: center; justify-content: space-between; backdrop-filter: blur(8px); }
+.live-total-label { font-size: 0.7rem; letter-spacing: 0.1em; color: rgba(232,232,232,0.6); }
+.live-total-amount { font-family: var(--font-display); font-size: 1.6rem; color: var(--gold); }
+
+/* Readable Check Availability button — strong gold-on-black contrast */
+.btn-availability { background: var(--gold); color: #0D0D0D; font-weight: 400; letter-spacing: 0.15em; border: none; padding: 0.8rem 1.8rem; cursor: pointer; transition: background 0.2s; font-size: 0.7rem; }
+.btn-availability:hover { background: var(--gold-pale); }
+
+/* Form field polish */
+.form-control:focus { border-color: var(--gold); box-shadow: 0 0 0 2px rgba(201,168,76,0.12); }
+.field-error { font-size: 0.68rem; color: #ef5350; margin-top: 0.3rem; display: block; }
+.field-hint  { font-size: 0.66rem; color: rgba(232,232,232,0.4); margin-top: 0.3rem; }
+
+/* Negotiation timeline for concierge */
+.nego-step { display: flex; gap: 0.8rem; padding: 0.8rem 0; border-bottom: 1px solid rgba(255,255,255,0.04); }
+.nego-step-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--gold); margin-top: 0.4rem; flex-shrink: 0; }
+.nego-step-time { font-size: 0.8rem; color: var(--off-white); }
+.nego-step-label { font-size: 0.6rem; letter-spacing: 0.12em; color: rgba(201,168,76,0.6); }
+
+/* Sign-out page */
+.signout-wrap { min-height: calc(100vh - 60px); display: flex; align-items: center; justify-content: center; padding: 2rem; }
+.signout-card { background: var(--dark-grey); border: 1px solid rgba(201,168,76,0.15); padding: 3rem; max-width: 440px; width: 100%; text-align: center; }
+.signout-card .diamond { font-size: 2rem; color: var(--gold); display: block; margin-bottom: 1rem; }
+.signout-card h1 { font-family: var(--font-display); font-size: 1.8rem; font-weight: 300; margin-bottom: 0.5rem; }
+.signout-card p { font-size: 0.78rem; color: rgba(232,232,232,0.5); margin-bottom: 2rem; }
+.signout-actions { display: flex; gap: 0.8rem; justify-content: center; }
+
+@media (max-width: 700px) {
+  .search-row { grid-template-columns: 1fr; }
+  .gallery-grid { grid-template-columns: 1fr; }
+}
+
+/* Small helper classes used across dashboards (kept external) */
+.pkg-tag { display: inline-block; font-size: 0.58rem; letter-spacing: 0.08em; color: var(--gold); border: 1px solid rgba(201,168,76,0.2); padding: 0.2rem 0.6rem; margin: 0.15rem 0.3rem 0.15rem 0; background: rgba(201,168,76,0.04); }
+.stat-card-value--sm { font-size: 1.4rem; }
+.room-tile { cursor: pointer; transition: background 0.2s, border-color 0.2s; }
+.room-tile:hover { background: rgba(201,168,76,0.05); }
+.room-tile.selected { border-color: var(--gold) !important; }
+.room-tile--vacant      { border-left: 3px solid #444 !important; }
+.room-tile--occupied    { border-left: 3px solid #4caf50 !important; }
+.room-tile--booked      { border-left: 3px solid #8c7cff !important; }
+.room-tile--maintenance { border-left: 3px solid #ff6b35 !important; }
+.legend { display: flex; gap: 1.5rem; flex-wrap: wrap; margin-bottom: 1.5rem; }
+.legend-item { display: flex; align-items: center; gap: 0.5rem; font-size: 0.62rem; color: rgba(232,232,232,0.45); }
+.legend-dot { width: 10px; height: 10px; border-radius: 50%; }
+.outstanding-banner { background: rgba(255,152,0,0.06); border: 1px solid rgba(255,152,0,0.2); border-left: 3px solid #ff9800; padding: 1rem 1.2rem; margin-bottom: 1.5rem; display: flex; justify-content: space-between; align-items: center; }
+.outstanding-banner .amount { font-family: var(--font-display); font-size: 1.6rem; color: #ff9800; }
+
+/* Reception rows and dashboard layout helpers (external, no inline) */
+.reception-row { display: flex; align-items: center; justify-content: space-between; padding: 0.7rem 0; border-bottom: 1px solid rgba(255,255,255,0.04); gap: 0.8rem; }
+.reception-row:last-child { border-bottom: none; }
+.reception-row-right { display: flex; flex-direction: column; align-items: flex-end; gap: 0.3rem; }
+.room-num { font-size: 1.3rem; }
+.h-sm { font-size: 1.4rem; }
+.legend-dot--vacant      { background: #444; }
+.legend-dot--occupied    { background: #4caf50; }
+.legend-dot--booked      { background: #8c7cff; }
+.legend-dot--maintenance { background: #ff6b35; }
+.card--flush { padding: 0; }
+.card-pad { padding: 1.2rem 1.5rem; }
+.text-center { text-align: center; }
+.pad-2 { padding: 2rem; }
+.value.paid { color: #4caf50; }
+.value.owed { color: #ff9800; }
+.value.gold { color: var(--gold); }
+
+/* ============================================
+   AUTH PAGES — login & signup (external)
+   ============================================ */
+.auth-wrap { min-height: 100vh; display: flex; align-items: center; justify-content: center; padding: 6rem 2rem 2rem; }
+.auth-inner { width: 420px; }
+.auth-brand { text-align: center; margin-bottom: 2rem; }
+.auth-brand-diamond { color: var(--gold); font-size: 1.5rem; }
+.auth-brand h1 { font-family: var(--font-display); font-size: 1.8rem; letter-spacing: 0.2em; margin-top: 0.5rem; font-weight: 300; }
+.auth-brand p { font-size: 0.62rem; letter-spacing: 0.2em; color: rgba(201,168,76,0.5); margin-top: 0.5rem; }
+.auth-box { background: var(--dark-grey); border: 1px solid rgba(201,168,76,0.15); padding: 2.5rem; }
+.auth-box h2 { font-family: var(--font-display); font-size: 1.3rem; margin-bottom: 0.3rem; font-weight: 300; }
+.auth-box .auth-sub { font-size: 0.68rem; color: rgba(232,232,232,0.4); margin-bottom: 1.5rem; }
+.auth-field { margin-bottom: 1rem; }
+.auth-field label { display: block; font-size: 0.6rem; letter-spacing: 0.15em; color: var(--gold); margin-bottom: 0.4rem; }
+.auth-field input { width: 100%; background: #111; border: 1px solid rgba(201,168,76,0.18); color: var(--white); padding: 0.7rem 1rem; font-size: 0.8rem; outline: none; font-family: var(--font-body); }
+.auth-field input:focus { border-color: var(--gold); }
+.auth-error { font-size: 0.7rem; color: #ef5350; margin-top: 0.3rem; }
+.auth-foot { text-align: center; margin-top: 1.5rem; font-size: 0.7rem; color: rgba(232,232,232,0.4); }
+.auth-foot a { color: var(--gold); }
+.auth-foot--sub { margin-top: 0.8rem; font-size: 0.62rem; }
+.auth-foot--sub a { color: rgba(201,168,76,0.6); }
+.btn-auth { width: 100%; padding: 0.9rem; border: none; cursor: pointer; }
+
+/* Generic page wrapper for public content pages */
+.page-wrap { padding: 8rem 3rem 4rem; max-width: 1400px; margin: 0 auto; }
+.page-wrap--narrow { max-width: 900px; }
+.page-wrap--mid { max-width: 1200px; }
+.page-label { font-size: 0.6rem; letter-spacing: 0.22em; color: var(--gold); margin-bottom: 0.5rem; }
+.page-title-lg { font-family: var(--font-display); font-size: 2.5rem; margin-bottom: 2rem; font-weight: 300; }
+.page-title-lg em, .page-label em { color: var(--gold); }
+.date-filter { display: flex; gap: 1rem; flex-wrap: wrap; margin-bottom: 3rem; align-items: end; }
+.date-filter label { display: block; font-size: 0.6rem; letter-spacing: 0.15em; color: var(--gold); margin-bottom: 0.4rem; }
+.date-filter input { background: #1a1a1a; border: 1px solid rgba(201,168,76,0.2); color: #fff; padding: 0.6rem; font-family: var(--font-body); }
+.filter-note { margin-bottom: 1.5rem; color: var(--gold); font-size: 0.72rem; }
+.cat-heading { font-family: var(--font-display); font-size: 1.5rem; margin: 2rem 0 1rem; text-transform: capitalize; }
+.detail-desc { color: rgba(232,232,232,0.6); margin-bottom: 2rem; }
+.detail-price { font-size: 1.2rem; }
+.detail-price strong { color: var(--gold); }
+.mt-cta { margin-top: 2rem; display: inline-block; }
+.section-pad { padding: 8rem 3rem 4rem; max-width: 1200px; margin: 0 auto; }
+
+/* Gallery availability colour states (replacing inline styles) */
+.gallery-availability--ok   { color: #4caf50; }
+.gallery-availability--last { color: var(--gold); }
+.gallery-availability--full { color: #ef5350; }
+.gallery-unavailable-btn { opacity: 0.5; cursor: not-allowed; }
+.signout-card--auto { margin: 2rem auto; }
+.payment-box--left { text-align: left; }
+
+/* Final sweep — utility classes replacing last inline styles */
+.text-success { color: #4caf50; }
+.nego-step-dot--green { background: #4caf50; }
+.items-start { align-items: start; }
+
+/* Form container widths (replacing final inline max-width styles) */
+.card--form { max-width: 620px; }
+.card--form-narrow { max-width: 560px; }
+
+/* Staff room-tile action buttons (housekeeping/maintenance) */
+.room-tile-actions { display: flex; gap: 0.4rem; flex-wrap: wrap; }
+.room-tile-actions form { margin: 0; }
+.btn-xs { font-size: 0.52rem; letter-spacing: 0.08em; padding: 0.3rem 0.5rem; }
+.btn-outline { background: transparent; border: 1px solid rgba(201,168,76,0.4); color: var(--gold); }
+.btn-outline:hover { background: rgba(201,168,76,0.08); }
+
+/* ════════════════════════════════════════════════════════════════
+   MAINTENANCE BOARD STYLES
+   Styles the maintenance app pages: the board rows with their urgency
+   colour-coding, the inline extend form, and the due-soon badge.
+   ════════════════════════════════════════════════════════════════ */
+
+/* Maintenance row — a left border colour-codes the urgency level. */
+.maint-row { border-left: 3px solid rgba(201,168,76,0.3); }
+.maint-row--overdue { border-left-color: #ef5350; }
+.maint-row--due-soon { border-left-color: var(--gold); }
+.maint-row--upcoming { border-left-color: rgba(201,168,76,0.3); }
+
+/* The set of extend / clear actions on each maintenance row. */
+.maint-actions { display: flex; gap: 0.6rem; flex-wrap: wrap; align-items: center; }
+.maint-actions form { margin: 0; }
+.maint-extend-form { display: flex; gap: 0.4rem; align-items: center; }
+
+/* A compact inline date input used inside the extend form. */
+.form-control--inline { width: auto; padding: 0.4rem 0.6rem; font-size: 0.75rem; }
+
+/* The due-soon status badge — amber to draw the eye without alarm. */
+.payment-status.due-soon { background: rgba(201,168,76,0.12); color: var(--gold); }
+
+/* Wrapper so wide tables (the audit log) scroll on small screens. */
+.table-wrap { overflow-x: auto; }
+
+/* ════════════════════════════════════════════════════════════════
+   END MAINTENANCE BOARD STYLES
+   ════════════════════════════════════════════════════════════════ */
+
+/* ════════════════════════════════════════════════════════════════
+   CANCELLED BOOKING STYLES
+   Dims a cancelled booking card and overlays a CANCELLED stamp so its
+   dates cannot be confused with an active reservation.
+   ════════════════════════════════════════════════════════════════ */
+
+/* Dim the whole card and desaturate it so it reads as inactive. */
+.booking-cancelled { position: relative; opacity: 0.45; filter: grayscale(0.6); }
+
+/* The diagonal CANCELLED stamp across the card. */
+.cancelled-stamp {
+  position: absolute;
+  top: 1.2rem; right: 1.2rem;
+  border: 2px solid #ef5350;
+  color: #ef5350;
+  font-size: 0.6rem;
+  letter-spacing: 0.2em;
+  padding: 0.25rem 0.6rem;
+  transform: rotate(8deg);
+  pointer-events: none;
+}
+
+/* ════════════════════════════════════════════════════════════════
+   END CANCELLED BOOKING STYLES
+   ════════════════════════════════════════════════════════════════ */
+   ROOMS & PACKAGES LIST STYLES
+   Grouped room-type and package cards shown on the rooms and packages
+   pages. Uses the site's gradient-panel style (no photographs).
+   ════════════════════════════════════════════════════════════════ */
+
+/* Page wrapper — removes the large empty gap by starting content near
+   the top, below the fixed nav. */
+.room-list-wrap { max-width: var(--max-w); margin: 0 auto; padding: 7rem 2rem 4rem; }
+.room-list-wrap .page-label { color: var(--gold); font-size: 0.62rem; letter-spacing: 0.3em; margin-bottom: 0.8rem; }
+.room-list-wrap .page-title-lg { font-family: var(--font-display); font-size: 2.8rem; font-weight: 300; margin-bottom: 2rem; }
+.room-list-wrap .page-title-lg em { color: var(--gold); font-style: italic; }
+
+/* Date filter row. */
+.date-filter { display: flex; gap: 1rem; align-items: flex-end; flex-wrap: wrap; margin-bottom: 1.5rem; }
+.date-filter label { display: block; font-size: 0.56rem; letter-spacing: 0.18em; color: var(--gold); margin-bottom: 0.4rem; }
+.date-filter input { background: #111; border: 1px solid rgba(201,168,76,0.2); color: var(--white); padding: 0.6rem 0.9rem; font-family: var(--font-body); }
+.btn-availability { background: var(--gold); color: var(--obsidian); border: none; padding: 0.7rem 1.6rem; font-size: 0.6rem; letter-spacing: 0.15em; cursor: pointer; font-family: var(--font-body); }
+.filter-note { color: var(--gold); font-size: 0.7rem; margin-bottom: 1.5rem; }
+
+/* The grid of type cards — responsive, gallery-like. */
+.room-type-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 1.5rem; }
+
+/* A single room-type card — a real panel with a gold border. */
+.room-type-card { background: var(--dark-grey); border: 1px solid rgba(201,168,76,0.15); overflow: hidden; transition: border-color 0.25s, transform 0.25s; }
+.room-type-card:hover { border-color: rgba(201,168,76,0.4); transform: translateY(-3px); }
+
+/* The card's banner — a styled gradient stands in for a photograph. */
+.room-type-card-banner { height: 140px; display: flex; align-items: center; justify-content: center; background: linear-gradient(135deg, #1a1a1a 0%, #0d0d0d 60%, #2a2118 100%); border-bottom: 1px solid rgba(201,168,76,0.15); }
+.room-type-card-diamond { color: var(--gold); font-size: 1.6rem; opacity: 0.55; }
+
+/* Card body and footer. */
+.room-type-card-body { padding: 1.6rem; }
+.room-type-card-body h3 { font-family: var(--font-display); font-size: 1.4rem; font-weight: 400; margin-bottom: 0.4rem; }
+.room-type-card .room-divider { color: rgba(201,168,76,0.4); font-size: 0.6rem; margin-bottom: 0.8rem; }
+.room-type-card-meta { font-size: 0.74rem; color: rgba(232,232,232,0.5); line-height: 1.6; margin-bottom: 0.8rem; }
+.room-type-availability { font-size: 0.66rem; letter-spacing: 0.05em; margin-bottom: 1.2rem; }
+.room-type-availability.ok { color: #6ab04c; }
+.room-type-availability.last { color: var(--gold); }
+.room-type-availability.full { color: rgba(232,232,232,0.4); }
+
+/* Footer row — price on the left, a clearly separated Reserve button. */
+.room-type-card-footer { display: flex; justify-content: space-between; align-items: center; gap: 1rem; padding-top: 1rem; border-top: 1px solid rgba(201,168,76,0.1); }
+.room-type-card-footer .room-price { font-size: 0.72rem; color: rgba(232,232,232,0.7); }
+.room-type-card-footer .room-price strong { color: var(--white); font-size: 0.95rem; }
+.btn-gold-sm { background: var(--gold); color: var(--obsidian); padding: 0.5rem 1.2rem; font-size: 0.58rem; letter-spacing: 0.12em; text-decoration: none; white-space: nowrap; transition: background 0.2s; }
+.btn-gold-sm:hover { background: var(--gold-pale); }
+.btn-disabled { background: rgba(255,255,255,0.08); color: rgba(232,232,232,0.4); cursor: not-allowed; }
+
+/* Responsive: single column on small screens. */
+@media (max-width: 600px) {
+  .room-type-grid { grid-template-columns: 1fr; }
+  .room-list-wrap { padding: 6rem 1.2rem 3rem; }
+  .room-list-wrap .page-title-lg { font-size: 2rem; }
+  .date-filter { gap: 0.7rem; }
+}
+
+/* ════════════════════════════════════════════════════════════════
+   END ROOMS & PACKAGES LIST STYLES
+/* Package category heading on the packages list page. */
+.package-cat-heading { font-family: var(--font-display); font-size: 1.5rem; font-weight: 300; color: var(--gold); margin: 2rem 0 1rem; }
+
+/* ════════════════════════════════════════════════════════════════
+   CREDIT COVERAGE BANNER
+   A prominent banner on the credit-confirmation page making it plain
+   that account credit covers the payment, so guests are not confused.
+   ════════════════════════════════════════════════════════════════ */
+.credit-cover-banner {
+  display: flex; gap: 1rem; align-items: flex-start;
+  background: linear-gradient(135deg, rgba(201,168,76,0.16), rgba(201,168,76,0.06));
+  border: 1px solid rgba(201,168,76,0.5);
+  border-left: 4px solid var(--gold);
+  padding: 1.3rem 1.5rem; margin-bottom: 1.5rem;
+}
+.credit-cover-icon { color: var(--gold); font-size: 1.4rem; line-height: 1; margin-top: 0.1rem; }
+.credit-cover-banner strong { color: var(--gold-pale); font-size: 1.05rem; display: block; margin-bottom: 0.3rem; }
+.credit-cover-banner p { color: rgba(232,232,232,0.75); font-size: 0.82rem; margin: 0; line-height: 1.5; }
+/* ════════════════════════════════════════════════════════════════
+   END CREDIT COVERAGE BANNER
+   ════════════════════════════════════════════════════════════════ */
+
+/* Date-range error note on the rooms availability search. */
+.filter-note--error { color: #ef5350; }
+
+/* ════════════════════════════════════════════════════════════════
+   MOBILE OVERFLOW GUARDS (PORTAL SHELL)
+   Keeps dashboard tables, cards and the booking forms within the
+   viewport on small screens, with wide tables scrolling internally.
+   ════════════════════════════════════════════════════════════════ */
+@media (max-width: 600px) {
+  /* No sideways scroll of the whole page. */
+  html, body { overflow-x: hidden; max-width: 100%; }
+
+  /* Controls and media fit the available width. */
+  img, video, table { max-width: 100%; }
+  input, select, textarea { max-width: 100%; box-sizing: border-box; }
+
+  /* Wide data tables (bookings, audit) scroll inside their wrapper
+     instead of stretching the page. */
+  .table-wrap, .data-table-wrap { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+  .data-table { min-width: 520px; }
+
+  /* The date filter on the rooms page stacks on mobile. */
+  .date-filter { flex-direction: column; align-items: stretch; }
+  .date-filter input { width: 100%; }
+
+  /* Payment rows wrap their label and value rather than overflowing. */
+  .payment-row { flex-wrap: wrap; gap: 0.2rem; }
+
+  /* Booking action buttons wrap onto multiple lines. */
+  .flex.gap-1 { flex-wrap: wrap; }
+
+  /* Long headings break instead of overflowing. */
+  h1, h2, h3 { overflow-wrap: break-word; word-break: break-word; }
+
+  /* The portal page title scales down so it does not overflow. */
+  .portal-page-title h1 { font-size: 1.8rem; }
+}
+/* ════════════════════════════════════════════════════════════════
+   END MOBILE OVERFLOW GUARDS (PORTAL SHELL)
+   ════════════════════════════════════════════════════════════════ */
+
+/* Per-booking relocation choice (move vs credit) on the confirm page. */
+.reloc-choice { display: flex; flex-direction: column; gap: 0.5rem; margin-top: 0.8rem; padding-top: 0.8rem; border-top: 1px solid rgba(201,168,76,0.12); }
+.reloc-opt { font-size: 0.8rem; color: rgba(232,232,232,0.85); cursor: pointer; display: flex; align-items: center; gap: 0.5rem; }
+
+/* Resolution box shown to a guest on a resolved complaint. */
+.resolution-box { background: rgba(201,168,76,0.08); border-left: 3px solid var(--gold); padding: 0.9rem 1.1rem; margin-top: 0.8rem; }
+.resolution-box p { margin: 0.2rem 0; }
+.field-error { color: #ef5350; font-size: 0.78rem; margin-top: 0.3rem; }
+
+/* ════════════════════════════════════════════════════════════════
+   MEMBERSHIP CARDS
+   Tier cards on the membership page, styled to match the site.
+   ════════════════════════════════════════════════════════════════ */
+.membership-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 1.2rem; }
+.membership-card { background: var(--dark-grey); border: 1px solid rgba(201,168,76,0.15); padding: 1.6rem; text-align: center; }
+.membership-card--gold { border-color: rgba(201,168,76,0.35); }
+.membership-card--diamond { border-color: rgba(201,168,76,0.55); }
+.membership-card h3 { font-family: var(--font-display); font-size: 1.4rem; font-weight: 400; margin-bottom: 0.5rem; }
+.membership-price { font-size: 1.6rem; color: var(--gold); font-family: var(--font-display); }
+.membership-price span { font-size: 0.8rem; color: rgba(232,232,232,0.5); }
+.membership-discount { font-size: 0.78rem; color: var(--gold-pale); margin: 0.6rem 0 0.4rem; }
+@media (max-width: 600px) { .membership-grid { grid-template-columns: 1fr; } }
+/* ════════════════════════════════════════════════════════════════
+   END MEMBERSHIP CARDS
+   ════════════════════════════════════════════════════════════════ */
