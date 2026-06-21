@@ -1,0 +1,57 @@
+{% extends 'portal_base.html' %}
+{% load static %}
+{% block title %}Maintenance Board — The Obsidian{% endblock %}
+
+{% block sidebar %}
+<div class="portal-sidebar-section">
+  <a href="{% url 'dashboard:reception' %}"><span class="nav-icon">←</span>Back to Reception</a>
+  <a href="{% url 'maintenance:board' %}" class="active"><span class="nav-icon">🔧</span>Maintenance Board</a>
+</div>
+{% endblock %}
+
+{% block main %}
+<div class="portal-page-title">
+  <p>◆ &nbsp; M A I N T E N A N C E &nbsp; B O A R D</p>
+  <h1>Rooms <em>out of service.</em></h1>
+</div>
+
+{# Summary badge of how many active jobs sit at each urgency level #}
+<div class="stats-row mb-4">
+  <div class="stat-card"><span class="stat-card-label">UPCOMING</span><div class="stat-card-value stat-card-value--sm">{{ counts.upcoming }}</div></div>
+  <div class="stat-card"><span class="stat-card-label">DUE SOON</span><div class="stat-card-value stat-card-value--sm text-gold">{{ counts.due_soon }}</div></div>
+  <div class="stat-card"><span class="stat-card-label">OVERDUE</span><div class="stat-card-value stat-card-value--sm value owed">{{ counts.overdue }}</div></div>
+</div>
+
+{% for log in logs %}
+<div class="card mb-2 maint-row maint-row--{{ log.escalation }}">
+  <div class="flex justify-between items-center mb-1">
+    <strong>Room {{ log.room.room_number }} — {{ log.get_category_display }}</strong>
+    {% if log.escalation == 'overdue' %}
+      <span class="payment-status unpaid">OVERDUE — RESOLVE OR EXTEND</span>
+    {% elif log.escalation == 'due-soon' %}
+      <span class="payment-status due-soon">DUE SOON</span>
+    {% else %}
+      <span class="portal-role-badge">ON TRACK</span>
+    {% endif %}
+  </div>
+  <p class="text-muted">Started {{ log.started }} · expected ready {{ log.expected_ready }}{% if log.notes %} · {{ log.notes }}{% endif %}</p>
+  <p class="text-sm">Set by {{ log.created_by.get_full_name|default:log.created_by.email }}</p>
+
+  <div class="maint-actions mt-2">
+    {# Extend the window #}
+    <form method="post" action="{% url 'maintenance:extend' log.pk %}" class="maint-extend-form">
+      {% csrf_token %}
+      <input type="date" name="expected_ready" class="form-control form-control--inline" required>
+      <button type="submit" class="btn btn-outline btn-sm">Extend</button>
+    </form>
+    {# Clear maintenance, returning the room to service #}
+    <form method="post" action="{% url 'maintenance:clear' log.pk %}">
+      {% csrf_token %}
+      <button type="submit" class="btn btn-gold btn-sm">Clear — back to service</button>
+    </form>
+  </div>
+</div>
+{% empty %}
+<p class="text-muted">No rooms are currently under maintenance.</p>
+{% endfor %}
+{% endblock %}

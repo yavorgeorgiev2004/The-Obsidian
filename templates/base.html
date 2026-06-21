@@ -1,0 +1,130 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>{% block title %}The Obsidian{% endblock %}</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Tenor+Sans&family=Montserrat:wght@200;300;400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="{% static 'css/main.css' %}?v=6"/>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'><text y='14' font-size='14'>%E2%97%86</text></svg>">
+  {% block extra_css %}{% endblock %}
+</head>
+<body class="{% block body_class %}{% endblock %}">
+  <canvas id="cosmicCanvas"></canvas>
+  <div class="cursor"></div>
+  <div class="cursor-follower"></div>
+
+  <nav class="nav" id="nav">
+    <div class="nav-logo">
+      <span class="nav-diamond">◆</span>
+      <span class="nav-name"><a href="{% url 'core:home' %}" class="nav-name-link">THE OBSIDIAN</a></span>
+    </div>
+    <ul class="nav-links">
+      <li><a href="{% url 'core:home' %}#rooms">Rooms</a></li>
+      <li><a href="{% url 'core:home' %}#dining">Dining</a></li>
+      <li><a href="{% url 'core:home' %}#spa">Spa</a></li>
+      <li><a href="{% url 'core:home' %}#experiences">Experiences</a></li>
+      <li><a href="{% url 'core:home' %}#sports">Sports</a></li>
+      <li><a href="{% url 'core:home' %}#events">Events</a></li>
+      <li><a href="{% url 'core:home' %}#transport">Transport</a></li>
+      <li><a href="{% url 'core:home' %}#concierge">Concierge</a></li>
+    </ul>
+    {% if user.is_authenticated %}
+      {% if user.profile.role == 'manager' %}
+        <a href="{% url 'dashboard:manager' %}" class="nav-cta">Manager</a>
+      {% elif user.profile.role == 'receptionist' %}
+        <a href="{% url 'dashboard:reception' %}" class="nav-cta">Reception</a>
+      {% else %}
+        <a href="{% url 'dashboard:guest' %}" class="nav-cta">My Account</a>
+      {% endif %}
+    {% else %}
+      <a href="{% url 'account_login' %}" class="nav-cta">Reserve</a>
+    {% endif %}
+    <button class="nav-hamburger" id="hamburger">
+      <span></span><span></span><span></span>
+    </button>
+  </nav>
+
+  <div class="mobile-menu" id="mobileMenu">
+    <ul>
+      <li><a href="{% url 'core:home' %}#rooms"      >Rooms</a></li>
+      <li><a href="{% url 'core:home' %}#dining"     >Dining</a></li>
+      <li><a href="{% url 'core:home' %}#spa"        >Spa</a></li>
+      <li><a href="{% url 'core:home' %}#experiences">Experiences</a></li>
+      <li><a href="{% url 'core:home' %}#sports"     >Sports</a></li>
+      <li><a href="{% url 'core:home' %}#events"     >Events</a></li>
+      <li><a href="{% url 'core:home' %}#transport"  >Transport</a></li>
+      <li><a href="{% url 'core:home' %}#concierge"  >Concierge</a></li>
+      {% if user.is_authenticated %}
+        <li><a href="{% url 'dashboard:home' %}" class="mobile-reserve">My Dashboard</a></li>
+      {% else %}
+        <li><a href="{% url 'account_login' %}" class="mobile-reserve">Reserve / Sign In</a></li>
+      {% endif %}
+    </ul>
+  </div>
+
+  {% block content %}{% endblock %}
+
+  {% block footer %}
+  <footer class="footer">
+    <div class="footer-inner">
+      <div class="footer-top">
+        <div class="footer-brand">
+          <div class="footer-logo">
+            <span class="nav-diamond">◆</span>
+            <span class="nav-name">THE OBSIDIAN</span>
+          </div>
+          <div class="footer-rule">◆ ————————— ◆</div>
+          <p class="footer-tagline"><em>Flawlessly Dark. Infinitely Refined.</em></p>
+          <p class="footer-address">A converted Victorian printworks<br/>Central London, UK</p>
+        </div>
+        <div class="footer-links">
+          <div class="footer-col">
+            <h4>◆ Stay</h4>
+            <ul>
+              <li><a href="{% url 'rooms:list' %}">Rooms & Suites</a></li>
+              <li><a href="{% url 'bookings:create' %}">Reservations</a></li>
+            </ul>
+          </div>
+          <div class="footer-col">
+            <h4>◆ Experience</h4>
+            <ul>
+              <li><a href="{% url 'core:home' %}#spa">Spa & Wellness</a></li>
+              <li><a href="{% url 'core:home' %}#dining">Dining</a></li>
+              <li><a href="{% url 'core:home' %}#experiences">Experiences</a></li>
+            </ul>
+          </div>
+          <div class="footer-col">
+            <h4>◆ Account</h4>
+            <ul>
+              {% if user.is_authenticated %}
+                <li><a href="{% url 'dashboard:home' %}">My Dashboard</a></li>
+                <li><a href="{% url 'account_logout' %}">Sign Out</a></li>
+              {% else %}
+                <li><a href="{% url 'account_login' %}">Sign In</a></li>
+                <li><a href="{% url 'account_signup' %}">Register</a></li>
+              {% endif %}
+              <li><a href="{% url 'concierge:create' %}">Concierge</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>© 2025 The Obsidian. All rights reserved.</p>
+        <div class="footer-legal">
+          <a href="#">Privacy Policy</a><span>◆</span>
+          <a href="#">Terms & Conditions</a><span>◆</span>
+          <a href="#">Cookie Policy</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+  {% endblock %}
+
+  <script src="{% static 'js/main.js' %}?v=6"></script>
+  {% block extra_js %}{% endblock %}
+</body>
+</html>

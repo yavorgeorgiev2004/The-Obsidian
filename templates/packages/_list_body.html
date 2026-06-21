@@ -1,0 +1,26 @@
+{% load static %}
+{# Shared packages-list body, grouped by category, shown in either shell. #}
+<div class="room-list-wrap">
+  <p class="page-label">◆ &nbsp; P R E - O R D E R &nbsp; P A C K A G E S</p>
+  <h2 class="page-title-lg">Enhance your <em>stay.</em></h2>
+
+  {% for category, items in grouped.items %}
+  <h3 class="package-cat-heading">{{ category|title }}</h3>
+  <div class="room-type-grid">
+    {% for pkg in items %}
+    <div class="room-type-card">
+      <div class="room-type-card-banner"><span class="room-type-card-diamond">{{ pkg.icon|default:'◆' }}</span></div>
+      <div class="room-type-card-body">
+        <h3>{{ pkg.name }}</h3>
+        <div class="room-divider">◆ ————</div>
+        <p class="room-type-card-meta">{{ pkg.description }}</p>
+        <div class="room-type-card-footer">
+          <span class="room-price"><strong>£{{ pkg.price|floatformat:0 }}</strong></span>
+          <a href="{% url 'bookings:search' %}" class="btn-gold-sm">Add to Booking</a>
+        </div>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+  {% endfor %}
+</div>

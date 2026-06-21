@@ -1,0 +1,41 @@
+{% extends 'portal_base.html' %}
+{% load static %}
+{% block title %}Staff Audit Log — The Obsidian{% endblock %}
+
+{% block sidebar %}
+<div class="portal-sidebar-section">
+  <a href="{% url 'dashboard:manager' %}"><span class="nav-icon">←</span>Back to Manager</a>
+  <a href="{% url 'maintenance:audit' %}" class="active"><span class="nav-icon">📋</span>Audit Log</a>
+</div>
+{% endblock %}
+
+{% block main %}
+<div class="portal-page-title">
+  <p>◆ &nbsp; A U D I T &nbsp; L O G</p>
+  <h1>Staff <em>accountability.</em></h1>
+</div>
+
+<div class="suggestion-banner">
+  A full record of consequential staff actions — check-ins, check-outs, cleaning, maintenance and recorded relocation decisions — each attributed to the staff member who performed it. Visible to managers only.
+</div>
+
+<div class="table-wrap">
+  <table class="data-table">
+    <thead>
+      <tr><th>WHEN</th><th>STAFF</th><th>ACTION</th><th>DETAIL</th></tr>
+    </thead>
+    <tbody>
+      {% for entry in logs %}
+      <tr>
+        <td>{{ entry.created_at|date:'d M Y H:i' }}</td>
+        <td>{{ entry.staff.get_full_name|default:entry.staff.email|default:'—' }}</td>
+        <td>{{ entry.get_action_display }}</td>
+        <td>{{ entry.detail }}</td>
+      </tr>
+      {% empty %}
+      <tr><td colspan="4" class="text-muted">No actions logged yet.</td></tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+{% endblock %}

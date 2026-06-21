@@ -1,0 +1,77 @@
+{% extends 'portal_base.html' %}
+{% load static %}
+{% block title %}Your Booking — Action Needed — The Obsidian{% endblock %}
+
+{% block sidebar %}
+<div class="portal-sidebar-section">
+  <a href="{% url 'dashboard:guest' %}"><span class="nav-icon">←</span>Back to Dashboard</a>
+</div>
+{% endblock %}
+
+{% block main %}
+<div class="portal-page-title">
+  <p>◆ &nbsp; A C T I O N &nbsp; N E E D E D</p>
+  <h1>We must move your <em>booking.</em></h1>
+</div>
+
+<div class="suggestion-banner">
+  Room {{ offer.original_room.room_number }} for booking BK{{ booking.pk }} ({{ booking.check_in }} → {{ booking.check_out }}) needs maintenance.
+  {% if offer.resolution == 'downgrade' %}
+    The only room free for your dates is {{ offer.new_room.name }}, a lower category. To make up for it we are offering {{ offer.free_nights }} free night{{ offer.free_nights|pluralize }} (worth £{{ offer.bonus_credit }}).
+  {% else %}
+    No room is free for your dates. Please choose how you would like to proceed — either way you receive a £{{ offer.bonus_credit }} bonus.
+  {% endif %}
+</div>
+
+<form method="post" id="decisionForm">
+  {% csrf_token %}
+
+  {% if offer.resolution == 'downgrade' %}
+  <label class="pkg-select">
+    <input type="radio" name="choice" value="keep-downgrade" checked>
+    <span class="pkg-check">✓</span>
+    <span>
+      <span class="pkg-select-name">Accept {{ offer.new_room.name }} + £{{ offer.bonus_credit }} credit</span>
+      <span class="pkg-select-desc">Keep your dates, move to the available room, and receive the free-nights value as credit.</span>
+    </span>
+  </label>
+  {% endif %}
+
+  <label class="pkg-select">
+    <input type="radio" name="choice" value="credit" {% if offer.resolution == 'none' %}checked{% endif %}>
+    <span class="pkg-check">✓</span>
+    <span>
+      <span class="pkg-select-name">Cancel & take credit (paid + £{{ offer.bonus_credit }} bonus)</span>
+      <span class="pkg-select-desc">We cancel this booking and add everything you paid, plus the bonus, to your account credit for a future stay.</span>
+    </span>
+  </label>
+
+  <label class="pkg-select">
+    <input type="radio" name="choice" value="reschedule">
+    <span class="pkg-check">✓</span>
+    <span>
+      <span class="pkg-select-name">Reschedule to new dates + £{{ offer.bonus_credit }} bonus</span>
+      <span class="pkg-select-desc">We try to give you your original room type on new dates, with the bonus added as credit.</span>
+    </span>
+  </label>
+
+  <div class="form-row mt-2" id="rescheduleDates">
+    <div class="form-group">
+      <label class="form-label">New Check In</label>
+      <input type="date" name="check_in" class="form-control">
+    </div>
+    <div class="form-group">
+      <label class="form-label">New Check Out</label>
+      <input type="date" name="check_out" class="form-control">
+    </div>
+  </div>
+
+  <button type="submit" class="btn btn-gold w-full mt-3">Confirm Choice ◆</button>
+</form>
+
+<p class="field-hint mt-2">Any credit is applied automatically to future bookings. To receive money back instead, please speak to our front desk during your stay — refunds are handled in person at the hotel.</p>
+{% endblock %}
+
+{% block extra_js %}
+<script src="{% static 'js/relocation.js' %}"></script>
+{% endblock %}

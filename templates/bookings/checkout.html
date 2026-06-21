@@ -1,0 +1,55 @@
+{% extends 'portal_base.html' %}
+{% load static %}
+{% block title %}{{ pay_kind }} Payment — The Obsidian{% endblock %}
+
+{% block sidebar %}
+<div class="portal-sidebar-section">
+  <span class="portal-sidebar-label">CHECKOUT</span>
+  <a href="{% url 'dashboard:guest' %}"><span class="nav-icon">←</span>Back to Dashboard</a>
+</div>
+{% endblock %}
+
+{% block main %}
+<div class="portal-page-title">
+  <p>◆ &nbsp; S E C U R E &nbsp; {{ pay_kind|upper }}</p>
+  <h1>{{ pay_kind }} <em>payment.</em></h1>
+</div>
+
+<div class="grid-2 items-start">
+  <div class="card">
+    <div class="card-title">Card Details</div>
+    <div class="card-sub">Processed securely by Stripe. Test card: 4242 4242 4242 4242.</div>
+
+    <div id="payment-element"
+         data-client-secret="{{ client_secret }}"
+         data-public-key="{{ stripe_public_key }}"
+         data-success-url="{{ success_url }}"></div>
+
+    <div id="card-element" class="form-control mt-2"></div>
+    <div id="card-errors" class="field-error"></div>
+
+    <button id="pay-button" class="btn btn-gold w-full mt-3" data-amount="{{ amount }}">
+      Pay {{ pay_kind }} £{{ amount }} ◆
+    </button>
+  </div>
+
+  <!-- Full payment breakdown shown to the guest -->
+  <div class="card">
+    <div class="card-title">Your Booking</div>
+    <div class="card-sub">◆ BK{{ booking.pk }} · {{ booking.room.name }}</div>
+    <div class="payment-box">
+      <div class="payment-row"><span class="label">Room ({{ booking.nights }} nights)</span><span class="value">£{{ booking.room_total }}</span></div>
+      <div class="payment-row"><span class="label">Packages</span><span class="value">£{{ booking.packages_total }}</span></div>
+      <div class="payment-row total"><span class="label">Grand total</span><span class="value gold">£{{ booking.grand_total }}</span></div>
+      <div class="payment-row"><span class="label">Already paid</span><span class="value paid">£{{ booking.amount_paid }}</span></div>
+      {% if credit_applied %}<div class="payment-row"><span class="label">Account credit applied</span><span class="value paid">−£{{ credit_applied }}</span></div>{% endif %}
+      <div class="payment-row"><span class="label">{{ pay_kind }} due now</span><span class="value gold">£{{ amount }}</span></div>
+    </div>
+  </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script src="https://js.stripe.com/v3/"></script>
+<script src="{% static 'js/checkout.js' %}"></script>
+{% endblock %}

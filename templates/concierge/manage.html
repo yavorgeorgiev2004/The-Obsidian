@@ -1,0 +1,36 @@
+{% extends 'portal_base.html' %}
+{% block title %}Manage Request — The Obsidian{% endblock %}
+{% block sidebar %}
+<div class="portal-sidebar-section">
+  <a href="{% url 'dashboard:reception' %}"><span class="nav-icon">←</span>Back to Reception</a>
+</div>
+{% endblock %}
+{% block main %}
+<div class="portal-page-title"><h1>Manage <em>Request.</em></h1></div>
+<div class="card card--form">
+  <div class="card-sub">{{ request_obj.guest.get_full_name }} · {{ request_obj.get_request_type_display }}</div>
+  <p class="mb-2">{{ request_obj.detail }}</p>
+  {% if request_obj.requested_time %}<p class="text-sm mb-3">Guest's preferred time: <strong>{{ request_obj.requested_time }}</strong></p>{% endif %}
+
+  <form method="post">
+    {% csrf_token %}
+    <div class="form-group">
+      <label class="form-label">Staff Notes</label>
+      <textarea name="staff_notes" class="form-control" rows="3">{{ request_obj.staff_notes }}</textarea>
+    </div>
+
+    <!-- Staff accept the guest's time as-is -->
+    <button type="submit" name="action" value="accept" class="btn btn-gold w-full mb-2">Accept Guest's Time ◆</button>
+
+    <hr class="divider">
+    <!-- Or propose an alternative for the guest to confirm -->
+    <label class="form-label">Propose an alternative time</label>
+    <input type="datetime-local" name="proposed_time" class="form-control mb-2">
+    <button type="submit" name="action" value="propose" class="btn btn-outline w-full mb-2">Propose This Time</button>
+
+    <hr class="divider">
+    <!-- Or mark a confirmed request complete -->
+    <button type="submit" name="action" value="complete" class="btn btn-ghost w-full">Mark Complete</button>
+  </form>
+</div>
+{% endblock %}

@@ -1,0 +1,21 @@
+{% extends 'portal_base.html' %}
+{% block title %}Cancel Booking — The Obsidian{% endblock %}
+{% block sidebar %}
+<div class="portal-sidebar-section">
+  <a href="{% url 'dashboard:guest' %}"><span class="nav-icon">←</span>Back</a>
+</div>
+{% endblock %}
+{% block main %}
+<div class="signout-card signout-card--auto">
+  <h1>Cancel this booking?</h1>
+  <p>{{ booking.room.name }} · {{ booking.check_in }} → {{ booking.check_out }}</p>
+  <p class="text-muted">This frees the room for other guests immediately.</p>
+  <form method="post">
+    {% csrf_token %}
+    <div class="signout-actions">
+      <button type="submit" class="btn btn-danger">Yes, Cancel</button>
+      <a href="{% url 'dashboard:guest' %}" class="btn btn-ghost">Keep Booking</a>
+    </div>
+  </form>
+</div>
+{% endblock %}

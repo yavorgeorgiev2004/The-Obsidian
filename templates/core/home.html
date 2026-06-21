@@ -1,0 +1,602 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}The Obsidian — Flawlessly Dark. Infinitely Refined.{% endblock %}
+
+{% block content %}
+
+
+  
+
+  
+
+  <!-- HERO -->
+  <section class="hero" id="hero">
+    <div class="hero-bg"></div>
+    <div class="hero-noise"></div>
+    <div class="hero-content">
+      <p class="hero-pre">◆ &nbsp; E S T A B L I S H E D &nbsp; 2 0 0 9</p>
+      <h1 class="hero-title">
+        <span class="hero-title-line">THE</span>
+        <span class="hero-title-line hero-title-obsidian">OBSIDIAN</span>
+      </h1>
+      <div class="hero-divider">
+        <span class="hero-divider-line"></span>
+        <span class="hero-divider-diamond">◆</span>
+        <span class="hero-divider-line"></span>
+      </div>
+      <p class="hero-tagline">Flawlessly Dark. &nbsp; Infinitely Refined.</p>
+      <div class="hero-actions">
+        <a href="{% url 'bookings:create' %}" class="btn-primary">Reserve Your Stay</a>
+        <a href="#experiences" class="btn-ghost">Explore Experiences</a>
+      </div>
+    </div>
+    <div class="hero-scroll">
+      <span>Scroll</span>
+      <div class="hero-scroll-line"></div>
+    </div>
+  </section>
+
+  <!-- INTRO -->
+  <section class="intro">
+    <div class="intro-inner">
+      <div class="intro-text">
+        <p class="section-label">◆ &nbsp; T H E &nbsp; C O N C E P T</p>
+        <h2>Not a hotel.<br/><em>A world.</em></h2>
+        <p>The Obsidian is a full-service luxury destination resort housed in a converted Victorian printworks. We do not decorate with gold. We reserve it for what matters. The darkness is deliberate. The silence is intentional. The service is seamless.</p>
+        <p>42 rooms. 100+ experiences. One standard: extraordinary.</p>
+      </div>
+      <div class="intro-stats">
+        <div class="stat">
+          <span class="stat-num">42</span>
+          <span class="stat-label">Rooms & Suites</span>
+        </div>
+        <div class="stat">
+          <span class="stat-num">100<span class="stat-plus">+</span></span>
+          <span class="stat-label">Experiences</span>
+        </div>
+        <div class="stat">
+          <span class="stat-num">16</span>
+          <span class="stat-label">On-Site Facilities</span>
+        </div>
+        <div class="stat">
+          <span class="stat-num">30</span>
+          <span class="stat-label">Mile Delivery Radius</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ROOMS -->
+  <section class="rooms section" id="rooms">
+    <div class="section-header">
+      <p class="section-label">◆ &nbsp; R O O M S &nbsp; & &nbsp; S U I T E S</p>
+      <h2>Where darkness<br/><em>becomes sanctuary</em></h2>
+    </div>
+
+    {# Public availability search — pick dates to see free rooms; anon users are prompted to sign in. #}
+    <form method="get" action="{% url 'rooms:list' %}" class="home-search">
+      <div class="home-search-field">
+        <label>CHECK IN</label>
+        <input type="date" name="check_in" id="roomCheckIn" required>
+      </div>
+      <div class="home-search-field">
+        <label>CHECK OUT</label>
+        <input type="date" name="check_out" id="roomCheckOut" required>
+      </div>
+      <button type="submit" class="btn-availability">Check Availability</button>
+    </form>
+
+    <div class="rooms-grid">
+      {% for rt in room_types %}
+      <div class="room-card{% if forloop.first %} room-card--featured{% endif %}">
+        <div class="room-card-img room-card-img--{{ forloop.counter }}">
+          <div class="room-card-overlay"></div>
+          {% if not rt.is_available %}
+          <div class="room-card-badge room-card-badge--full">◆ Fully Booked</div>
+          {% elif forloop.first %}
+          <div class="room-card-badge">◆ Signature</div>
+          {% endif %}
+        </div>
+        <div class="room-card-body">
+          <h3>{{ rt.name }}</h3>
+          <div class="room-divider">◆ ————</div>
+          <p>{% if rt.is_available %}{{ rt.available }} of {{ rt.total }} available now.{% else %}Currently fully booked — check back soon or choose your dates.{% endif %}</p>
+          <div class="room-card-footer">
+            <span class="room-price">From <strong>£{{ rt.price|floatformat:0 }}</strong> / night</span>
+            {% if rt.is_available %}
+            <a href="{% url 'bookings:create' %}" class="btn-gold-sm">Reserve</a>
+            {% else %}
+            <span class="btn-gold-sm btn-gold-sm--disabled">Unavailable</span>
+            {% endif %}
+          </div>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+    </section>
+
+  <!-- DINING -->
+  <section class="dining section" id="dining">
+    <div class="dining-inner">
+      <div class="section-header section-header--left">
+        <p class="section-label">◆ &nbsp; F O O D &nbsp; & &nbsp; D R I N K</p>
+        <h2>Ember.<br/><em>Where fire meets dark.</em></h2>
+        <p class="section-sub">Michelin-level tasting menus. Private dining. Late night cocktails. Afternoon tea. And now — delivered to your door within 30 miles.</p>
+      </div>
+      <div class="dining-grid">
+        <div class="dining-card dining-card--large">
+          <div class="dining-card-icon">🍽️</div>
+          <h3>Ember Restaurant</h3>
+          <p>Contemporary fine dining. Seasonal tasting menus. An experience as considered as the room you sleep in.</p>
+          <a href="#" class="link-gold">View Menu ◆</a>
+        </div>
+        <div class="dining-card">
+          <div class="dining-card-icon">🍸</div>
+          <h3>The Shard Bar</h3>
+          <p>Signature cocktails. Rare spirits. Small plates until late. The darkest corner of The Obsidian.</p>
+          <a href="#" class="link-gold">Reservations ◆</a>
+        </div>
+        <div class="dining-card">
+          <div class="dining-card-icon">🫖</div>
+          <h3>The Laurel Lounge</h3>
+          <p>Afternoon tea reimagined. Champagne. Light bites. All day, every day.</p>
+          <a href="#" class="link-gold">Book a Table ◆</a>
+        </div>
+        <div class="dining-card dining-card--delivery">
+          <div class="dining-card-icon">🖤</div>
+          <h3>Ember at Home</h3>
+          <p>Restaurant quality. Black and gold packaging. Delivered within 30 miles. The Obsidian, at your table.</p>
+          <a href="#" class="link-gold">Order Now ◆</a>
+        </div>
+        <div class="dining-card">
+          <div class="dining-card-icon">🥂</div>
+          <h3>Private Dining</h3>
+          <p>Bespoke menus for up to 12 guests. Full Ember kitchen. Absolute privacy.</p>
+          <a href="#" class="link-gold">Enquire ◆</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SIGNATURE QUOTE -->
+  <section class="quote-section">
+    <div class="quote-inner">
+      <div class="quote-diamond">◆</div>
+      <blockquote>
+        "The darkness is deliberate.<br/>The gold is earned."
+      </blockquote>
+      <div class="quote-rule">
+        <span></span><span class="q-diamond">◆</span><span></span>
+      </div>
+    </div>
+  </section>
+
+  <!-- SPA -->
+  <section class="spa section" id="spa">
+    <div class="section-header">
+      <p class="section-label">◆ &nbsp; S P A &nbsp; & &nbsp; W E L L N E S S</p>
+      <h2>Obsidian Wellness.<br/><em>Recover in the dark.</em></h2>
+    </div>
+    <div class="spa-grid">
+      <div class="spa-feature">
+        <div class="spa-feature-num">01</div>
+        <h3>Dark Mineral Pool</h3>
+        <p>Volcanic mineral water. Obsidian stone surround. Low amber lighting. The signature experience of our spa.</p>
+      </div>
+      <div class="spa-feature">
+        <div class="spa-feature-num">02</div>
+        <h3>Treatment Rooms</h3>
+        <p>Six private rooms. Deep tissue, hot stone, aromatherapy, volcanic mud wraps. Curated for complete restoration.</p>
+      </div>
+      <div class="spa-feature">
+        <div class="spa-feature-num">03</div>
+        <h3>Ice Bath & Breathwork</h3>
+        <p>Wim Hof method. Instructor led. Cold water therapy. The contrast that makes the dark feel warmer.</p>
+      </div>
+      <div class="spa-feature">
+        <div class="spa-feature-num">04</div>
+        <h3>Rooftop Yoga Studio</h3>
+        <p>Sunrise sessions above the city. One-to-one or group. The highest point of The Obsidian.</p>
+      </div>
+      <div class="spa-feature">
+        <div class="spa-feature-num">05</div>
+        <h3>Sound Bath</h3>
+        <p>Private crystal bowl sessions. Complete silence. Complete surrender. The most requested experience in the hotel.</p>
+      </div>
+      <div class="spa-feature">
+        <div class="spa-feature-num">06</div>
+        <h3>Wellness at Home</h3>
+        <p>Volcanic mineral bath kits. Aromatherapy collections. Sleep and recovery kits. The spa, delivered to your door.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- EXPERIENCES -->
+  <section class="experiences section" id="experiences">
+    <div class="section-header">
+      <p class="section-label">◆ &nbsp; E X P E R I E N C E S</p>
+      <h2>Beyond the room.<br/><em>Beyond the ordinary.</em></h2>
+      <p class="section-sub">100+ curated experiences. From suspended dining 100ft above the city to Highland bungee jumps. From private supercars to remote wilderness cabins. Whatever you want to do — The Obsidian makes it happen.</p>
+    </div>
+
+    <!-- Signature -->
+    <div class="experiences-signature">
+      <p class="section-label">◆ &nbsp; S I G N A T U R E &nbsp; C O L L E C T I O N</p>
+      <div class="signature-grid">
+        <div class="sig-card sig-card--hero">
+          <div class="sig-card-content">
+            <span class="sig-icon">🍽️</span>
+            <h3>Diner in the Sky</h3>
+            <p>A fully dressed dining table suspended 100ft in the air. Michelin chef. Wine pairing. The city below. The stars above.</p>
+            <span class="sig-price">From £595pp</span>
+            <a href="#" class="btn-gold-sm">Book Now</a>
+          </div>
+        </div>
+        <div class="sig-card">
+          <div class="sig-card-content">
+            <span class="sig-icon">🪂</span>
+            <h3>Highland Bungee</h3>
+            <p>Dramatic gorge setting. Night jump available. The only moment you'll ever feel completely free.</p>
+            <span class="sig-price">From £175pp</span>
+            <a href="#" class="btn-gold-sm">Book Now</a>
+          </div>
+        </div>
+        <div class="sig-card">
+          <div class="sig-card-content">
+            <span class="sig-icon">🏎️</span>
+            <h3>Supercar Track Day</h3>
+            <p>Ferrari. Lamborghini. McLaren. Private circuit. Professional instruction. Unbridled speed.</p>
+            <span class="sig-price">From £850pp</span>
+            <a href="#" class="btn-gold-sm">Book Now</a>
+          </div>
+        </div>
+        <div class="sig-card">
+          <div class="sig-card-content">
+            <span class="sig-icon">🌊</span>
+            <h3>Water Jetpack</h3>
+            <p>Flyboard above the water. Dolphin dives. Hovering. An experience that defies gravity.</p>
+            <span class="sig-price">From £295pp</span>
+            <a href="#" class="btn-gold-sm">Book Now</a>
+          </div>
+        </div>
+        <div class="sig-card">
+          <div class="sig-card-content">
+            <span class="sig-icon">🌌</span>
+            <h3>Remote Luxury Cabin</h3>
+            <p>Off-grid. Obsidian hamper delivered. Fire kit. Stargazing. The wilderness, without compromise.</p>
+            <span class="sig-price">From £595/night</span>
+            <a href="#" class="btn-gold-sm">Book Now</a>
+          </div>
+        </div>
+        <div class="sig-card">
+          <div class="sig-card-content">
+            <span class="sig-icon">🚁</span>
+            <h3>Private Helicopter</h3>
+            <p>City or countryside. Scenic flight. Just you, the pilot, and the view.</p>
+            <span class="sig-price">From £850pp</span>
+            <a href="#" class="btn-gold-sm">Book Now</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Categories -->
+    <div class="exp-categories">
+      <p class="section-label section-label--center">◆ &nbsp; A L L &nbsp; E X P E R I E N C E S</p>
+      <div class="cat-grid">
+        <div class="cat-item"><span class="cat-icon">🏎️</span><span>Automotive & Speed</span></div>
+        <div class="cat-item"><span class="cat-icon">🏍️</span><span>Motorcycles</span></div>
+        <div class="cat-item"><span class="cat-icon">🪂</span><span>Air & Extreme</span></div>
+        <div class="cat-item"><span class="cat-icon">🎯</span><span>Shooting & Precision</span></div>
+        <div class="cat-item"><span class="cat-icon">⚽</span><span>Ball Sports</span></div>
+        <div class="cat-item"><span class="cat-icon">🥊</span><span>Combat & MMA</span></div>
+        <div class="cat-item"><span class="cat-icon">🌊</span><span>Water Sports</span></div>
+        <div class="cat-item"><span class="cat-icon">🌿</span><span>Nature & Wilderness</span></div>
+        <div class="cat-item"><span class="cat-icon">🎭</span><span>Arts & Culture</span></div>
+        <div class="cat-item"><span class="cat-icon">🎬</span><span>Screen & Sound</span></div>
+        <div class="cat-item"><span class="cat-icon">🧘</span><span>Wellness</span></div>
+        <div class="cat-item"><span class="cat-icon">🎁</span><span>Gifting & Celebration</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SPORTS -->
+  <section class="sports section" id="sports">
+    <div class="section-header">
+      <p class="section-label">◆ &nbsp; S P O R T S &nbsp; C O M P L E X</p>
+      <h2>Train like it matters.<br/><em>Because it does.</em></h2>
+      <p class="section-sub">The Obsidian Sports Club. Open to hotel guests and members. Dark architecture, gold-lit at night. The kind of facility that makes you want to push harder.</p>
+    </div>
+    <div class="sports-grid">
+      <div class="sports-card">
+        <div class="sports-card-icon">🏋️</div>
+        <h3>Strength & Conditioning</h3>
+        <p>Olympic lifting platforms. Free weights to 100kg. Functional zone. Cardio suite. Everything your training demands.</p>
+      </div>
+      <div class="sports-card">
+        <div class="sports-card-icon">🥊</div>
+        <h3>Combat Studio</h3>
+        <p>Full boxing ring. MMA octagon cage. BJJ mats. Muay Thai. Wrestling. Professional coaching across all disciplines.</p>
+      </div>
+      <div class="sports-card">
+        <div class="sports-card-icon">🎾</div>
+        <h3>Racquet Sports</h3>
+        <p>2 indoor tennis courts. 2 squash courts. Indoor and outdoor padel. Coaching suites. All floodlit for evening play.</p>
+      </div>
+      <div class="sports-card">
+        <div class="sports-card-icon">⚽</div>
+        <h3>Sports Field</h3>
+        <p>Full size football pitch. Rugby conversion. 400m running track. Basketball courts. Cricket nets. All floodlit.</p>
+      </div>
+      <div class="sports-card">
+        <div class="sports-card-icon">🎯</div>
+        <h3>Combat Arena</h3>
+        <p>Paintball fields — woodland and urban. Airsoft arenas — CQB and open field. Archery range. Axe throwing. Laser combat.</p>
+      </div>
+      <div class="sports-card">
+        <div class="sports-card-icon">🛹</div>
+        <h3>Obsidian Skate Park</h3>
+        <p>Street course. Bowl. Transition ramps. BMX pump track. Dark concrete. Gold painted edges. Dramatic floodlighting.</p>
+      </div>
+    </div>
+    <div class="membership-strip">
+      <div class="membership-strip-inner">
+        <div>
+          <p class="section-label">◆ &nbsp; T H E &nbsp; D I A M O N D &nbsp; C I R C L E</p>
+          <h3>Sports Membership</h3>
+          <p>Open to guests and the public. From £195/year — one-off, no auto-renewal.</p>
+        </div>
+        <div class="membership-tiers">
+          <div class="tier"><span class="tier-name">Obsidian</span><span class="tier-price">£195/yr · 5% off</span></div>
+          <div class="tier tier--gold"><span class="tier-name">◆ Gold</span><span class="tier-price">£295/yr · 10% off</span></div>
+          <div class="tier tier--diamond"><span class="tier-name">◆ Diamond</span><span class="tier-price">£495/yr · 15% off</span></div>
+        </div>
+        {% if user.is_authenticated %}
+        <a href="{% url 'memberships:home' %}" class="btn-primary">Become a Member</a>
+        {% else %}
+        <a href="{% url 'account_login' %}?next={% url 'memberships:home' %}" class="btn-primary">Sign In to Join</a>
+        {% endif %}
+      </div>
+    </div>
+  </section>
+
+  <!-- KIDS -->
+  <section class="kids section" id="kids">
+    <div class="kids-inner">
+      <div class="section-header section-header--left">
+        <p class="section-label">◆ &nbsp; T H E &nbsp; L I T T L E &nbsp; O B S I D I A N</p>
+        <h2>Luxury has<br/><em>no age limit.</em></h2>
+        <p class="section-sub">A full world for younger guests. Supervised Kids Club. Adventure playground. Creative studio. Mini cinema. Junior skate academy. Nature trails. Because the best family holidays leave everyone — truly everyone — wanting more.</p>
+      </div>
+      <div class="kids-features">
+        <div class="kids-feat"><span>🎨</span><p>Creative Studio</p></div>
+        <div class="kids-feat"><span>🎮</span><p>Gaming Lounge</p></div>
+        <div class="kids-feat"><span>🛹</span><p>Junior Skate Zone</p></div>
+        <div class="kids-feat"><span>🌿</span><p>Nature Explorer Trail</p></div>
+        <div class="kids-feat"><span>🏊</span><p>Kids Pool & Slides</p></div>
+        <div class="kids-feat"><span>🧗</span><p>Adventure Playground</p></div>
+        <div class="kids-feat"><span>🎬</span><p>Mini Theatre</p></div>
+        <div class="kids-feat"><span>👶</span><p>Babysitting Service</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- EVENTS -->
+  <section class="events section" id="events">
+    <div class="section-header">
+      <p class="section-label">◆ &nbsp; E V E N T S</p>
+      <h2>Celebrate in<br/><em>the dark.</em></h2>
+    </div>
+    <div class="events-grid">
+      <div class="event-card">
+        <div class="event-card-header">💒</div>
+        <h3>Weddings</h3>
+        <div class="event-divider">◆ ————</div>
+        <ul>
+          <li>The Black Room — up to 150 guests</li>
+          <li>Courtyard Garden ceremonies</li>
+          <li>Rooftop celebrations — 80 guests</li>
+          <li>Bespoke catering packages</li>
+          <li>Obsidian Drive wedding fleet</li>
+          <li>Diner in the Sky option</li>
+        </ul>
+        <a href="#" class="link-gold">Enquire ◆</a>
+      </div>
+      <div class="event-card event-card--featured">
+        <div class="event-card-header">🏢</div>
+        <h3>Corporate</h3>
+        <div class="event-divider">◆ ————</div>
+        <ul>
+          <li>Conference facilities — full AV</li>
+          <li>Team experience days</li>
+          <li>Private dining — boardroom to ballroom</li>
+          <li>Corporate sports membership</li>
+          <li>Away day packages</li>
+          <li>Group accommodation blocks</li>
+        </ul>
+        <a href="#" class="link-gold">Enquire ◆</a>
+      </div>
+      <div class="event-card">
+        <div class="event-card-header">🎂</div>
+        <h3>Celebrations</h3>
+        <div class="event-divider">◆ ————</div>
+        <ul>
+          <li>Birthday takeovers</li>
+          <li>Anniversary packages</li>
+          <li>Hen and stag experiences</li>
+          <li>Kids birthday parties</li>
+          <li>Proposal packages</li>
+          <li>Seasonal events</li>
+        </ul>
+        <a href="#" class="link-gold">Enquire ◆</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- TRANSPORT -->
+  <section class="transport section" id="transport">
+    <div class="section-header section-header--left">
+      <p class="section-label">◆ &nbsp; O B S I D I A N &nbsp; D R I V E</p>
+      <h2>Arrive. Depart.<br/><em>In the manner you deserve.</em></h2>
+    </div>
+    <div class="transport-grid">
+      <div class="transport-card">
+        <span class="transport-icon">✈️</span>
+        <h3>Airport Transfers</h3>
+        <p>Meet and greet. Flight tracking. Luggage handling. We are waiting before you land.</p>
+      </div>
+      <div class="transport-card">
+        <span class="transport-icon">🚘</span>
+        <h3>Chauffeur Service</h3>
+        <p>Rolls Royce. Bentley. Mercedes. Hourly hire. Shopping trips. Events. Wherever you need to be.</p>
+      </div>
+      <div class="transport-card">
+        <span class="transport-icon">🚗</span>
+        <h3>Car Rental</h3>
+        <p>Self-drive luxury fleet. Range Rover. Tesla. BMW. Daily rates. Optional extras. Your road, your rules.</p>
+      </div>
+      <div class="transport-card">
+        <span class="transport-icon">🏍️</span>
+        <h3>Motorbike Hire</h3>
+        <p>Ducati and BMW. Cafe racers and tourers. Daily hire. The open road, the Obsidian way.</p>
+      </div>
+      <div class="transport-card">
+        <span class="transport-icon">🚕</span>
+        <h3>Hotel Taxis</h3>
+        <p>On demand or pre-booked. City or countryside. Always a blacked-out vehicle. Always on time.</p>
+      </div>
+      <div class="transport-card">
+        <span class="transport-icon">🚐</span>
+        <h3>Event Transport</h3>
+        <p>Minibus and coach hire. Weddings. Corporate. Group transfers. Gold ◆ door badge. Always.</p>
+      </div>
+    </div>
+    <div class="fleet-strip">
+      <p class="section-label">◆ &nbsp; T H E &nbsp; F L E E T</p>
+      <div class="fleet-list">
+        <span>Rolls Royce Ghost</span>
+        <span class="fleet-diamond">◆</span>
+        <span>Bentley Flying Spur</span>
+        <span class="fleet-diamond">◆</span>
+        <span>Mercedes S-Class</span>
+        <span class="fleet-diamond">◆</span>
+        <span>Range Rover Autobiography</span>
+        <span class="fleet-diamond">◆</span>
+        <span>Tesla Model S</span>
+        <span class="fleet-diamond">◆</span>
+        <span>Ducati & BMW Motorcycles</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONCIERGE -->
+  <section class="concierge section" id="concierge">
+    <div class="concierge-inner">
+      <div class="concierge-left">
+        <p class="section-label">◆ &nbsp; T H E &nbsp; S I L E N T &nbsp; C O N C I E R G E</p>
+        <h2>Nothing is<br/><em>too much to ask.</em></h2>
+        <p class="section-sub">Our concierge team operates around the clock, around the world. No request is unusual. No detail is too small. We do not ask why — we simply make it happen.</p>
+        <div class="concierge-rule">
+          <span></span><span class="concierge-diamond">◆</span><span></span>
+        </div>
+        <blockquote class="concierge-quote">"We have never said no.<br/>We don't intend to start."</blockquote>
+        <a href="#concierge-form" class="btn-primary btn-inline-cta--lg">Make a Request</a>
+      </div>
+      <div class="concierge-right">
+        <div class="concierge-services">
+          <div class="cs-item"><span class="cs-icon">🎭</span><div><h4>Theatre & Culture</h4><p>West End. Royal Opera. Sold-out shows. Private boxes. We have the connections. You have the seat.</p></div></div>
+          <div class="cs-item"><span class="cs-icon">💐</span><div><h4>Flowers & Gifting</h4><p>Bespoke arrangements. Same day. Anywhere in the city. Paired with champagne, jewellery, or whatever the moment demands.</p></div></div>
+          <div class="cs-item"><span class="cs-icon">🛍️</span><div><h4>Personal Shopping</h4><p>A stylist. A list of brands. A car waiting outside. Shopping done before breakfast, delivered before dinner.</p></div></div>
+          <div class="cs-item"><span class="cs-icon">🛥️</span><div><h4>Yacht & Private Jet</h4><p>Beyond our own fleet. Global sourcing. 24 hours notice. Your itinerary, not ours.</p></div></div>
+          <div class="cs-item"><span class="cs-icon">🔒</span><div><h4>Privacy & Security</h4><p>Discreet arrangements for high-profile guests. Private entrances. Absolute confidentiality.</p></div></div>
+          <div class="cs-item"><span class="cs-icon">🐾</span><div><h4>Pet Services</h4><p>Grooming. Walking. Luxury boarding. Veterinary arrangements. Your companion, cared for.</p></div></div>
+          <div class="cs-item"><span class="cs-icon">📸</span><div><h4>Photography & Film</h4><p>Professional photographers. Events, experiences, portraits. Memories worth keeping.</p></div></div>
+          <div class="cs-item"><span class="cs-icon">✨</span><div><h4>Anything Else</h4><p>A rare bottle. A last-minute proposal. A table at the impossible restaurant. Just ask.</p></div></div>
+        </div>
+      </div>
+    </div>
+    <div class="concierge-form" id="concierge-form">
+      <div class="cf-inner">
+        <p class="section-label section-label--center-tight">◆ &nbsp; S U B M I T &nbsp; A &nbsp; R E Q U E S T</p>
+        <h3 class="cf-title">Tell us what you need.</h3>
+        <p class="cf-sub">Our team will respond within 60 minutes, day or night.</p>
+        <div class="cf-grid">
+          <div class="form-group"><label>Your Name</label><input type="text" class="form-input" placeholder="Full name" /></div>
+          <div class="form-group"><label>Contact Number</label><input type="tel" class="form-input" placeholder="+44 ..." /></div>
+          <div class="form-group"><label>Email Address</label><input type="email" class="form-input" placeholder="your@email.com" /></div>
+          <div class="form-group"><label>Request Type</label>
+            <select class="form-input">
+              <option>Theatre & Culture</option><option>Flowers & Gifting</option><option>Personal Shopping</option>
+              <option>Yacht & Private Jet</option><option>Privacy & Security</option><option>Pet Services</option>
+              <option>Photography & Film</option><option>Restaurant Reservation</option><option>Something Else</option>
+            </select>
+          </div>
+          <div class="form-group form-group--full"><label>Your Request</label><textarea class="form-input form-textarea" placeholder="Tell us everything. No detail is too small, no request too unusual..."></textarea></div>
+          <div class="form-group form-group--full"><label>When do you need this?</label><input type="datetime-local" class="form-input" /></div>
+        </div>
+        <div class="cf-submit">
+          {# Routes to the real concierge flow; anon users sign in first. #}
+          {% if user.is_authenticated %}
+          <a href="{% url 'concierge:create' %}" class="btn-primary">Submit Request ◆</a>
+          {% else %}
+          <a href="{% url 'account_login' %}?next={% url 'concierge:create' %}" class="btn-primary">Sign In to Request ◆</a>
+          {% endif %}
+          <p class="cf-disclaimer">◆ &nbsp; ALL REQUESTS ARE HANDLED WITH COMPLETE DISCRETION</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- BOOK -->
+  <section class="book section" id="book">
+    <div class="book-inner">
+      <p class="section-label">◆ &nbsp; R E S E R V A T I O N S</p>
+      <h2>Begin your stay.<br/><em>Whenever you're ready.</em></h2>
+      <div class="book-form">
+        <div class="form-row">
+          <div class="form-group">
+            <label>Check In</label>
+            <input type="date" class="form-input" />
+          </div>
+          <div class="form-group">
+            <label>Check Out</label>
+            <input type="date" class="form-input" />
+          </div>
+          <div class="form-group">
+            <label>Guests</label>
+            <select class="form-input">
+              <option>1 Guest</option>
+              <option>2 Guests</option>
+              <option>3 Guests</option>
+              <option>4+ Guests</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>Room Type</label>
+            <select class="form-input">
+              <option>Any Room</option>
+              <option>Dark Room</option>
+              <option>Studio Suite</option>
+              <option>Loft Suite</option>
+              <option>Obsidian Suite</option>
+              <option>Void Penthouse</option>
+              <option>Family Suite</option>
+            </select>
+          </div>
+          <button class="btn-primary btn-primary--book">Check Availability</button>
+        </div>
+      </div>
+      <p class="book-note">◆ &nbsp; Reservations include full access to the Sports Complex and Kids Club for hotel guests.</p>
+    </div>
+  </section>
+
+  
+
+  
+  
+  
+
+{% endblock %}
+
+{% block extra_js %}<script src="{% static 'js/dates.js' %}"></script>{% endblock %}

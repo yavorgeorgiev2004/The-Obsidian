@@ -1,0 +1,25 @@
+{% extends base_template %}
+{% load static %}
+{% block title %}Rooms & Suites — The Obsidian{% endblock %}
+
+{# When shown in the portal shell, give it the guest sidebar. #}
+{% block sidebar %}
+<div class="portal-sidebar-section">
+  <span class="portal-sidebar-label">MY ACCOUNT</span>
+  <a href="{% url 'dashboard:guest' %}"><span class="nav-icon">🛏</span>My Bookings</a>
+  <a href="{% url 'bookings:search' %}"><span class="nav-icon">➕</span>New Booking</a>
+</div>
+<div class="portal-sidebar-section">
+  <span class="portal-sidebar-label">EXPLORE</span>
+  <a href="{% url 'rooms:list' %}" class="active"><span class="nav-icon">🏨</span>Rooms</a>
+  <a href="{% url 'packages:list' %}"><span class="nav-icon">✨</span>Packages</a>
+</div>
+{% endblock %}
+
+{# Fill the portal shell's main block. #}
+{% block main %}{% include 'rooms/_list_body.html' %}{% endblock %}
+
+{# Fill the public shell's content block. #}
+{% block content %}{% include 'rooms/_list_body.html' %}{% endblock %}
+
+{% block extra_js %}<script src="{% static 'js/dates.js' %}"></script>{% endblock %}

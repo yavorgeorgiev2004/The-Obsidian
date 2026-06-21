@@ -1,0 +1,83 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}Sign In — The Obsidian{% endblock %}
+{% block body_class %}no-sparkle{% endblock %}
+
+{% block content %}
+{# Login page — centred branded card with click-to-fill demo accounts #}
+<div class="login-page">
+  <div class="login-wrap">
+
+    {# ── BRAND — diamond, hotel name, tagline ── #}
+    <div class="login-brand">
+      <span class="login-diamond">◆</span>
+      <h1>THE OBSIDIAN</h1>
+      <p>FLAWLESSLY DARK. INFINITELY REFINED.</p>
+    </div>
+
+    {# ── CARD — heading, demo accounts, form, footer ── #}
+    <div class="login-box">
+      <h2>Sign in to your account.</h2>
+      <p class="sub">Guests, receptionists and managers all sign in here.</p>
+
+      {# ── DEMO ACCOUNTS — click a button to fill the form (login.js) ── #}
+      <div class="demo-accounts">
+        <p>◆ &nbsp; D E M O &nbsp; A C C O U N T S — click to fill</p>
+        <button type="button" class="demo-btn" data-email="guest@obsidian.com" data-password="guest123">
+          <span class="demo-btn-role">GUEST</span>
+          <span class="demo-btn-email">guest@obsidian.com / guest123</span>
+        </button>
+        <button type="button" class="demo-btn" data-email="reception@obsidian.com" data-password="staff123">
+          <span class="demo-btn-role">RECEPTIONIST</span>
+          <span class="demo-btn-email">reception@obsidian.com / staff123</span>
+        </button>
+        <button type="button" class="demo-btn" data-email="manager@obsidian.com" data-password="manager123">
+          <span class="demo-btn-role">MANAGER</span>
+          <span class="demo-btn-email">manager@obsidian.com / manager123</span>
+        </button>
+      </div>
+
+      {# ── ERROR — shown by allauth when the credentials are wrong ── #}
+      {% if form.errors %}
+      <div class="login-error">Incorrect email or password. Please try again.</div>
+      {% endif %}
+
+      {# ── FORM — posts to allauth's login view ── #}
+      <form method="post" action="{% url 'account_login' %}">
+        {% csrf_token %}
+
+        {# Email field #}
+        <div class="login-field">
+          <label>Email Address</label>
+          <input type="email" name="login" placeholder="your@email.com" autocomplete="email" required>
+        </div>
+
+        {# Password field #}
+        <div class="login-field">
+          <label>Password</label>
+          <input type="password" name="password" placeholder="••••••••" autocomplete="current-password" required>
+        </div>
+
+        {# Remember-me checkbox #}
+        <div class="login-remember">
+          <input type="checkbox" name="remember" id="remember">
+          <label for="remember">REMEMBER ME</label>
+        </div>
+
+        {# Submit #}
+        <button type="submit" class="login-submit">Sign In ◆</button>
+      </form>
+
+      {# ── FOOTER — register link and return to the public site ── #}
+      <p class="login-footer">No account? <a href="{% url 'account_signup' %}">Register here</a></p>
+      <p class="login-footer login-footer--sub"><a href="{% url 'core:home' %}">← Return to website</a></p>
+    </div>
+
+  </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+{# External JS for the click-to-fill demo accounts #}
+<script src="{% static 'js/login.js' %}"></script>
+{% endblock %}

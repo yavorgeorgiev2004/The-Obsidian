@@ -1,0 +1,10 @@
+{% extends base_template %}
+{% load static %}
+{% block title %}{{ room.name }} — The Obsidian{% endblock %}
+{% block sidebar %}
+<div class="portal-sidebar-section">
+  <a href="{% url 'rooms:list' %}"><span class="nav-icon">←</span>Back to Rooms</a>
+</div>
+{% endblock %}
+{% block main %}{% include 'rooms/_detail_body.html' %}{% endblock %}
+{% block content %}{% include 'rooms/_detail_body.html' %}{% endblock %}

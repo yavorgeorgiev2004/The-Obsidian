@@ -1,0 +1,42 @@
+{% extends 'portal_base.html' %}
+{% block title %}My Bookings — The Obsidian{% endblock %}
+{% block sidebar %}
+<div class="portal-sidebar-section">
+  <span class="portal-sidebar-label">MY ACCOUNT</span>
+  <a href="{% url 'dashboard:guest' %}" class="active"><span class="nav-icon">🛏</span>My Bookings</a>
+  <a href="{% url 'bookings:search' %}"><span class="nav-icon">➕</span>New Booking</a>
+</div>
+{% endblock %}
+{% block main %}
+<div class="portal-page-title"><h1>My <em>Bookings.</em></h1></div>
+{% for b in bookings %}
+<div class="card mb-2">
+  <div class="flex justify-between items-center mb-2">
+    <div class="card-title">{{ b.room.name }} <span class="text-muted text-sm">· BK{{ b.pk }}</span></div>
+    <span class="portal-role-badge">{{ b.get_status_display|upper }}</span>
+  </div>
+  <p class="text-muted mb-2">{{ b.check_in }} → {{ b.check_out }} · {{ b.nights }} night{{ b.nights|pluralize }}</p>
+  <div class="payment-box">
+    <div class="payment-row"><span class="label">Grand total</span><span class="value gold">£{{ b.grand_total }}</span></div>
+    <div class="payment-row"><span class="label">Amount paid</span><span class="value paid">£{{ b.amount_paid }}</span></div>
+    <div class="payment-row total"><span class="label">Balance due at hotel</span><span class="value owed">£{{ b.balance_owed }}</span></div>
+    {% if b.deposit_paid %}
+      <span class="payment-status paid">✓ DEPOSIT PAID</span>
+    {% else %}
+      <span class="payment-status unpaid">AWAITING DEPOSIT</span>
+    {% endif %}
+  </div>
+  {% if not b.deposit_paid and b.status != 'cancelled' %}
+  <a href="{% url 'bookings:pay_deposit' b.pk %}" class="btn btn-gold btn-sm mt-2">Pay Deposit Now ◆</a>
+  {% endif %}
+  {% if b.status != 'cancelled' and b.status != 'checked-out' %}
+  <div class="flex gap-1 mt-2">
+    <a href="{% url 'bookings:edit' b.pk %}" class="btn btn-outline btn-sm">Edit Booking</a>
+    <a href="{% url 'bookings:cancel' b.pk %}" class="btn btn-danger btn-sm">Cancel</a>
+  </div>
+  {% endif %}
+</div>
+{% empty %}
+<div class="alert alert-info">No bookings yet. <a href="{% url 'bookings:search' %}" class="text-gold">Make your first reservation →</a></div>
+{% endfor %}
+{% endblock %}

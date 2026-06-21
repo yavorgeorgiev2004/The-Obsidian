@@ -1,0 +1,35 @@
+{% extends 'portal_base.html' %}
+{% load static %}
+{% block title %}Raise a Complaint — The Obsidian{% endblock %}
+{% block sidebar %}
+<div class="portal-sidebar-section">
+  <a href="{% url 'dashboard:guest' %}"><span class="nav-icon">←</span>Back to Dashboard</a>
+  <a href="{% url 'complaints:my_complaints' %}"><span class="nav-icon">📋</span>My Complaints</a>
+</div>
+{% endblock %}
+{% block main %}
+<div class="portal-page-title">
+  <p>◆ &nbsp; F E E D B A C K</p>
+  <h1>Raise a <em>concern.</em></h1>
+</div>
+<div class="suggestion-banner">
+  We take every concern seriously. Tell us what went wrong and our team will look into it. You can track progress and any resolution from your dashboard.
+</div>
+<form method="post">
+  {% csrf_token %}
+  <div class="form-group">
+    <label class="form-label">Category</label>
+    {{ form.category }}
+  </div>
+  <div class="form-group">
+    <label class="form-label">Related booking (optional)</label>
+    {{ form.booking }}
+  </div>
+  <div class="form-group">
+    <label class="form-label">What happened?</label>
+    {{ form.detail }}
+    {% if form.detail.errors %}<p class="field-error">{{ form.detail.errors.0 }}</p>{% endif %}
+  </div>
+  <button type="submit" class="btn btn-gold w-full mt-2">Submit Complaint ◆</button>
+</form>
+{% endblock %}

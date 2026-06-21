@@ -1,0 +1,49 @@
+{% extends 'portal_base.html' %}
+{% load static %}
+{% block title %}Membership — The Obsidian{% endblock %}
+{% block sidebar %}
+<div class="portal-sidebar-section">
+  <a href="{% url 'dashboard:guest' %}"><span class="nav-icon">←</span>Back to Dashboard</a>
+</div>
+{% endblock %}
+{% block main %}
+<div class="portal-page-title">
+  <p>◆ &nbsp; T H E &nbsp; D I A M O N D &nbsp; C I R C L E</p>
+  <h1>Membership <em>that rewards.</em></h1>
+</div>
+
+{% if membership %}
+<div class="card mb-4">
+  <div class="flex justify-between items-center">
+    <div>
+      <strong>{{ membership.get_tier_display }} Member</strong>
+      <p class="text-muted">{{ membership.discount_percent }}% off every room rate{% if not membership.is_active %} — expired{% endif %}</p>
+    </div>
+    <span class="payment-status {% if membership.is_active %}paid{% else %}unpaid{% endif %}">
+      {% if membership.is_active %}ACTIVE · {{ membership.days_remaining }} DAYS LEFT{% else %}EXPIRED{% endif %}
+    </span>
+  </div>
+  {% if not membership.is_active %}
+  <p class="field-hint mt-2">Your membership has expired. Renew below to restore your benefits.</p>
+  {% endif %}
+</div>
+{% endif %}
+
+<div class="membership-grid">
+  {% for t in tiers %}
+  <div class="membership-card membership-card--{{ t.value }}">
+    <h3>{{ t.label }}</h3>
+    <p class="membership-price">£{{ t.price|floatformat:0 }}<span>/year</span></p>
+    <p class="membership-discount">◆ {{ t.discount }}% off room rates</p>
+    {% if t.action == 'join' %}
+      <a href="{% url 'memberships:join' t.value %}" class="btn btn-gold w-full mt-2">{% if membership %}Renew at {{ t.label }}{% else %}Become a Member{% endif %}</a>
+    {% elif t.action == 'upgrade' %}
+      <a href="{% url 'memberships:upgrade' t.value %}" class="btn btn-gold w-full mt-2">Upgrade — £{{ t.upgrade_cost }}</a>
+    {% else %}
+      <span class="btn btn-ghost w-full mt-2 btn-disabled">Current or lower tier</span>
+    {% endif %}
+  </div>
+  {% endfor %}
+</div>
+<p class="field-hint mt-3">Membership is a one-off yearly payment — it does not renew automatically. Benefits apply to your bookings while active and stop at expiry until you renew. Discounts apply on top of any account credit.</p>
+{% endblock %}

@@ -1,0 +1,50 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>{% block title %}Dashboard — The Obsidian{% endblock %}</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Montserrat:wght@200;300;400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="{% static 'css/portal.css' %}?v=6"/>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'><text y='14' font-size='14'>&#9670;</text></svg>">
+  {% block extra_css %}{% endblock %}
+</head>
+<body>
+  <nav class="portal-nav">
+    <div class="portal-nav-logo">
+      <a href="{% url 'core:home' %}">
+        <span class="portal-logo-diamond">◆</span>
+        <span class="portal-logo-name">THE OBSIDIAN</span>
+      </a>
+    </div>
+    <div class="portal-nav-right">
+      <span class="portal-user">
+        Welcome, <strong>{{ user.first_name|default:user.email }}</strong>
+      </span>
+      <span class="portal-role-badge">
+        {{ user.profile.role|upper }}
+      </span>
+      <a href="{% url 'account_logout' %}" class="portal-logout">Sign Out</a>
+    </div>
+  </nav>
+
+  <div class="portal-layout">
+    <nav class="portal-sidebar">
+      {% block sidebar %}{% endblock %}
+    </nav>
+    <main class="portal-main">
+      {% if messages %}
+        {% for message in messages %}
+          <div class="alert alert-{{ message.tags }}">{{ message }}</div>
+        {% endfor %}
+      {% endif %}
+      {% block main %}{% endblock %}
+    </main>
+  </div>
+
+  {% block extra_js %}{% endblock %}
+</body>
+</html>

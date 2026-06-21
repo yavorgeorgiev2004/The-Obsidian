@@ -1,0 +1,110 @@
+{% extends 'portal_base.html' %}
+{% load static %}
+{% block title %}Edit Booking — The Obsidian{% endblock %}
+
+{% block sidebar %}
+<div class="portal-sidebar-section">
+  <span class="portal-sidebar-label">MY ACCOUNT</span>
+  <a href="{% url 'dashboard:guest' %}" class="active"><span class="nav-icon">🛏</span>My Bookings</a>
+  <a href="{% url 'bookings:search' %}"><span class="nav-icon">➕</span>New Booking</a>
+</div>
+{% endblock %}
+
+{% block main %}
+<div class="portal-page-title">
+  <p>◆ &nbsp; E D I T &nbsp; B O O K I N G &nbsp; · &nbsp; BK{{ booking.pk }}</p>
+  <h1>Change your <em>reservation.</em></h1>
+</div>
+
+<div class="suggestion-banner">
+  Changing your dates or room frees your current room for other guests straight away. If the new total is higher you will be asked for a top-up; if lower, the difference reduces your balance.
+</div>
+
+{# Form carries deposit percentage and amount paid as data attributes for the live-total script. #}
+<form method="post" action="{% url 'bookings:edit' booking.pk %}" id="editForm"
+      data-amount-paid="{{ booking.amount_paid }}"
+      data-deposit-pct="25">
+  {% csrf_token %}
+
+  <div class="form-row">
+    <div class="form-group">
+      <label class="form-label">Room Type</label>
+      {# Each option carries its nightly price so the script can recost the room on type change. #}
+      <select name="room_type" class="form-control" id="roomTypeSelect">
+        {% for rt in room_types %}
+        <option value="{{ rt.value }}" data-price="{{ rt.price }}"
+          {% if rt.value == booking.room.room_type %}selected{% endif %}>
+          {{ rt.label }} — £{{ rt.price|floatformat:0 }}/night
+        </option>
+        {% endfor %}
+      </select>
+      {# Live availability for the chosen type and dates, filled by booking.js #}
+      <p class="field-hint" id="availabilityNote" data-exclude="{{ booking.pk }}">Checking availability…</p>
+    </div>
+    <div class="form-group">
+      <label class="form-label">Guests</label>
+      <input type="number" name="guests_count" value="{{ booking.guests_count }}" min="1" class="form-control">
+    </div>
+  </div>
+
+  <div class="form-row">
+    <div class="form-group">
+      <label class="form-label">Check In</label>
+      <input type="date" name="check_in" value="{{ booking.check_in|date:'Y-m-d' }}" class="form-control" id="editCheckIn">
+    </div>
+    <div class="form-group">
+      <label class="form-label">Check Out</label>
+      <input type="date" name="check_out" value="{{ booking.check_out|date:'Y-m-d' }}" class="form-control" id="editCheckOut">
+    </div>
+  </div>
+
+  <hr class="divider">
+  <p class="card-title">Packages</p>
+  <div class="grid-2" id="packageGrid">
+    {% for pkg in packages %}
+    <label class="pkg-select {% if pkg.package_id in current_pkgs %}selected{% endif %}" data-price="{{ pkg.price }}">
+      <input type="checkbox" name="packages" value="{{ pkg.package_id }}" {% if pkg.package_id in current_pkgs %}checked{% endif %}>
+      <span class="pkg-check">✓</span>
+      <span class="pkg-select-icon">{{ pkg.icon }}</span>
+      <span>
+        <span class="pkg-select-name">{{ pkg.name }}</span>
+        <span class="pkg-select-price">£{{ pkg.price|floatformat:0 }}</span>
+      </span>
+    </label>
+    {% endfor %}
+  </div>
+
+  {# ── LIVE TOTAL — recalculated by booking.js as the form changes ── #}
+  <div class="payment-box mt-3" id="liveSummary">
+    <div class="payment-row">
+      <span class="label">New room total <span id="liveNights" class="text-muted"></span></span>
+      <span class="value" id="liveRoom">£0</span>
+    </div>
+    <div class="payment-row">
+      <span class="label">New packages total</span>
+      <span class="value" id="livePackages">£0</span>
+    </div>
+    <div class="payment-row total">
+      <span class="label">New grand total</span>
+      <span class="value gold" id="liveTotal">£0</span>
+    </div>
+    <div class="payment-row">
+      <span class="label">Already paid</span>
+      <span class="value paid">£{{ booking.amount_paid }}</span>
+    </div>
+    {# This row is set live: a top-up due, a balance reduction, or nothing owed. #}
+    <div class="payment-row total">
+      <span class="label" id="liveOutcomeLabel">Balance owed</span>
+      <span class="value owed" id="liveOutcome">£0</span>
+    </div>
+    <p class="field-hint" id="liveNote">Adjust anything above to see the new total. The final figure is confirmed when you save.</p>
+  </div>
+
+  <button type="submit" class="btn btn-gold w-full mt-3">Save Changes ◆</button>
+  <a href="{% url 'dashboard:guest' %}" class="btn btn-ghost w-full mt-2">Cancel</a>
+</form>
+{% endblock %}
+
+{% block extra_js %}
+<script src="{% static 'js/booking.js' %}"></script>
+{% endblock %}

@@ -1,0 +1,59 @@
+{% extends 'portal_base.html' %}
+{% load static %}
+{% block title %}Available Rooms — The Obsidian{% endblock %}
+
+{% block sidebar %}
+<div class="portal-sidebar-section">
+  <span class="portal-sidebar-label">MY ACCOUNT</span>
+  <a href="{% url 'dashboard:guest' %}"><span class="nav-icon">🛏</span>My Bookings</a>
+  <a href="{% url 'bookings:search' %}" class="active"><span class="nav-icon">➕</span>New Booking</a>
+  <a href="{% url 'concierge:create' %}"><span class="nav-icon">🤫</span>Concierge</a>
+</div>
+{% endblock %}
+
+{% block main %}
+<div class="portal-page-title">
+  <p>◆ &nbsp; {{ check_in }} &nbsp; → &nbsp; {{ check_out }} &nbsp; · &nbsp; {{ nights }} NIGHT{{ nights|pluralize|upper }}</p>
+  <h1>Choose your <em>suite.</em></h1>
+</div>
+
+<a href="{% url 'bookings:search' %}" class="btn btn-ghost btn-sm mb-3">← Change dates</a>
+
+<div class="gallery-grid">
+  {% for rt in room_types %}
+  <div class="gallery-card {% if rt.status == 'full' %}is-full{% endif %}">
+    <div class="gallery-card-img">
+      <span class="diamond">◆</span>
+      {% if rt.status == 'available' %}
+        <span class="gallery-card-badge gallery-badge-available">AVAILABLE</span>
+      {% elif rt.status == 'last-one' %}
+        <span class="gallery-card-badge gallery-badge-last">ONLY 1 LEFT</span>
+      {% else %}
+        <span class="gallery-card-badge gallery-badge-full">FULLY BOOKED</span>
+      {% endif %}
+    </div>
+    <div class="gallery-card-body">
+      <h3>{{ rt.name }}</h3>
+      <p class="gallery-card-desc">{{ rt.description|default:"A sanctuary of darkness and gold, finished to the highest standard." }}</p>
+
+      {% if rt.status == 'available' %}
+        <p class="gallery-availability gallery-availability--ok">◆ {{ rt.available }} of {{ rt.total }} available for these dates</p>
+      {% elif rt.status == 'last-one' %}
+        <p class="gallery-availability gallery-availability--last">◆ Only 1 left for these dates</p>
+      {% else %}
+        <p class="gallery-availability gallery-availability--full">◆ No rooms of this type free for these dates</p>
+      {% endif %}
+
+      <div class="gallery-card-foot">
+        <span class="gallery-card-price">from <strong>£{{ rt.price|floatformat:0 }}</strong> / night</span>
+        {% if rt.status == 'full' %}
+          <span class="btn btn-ghost btn-sm gallery-unavailable-btn">Unavailable</span>
+        {% else %}
+          <a href="{% url 'bookings:create' %}?check_in={{ check_in }}&check_out={{ check_out }}&room_type={{ rt.type }}&guests={{ guests }}" class="btn btn-gold btn-sm">Select ◆</a>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+  {% endfor %}
+</div>
+{% endblock %}

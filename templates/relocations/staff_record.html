@@ -1,0 +1,70 @@
+{% extends 'portal_base.html' %}
+{% load static %}
+{% block title %}Record Guest Decision — The Obsidian{% endblock %}
+
+{% block sidebar %}
+<div class="portal-sidebar-section">
+  <a href="{% url 'dashboard:reception' %}"><span class="nav-icon">←</span>Back to Reception</a>
+</div>
+{% endblock %}
+
+{% block main %}
+<div class="portal-page-title">
+  <p>◆ &nbsp; R E C O R D &nbsp; D E C I S I O N</p>
+  <h1>BK{{ booking.pk }} — {{ offer.guest.get_full_name|default:offer.guest.email }}</h1>
+</div>
+
+<div class="suggestion-banner">
+  Record the decision this guest gave by phone or in person. The hotel never auto-cancels a booking; this only applies a choice the guest actively made. Any cash refund is handled in person at the front desk.
+</div>
+
+<form method="post" id="decisionForm">
+  {% csrf_token %}
+
+  {% if offer.resolution == 'downgrade' %}
+  <label class="pkg-select">
+    <input type="radio" name="choice" value="keep-downgrade" checked>
+    <span class="pkg-check">✓</span>
+    <span>
+      <span class="pkg-select-name">Accept {{ offer.new_room.name }} + £{{ offer.bonus_credit }} credit</span>
+      <span class="pkg-select-desc">Keep dates, move to the available room, free-nights value as credit.</span>
+    </span>
+  </label>
+  {% endif %}
+
+  <label class="pkg-select">
+    <input type="radio" name="choice" value="credit" {% if offer.resolution == 'none' %}checked{% endif %}>
+    <span class="pkg-check">✓</span>
+    <span>
+      <span class="pkg-select-name">Cancel & credit (paid + £{{ offer.bonus_credit }} bonus)</span>
+      <span class="pkg-select-desc">Cancel the booking; payment plus bonus becomes account credit.</span>
+    </span>
+  </label>
+
+  <label class="pkg-select">
+    <input type="radio" name="choice" value="reschedule">
+    <span class="pkg-check">✓</span>
+    <span>
+      <span class="pkg-select-name">Reschedule to new dates + £{{ offer.bonus_credit }} bonus</span>
+      <span class="pkg-select-desc">Restore the original room type on new dates, bonus as credit.</span>
+    </span>
+  </label>
+
+  <div class="form-row mt-2" id="rescheduleDates">
+    <div class="form-group">
+      <label class="form-label">New Check In</label>
+      <input type="date" name="check_in" class="form-control">
+    </div>
+    <div class="form-group">
+      <label class="form-label">New Check Out</label>
+      <input type="date" name="check_out" class="form-control">
+    </div>
+  </div>
+
+  <button type="submit" class="btn btn-gold w-full mt-3">Record Decision ◆</button>
+</form>
+{% endblock %}
+
+{% block extra_js %}
+<script src="{% static 'js/relocation.js' %}"></script>
+{% endblock %}

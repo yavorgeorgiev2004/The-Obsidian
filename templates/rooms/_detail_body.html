@@ -1,0 +1,8 @@
+{% load static %}
+<div class="page-wrap page-wrap--narrow">
+  <p class="page-label">◆ &nbsp; R O O M &nbsp; {{ room.room_number }}</p>
+  <h2 class="page-title-lg">{{ room.name }}</h2>
+  <p class="detail-desc">{{ room.description|default:"A sanctuary of darkness and gold." }}</p>
+  <p class="detail-price">From <strong>£{{ room.price_per_night|floatformat:0 }}</strong> / night</p>
+  <a href="{% url 'bookings:search' %}" class="btn-primary mt-cta">Reserve This Room</a>
+</div>

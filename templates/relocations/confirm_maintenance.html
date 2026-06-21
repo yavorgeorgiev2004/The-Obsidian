@@ -1,0 +1,57 @@
+{% extends 'portal_base.html' %}
+{% load static %}
+{% block title %}Confirm Maintenance — The Obsidian{% endblock %}
+
+{% block sidebar %}
+<div class="portal-sidebar-section">
+  <a href="{% url 'dashboard:reception' %}"><span class="nav-icon">←</span>Back to Reception</a>
+</div>
+{% endblock %}
+
+{% block main %}
+<div class="portal-page-title">
+  <p>◆ &nbsp; M A I N T E N A N C E</p>
+  <h1>Confirm — Room {{ room.room_number }}</h1>
+</div>
+
+<div class="suggestion-banner">
+  This room has bookings that maintenance would disrupt. For each, choose whether to move the guest to the suggested room or instead issue credit plus a goodwill bonus (for a serious fault, or at the guest's request). Guests currently checked in are flagged — moving them updates their room straight away.
+</div>
+
+{% for item in previews %}
+<div class="card mb-2">
+  <div class="flex justify-between items-center mb-1">
+    <strong>BK{{ item.booking.pk }} — {{ item.booking.guest.get_full_name|default:item.booking.guest.email }}</strong>
+    <span class="portal-role-badge">{{ item.booking.check_in }} → {{ item.booking.check_out }}</span>
+  </div>
+  {% if item.in_house %}<p class="text-gold text-sm">◆ Guest is currently checked in to this room</p>{% endif %}
+  <p class="text-muted">
+    {% if item.resolution == 'same' %}
+      Suggested move: {{ item.new_room.name }} (same type) — no compensation.
+    {% elif item.resolution == 'upgrade' %}
+      Suggested move: upgrade to {{ item.new_room.name }} free of charge.
+    {% elif item.resolution == 'downgrade' %}
+      Only {{ item.new_room.name }} (lower type) is free — guest will choose compensation.
+    {% else %}
+      No room is free for these dates.
+    {% endif %}
+  </p>
+
+  {# Per-booking choice: move to the suggested room, or credit plus bonus. #}
+  <div class="reloc-choice">
+    {% if item.new_room %}
+    <label class="reloc-opt"><input type="radio" name="action_{{ item.booking.pk }}" value="move" checked> Move to {{ item.new_room.name }}</label>
+    {% endif %}
+    <label class="reloc-opt"><input type="radio" name="action_{{ item.booking.pk }}" value="credit" {% if not item.new_room %}checked{% endif %}> Credit £{{ item.booking.amount_paid }} paid + £{{ item.bonus }} bonus</label>
+  </div>
+</div>
+{% empty %}
+<p class="text-muted">No bookings are affected. Maintenance can be applied freely.</p>
+{% endfor %}
+
+<form method="post">
+  {% csrf_token %}
+  <button type="submit" class="btn btn-gold mt-2">Confirm Maintenance & Apply</button>
+  <a href="{% url 'dashboard:reception' %}" class="btn btn-ghost mt-2">Cancel</a>
+</form>
+{% endblock %}

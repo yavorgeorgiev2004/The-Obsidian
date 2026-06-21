@@ -1,0 +1,84 @@
+{% extends 'portal_base.html' %}
+{% load static %}
+{% block title %}Manager — The Obsidian{% endblock %}
+
+{% block sidebar %}
+<div class="portal-sidebar-section">
+  <span class="portal-sidebar-label">MANAGER</span>
+  <a href="{% url 'dashboard:manager' %}" class="active"><span class="nav-icon">📊</span>Dashboard</a>
+  <a href="{% url 'dashboard:reception' %}"><span class="nav-icon">🛎</span>Reception View</a>
+  <a href="{% url 'maintenance:board' %}"><span class="nav-icon">🔧</span>Maintenance</a>
+  <a href="{% url 'complaints:queue' %}"><span class="nav-icon">📋</span>Complaints</a>
+  <a href="{% url 'maintenance:audit' %}"><span class="nav-icon">📋</span>Audit Log</a>
+</div>
+{% endblock %}
+
+{% block main %}
+<div class="portal-page-title">
+  <p>◆ &nbsp; M A N A G E R &nbsp; D A S H B O A R D</p>
+  <h1>The Obsidian — <em>at a glance.</em></h1>
+</div>
+
+<div class="stats-row mb-4">
+  <div class="stat-card"><span class="stat-card-label">OCCUPANCY</span><div class="stat-card-value">{% widthratio occupied_count total_rooms 100 %}%</div><div class="stat-card-sub">{{ occupied_count }} of {{ total_rooms }}</div></div>
+  <div class="stat-card"><span class="stat-card-label">VACANT</span><div class="stat-card-value">{{ vacant_count }}</div><div class="stat-card-sub">Available now</div></div>
+  <div class="stat-card"><span class="stat-card-label">COLLECTED</span><div class="stat-card-value stat-card-value--sm">£{{ collected }}</div><div class="stat-card-sub">Paid to date</div></div>
+  <div class="stat-card"><span class="stat-card-label">NEEDS CLEANING</span><div class="stat-card-value">{{ needs_cleaning }}</div><div class="stat-card-sub">Rooms</div></div>
+</div>
+
+<!-- Aggregate outstanding balance across all active bookings -->
+<div class="outstanding-banner">
+  <div>
+    <div class="stat-card-label">TOTAL OUTSTANDING BALANCE</div>
+    <span class="text-muted">Across all active bookings, due at the hotel</span>
+  </div>
+  <div class="amount">£{{ outstanding }}</div>
+</div>
+
+<!-- All bookings with payment columns -->
+<div class="card card--flush mb-4">
+  <div class="card-pad"><div class="card-title">All Bookings</div></div>
+  <div class="table-wrap">
+  <table class="data-table">
+    <thead><tr><th>BOOKING</th><th>GUEST</th><th>ROOM</th><th>DATES</th><th>TOTAL</th><th>PAID</th><th>OWED</th><th>STATUS</th></tr></thead>
+    <tbody>
+      {% for b in bookings %}
+      <tr>
+        <td class="text-gold">BK{{ b.pk }}</td>
+        <td>{{ b.guest.get_full_name|default:b.guest.email }}</td>
+        <td>{{ b.room.name }}<br><span class="text-muted">Room {{ b.room.room_number }}</span></td>
+        <td>{{ b.check_in }}<br><span class="text-muted">{{ b.nights }} night{{ b.nights|pluralize }}</span></td>
+        <td class="text-gold">£{{ b.grand_total }}</td>
+        <td class="value paid">£{{ b.amount_paid }}</td>
+        <td class="value owed">£{{ b.balance_owed }}</td>
+        <td><span class="portal-role-badge">{{ b.get_status_display|upper }}</span></td>
+      </tr>
+      {% empty %}<tr><td colspan="8" class="text-muted text-center pad-2">No bookings yet.</td></tr>{% endfor %}
+    </tbody>
+  </table>
+  </div>
+</div>
+
+<!-- Housekeeping -->
+<div class="card card--flush">
+  <div class="card-pad"><div class="card-title">Housekeeping — Rooms Needing Attention</div></div>
+  <div class="table-wrap">
+  <table class="data-table">
+    <thead><tr><th>ROOM</th><th>TYPE</th><th>FLOOR</th><th>STATUS</th></tr></thead>
+    <tbody>
+      {% for room in rooms %}{% if not room.is_clean %}
+      <tr>
+        <td class="text-gold">{{ room.room_number }}</td>
+        <td>{{ room.name }}</td>
+        <td>{{ room.floor }}</td>
+        <td><span class="value owed">⚠ Needs cleaning</span></td>
+      </tr>
+      {% endif %}{% endfor %}
+    </tbody>
+  </table>
+  </div>
+</div>
+
+{# Staff relocations follow-up panel #}
+{% include 'dashboard/_relocations_panel.html' %}
+{% endblock %}

@@ -1,0 +1,36 @@
+{% extends 'portal_base.html' %}
+{% block title %}My Requests — The Obsidian{% endblock %}
+{% block sidebar %}
+<div class="portal-sidebar-section">
+  <span class="portal-sidebar-label">MY ACCOUNT</span>
+  <a href="{% url 'dashboard:guest' %}"><span class="nav-icon">🛏</span>My Bookings</a>
+  <a href="{% url 'concierge:my_requests' %}" class="active"><span class="nav-icon">📋</span>My Requests</a>
+  <a href="{% url 'concierge:create' %}"><span class="nav-icon">🤫</span>New Request</a>
+</div>
+{% endblock %}
+{% block main %}
+<div class="portal-page-title"><h1>My <em>Requests.</em></h1></div>
+{% for r in requests %}
+<div class="card mb-2">
+  <div class="flex justify-between items-center mb-1">
+    <strong>{{ r.get_request_type_display }}</strong>
+    <span class="portal-role-badge">{{ r.get_status_display|upper }}</span>
+  </div>
+  <p class="text-muted mb-2">{{ r.detail }}</p>
+
+  {% if r.requested_time %}<p class="text-sm">Your preferred time: {{ r.requested_time }}</p>{% endif %}
+
+  {% if r.status == 'proposed' %}
+    <!-- Staff proposed an alternative — guest confirms or counters -->
+    <div class="suggestion-banner mt-2">
+      Our concierge has proposed: <strong>{{ r.proposed_time }}</strong>
+    </div>
+    <a href="{% url 'concierge:respond' r.pk %}" class="btn btn-gold btn-sm">Respond ◆</a>
+  {% elif r.status == 'confirmed' %}
+    <p class="text-sm text-success">◆ Confirmed for {{ r.confirmed_time }}</p>
+  {% endif %}
+</div>
+{% empty %}
+<div class="alert alert-info">No requests yet. <a href="{% url 'concierge:create' %}" class="text-gold">Make a request →</a></div>
+{% endfor %}
+{% endblock %}

@@ -1,0 +1,35 @@
+{% extends 'portal_base.html' %}
+{% load static %}
+{% block title %}My Complaints — The Obsidian{% endblock %}
+{% block sidebar %}
+<div class="portal-sidebar-section">
+  <a href="{% url 'dashboard:guest' %}"><span class="nav-icon">←</span>Back to Dashboard</a>
+  <a href="{% url 'complaints:create' %}"><span class="nav-icon">➕</span>Raise a Complaint</a>
+</div>
+{% endblock %}
+{% block main %}
+<div class="portal-page-title">
+  <p>◆ &nbsp; M Y &nbsp; C O M P L A I N T S</p>
+  <h1>Your <em>concerns.</em></h1>
+</div>
+{% for c in complaints %}
+<div class="card mb-2">
+  <div class="flex justify-between items-center mb-1">
+    <strong>{{ c.get_category_display }}</strong>
+    <span class="payment-status {% if c.status == 'resolved' %}paid{% else %}unpaid{% endif %}">{{ c.get_status_display|upper }}</span>
+  </div>
+  <p class="text-muted">{{ c.detail }}</p>
+  {% if c.booking %}<p class="text-sm">Booking BK{{ c.booking.pk }}</p>{% endif %}
+  {% if c.status == 'resolved' %}
+    <div class="resolution-box">
+      <p class="text-gold text-sm">◆ RESOLUTION</p>
+      <p>{{ c.resolution|default:'Resolved by our team.' }}</p>
+      {% if c.credit_awarded > 0 %}<p class="value paid">£{{ c.credit_awarded }} account credit applied as a gesture of goodwill.</p>{% endif %}
+    </div>
+  {% endif %}
+  <p class="text-sm text-muted mt-1">Raised {{ c.created_at|date:'d M Y' }}</p>
+</div>
+{% empty %}
+<p class="text-muted">You have not raised any complaints. We hope it stays that way.</p>
+{% endfor %}
+{% endblock %}

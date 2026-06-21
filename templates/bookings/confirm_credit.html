@@ -1,0 +1,54 @@
+{% extends 'portal_base.html' %}
+{% load static %}
+{% block title %}Confirm Booking — The Obsidian{% endblock %}
+
+{% block sidebar %}
+<div class="portal-sidebar-section">
+  <a href="{% url 'dashboard:guest' %}"><span class="nav-icon">←</span>Back to Dashboard</a>
+</div>
+{% endblock %}
+
+{% block main %}
+<div class="portal-page-title">
+  <p>◆ &nbsp; C O N F I R M &nbsp; B O O K I N G</p>
+  <h1>Settle with <em>account credit.</em></h1>
+</div>
+
+{# Prominent banner stating plainly that credit covers the payment. #}
+<div class="credit-cover-banner">
+  {% if credit_covers_full %}
+  <span class="credit-cover-icon">◆</span>
+  <div>
+    <strong>Your account credit covers this booking in full.</strong>
+    <p>No card payment is needed. Confirm below and your stay is paid — nothing will be due at the hotel.</p>
+  </div>
+  {% else %}
+  <span class="credit-cover-icon">◆</span>
+  <div>
+    <strong>Your account credit covers the deposit in full.</strong>
+    <p>No card payment is needed now. Confirm below to secure your booking; the remaining balance is payable at the hotel.</p>
+  </div>
+  {% endif %}
+</div>
+
+<div class="payment-box">
+  <div class="payment-row"><span class="label">Room</span><span class="value">{{ booking.room.name }}</span></div>
+  <div class="payment-row"><span class="label">Dates</span><span class="value">{{ booking.check_in }} → {{ booking.check_out }}</span></div>
+  <div class="payment-row"><span class="label">Grand total</span><span class="value gold">£{{ booking.grand_total }}</span></div>
+  <div class="payment-row"><span class="label">Deposit due now</span><span class="value">£{{ deposit_due }}</span></div>
+  <div class="payment-row"><span class="label">Your account credit</span><span class="value paid">£{{ credit_balance }}</span></div>
+  {% if credit_covers_full %}
+  <div class="payment-row total"><span class="label">Credit applied (full stay)</span><span class="value gold">£{{ full_remaining }}</span></div>
+  <div class="payment-row"><span class="label">Due at hotel</span><span class="value paid">£0.00</span></div>
+  {% else %}
+  <div class="payment-row total"><span class="label">Credit applied now</span><span class="value gold">£{{ credit_balance }}</span></div>
+  {% endif %}
+</div>
+
+{# Posts back to checkout, which applies credit and confirms only on submit. #}
+<form method="post" action="{% url 'bookings:checkout' booking.pk %}">
+  {% csrf_token %}
+  <button type="submit" class="btn btn-gold w-full mt-3">Confirm & Pay with Credit ◆</button>
+  <a href="{% url 'dashboard:guest' %}" class="btn btn-ghost w-full mt-2">Cancel</a>
+</form>
+{% endblock %}

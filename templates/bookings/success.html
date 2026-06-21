@@ -1,0 +1,21 @@
+{% extends 'portal_base.html' %}
+{% block title %}Payment Confirmed — The Obsidian{% endblock %}
+{% block sidebar %}
+<div class="portal-sidebar-section">
+  <a href="{% url 'dashboard:guest' %}"><span class="nav-icon">🛏</span>My Bookings</a>
+</div>
+{% endblock %}
+{% block main %}
+<div class="signout-card signout-card--auto">
+  <span class="diamond">◆</span>
+  <h1>{{ kind }} Confirmed</h1>
+  <p>Booking BK{{ booking.pk }} — {{ booking.room.name }}</p>
+  <div class="alert alert-success">Your {{ kind|lower }} has been received and your booking is confirmed.</div>
+  <div class="payment-box payment-box--left">
+    <div class="payment-row"><span class="label">Grand total</span><span class="value gold">£{{ booking.grand_total }}</span></div>
+    <div class="payment-row"><span class="label">Amount paid</span><span class="value paid">£{{ booking.amount_paid }}</span></div>
+    <div class="payment-row total"><span class="label">Balance due at hotel</span><span class="value owed">£{{ booking.balance_owed }}</span></div>
+  </div>
+  <a href="{% url 'dashboard:guest' %}" class="btn btn-gold mt-3">View My Bookings</a>
+</div>
+{% endblock %}

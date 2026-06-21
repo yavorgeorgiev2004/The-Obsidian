@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}Register — The Obsidian{% endblock %}
+{% block body_class %}no-sparkle{% endblock %}
+
+{% block content %}
+{# Register page — same styling as the login page #}
+<div class="login-page">
+  <div class="login-wrap">
+
+    {# ── BRAND ── #}
+    <div class="login-brand">
+      <span class="login-diamond">◆</span>
+      <h1>THE OBSIDIAN</h1>
+      <p>FLAWLESSLY DARK. INFINITELY REFINED.</p>
+    </div>
+
+    {# ── CARD ── #}
+    <div class="login-box">
+      <h2>Create your account.</h2>
+      <p class="sub">Register to reserve rooms, pre-order packages and join the Diamond Circle.</p>
+
+      {# ── FORM — posts to allauth's signup view ── #}
+      <form method="post" action="{% url 'account_signup' %}">
+        {% csrf_token %}
+
+        {# Render each allauth field with our own label and styling #}
+        {% for field in form %}
+        <div class="login-field">
+          <label>{{ field.label }}</label>
+          {{ field }}
+          {% if field.errors %}<div class="login-error">{{ field.errors.0 }}</div>{% endif %}
+        </div>
+        {% endfor %}
+
+        {# Submit #}
+        <button type="submit" class="login-submit">Create Account ◆</button>
+      </form>
+
+      {# ── FOOTER ── #}
+      <p class="login-footer">Already have an account? <a href="{% url 'account_login' %}">Sign in</a></p>
+      <p class="login-footer login-footer--sub"><a href="{% url 'core:home' %}">← Return to website</a></p>
+    </div>
+
+  </div>
+</div>
+{% endblock %}

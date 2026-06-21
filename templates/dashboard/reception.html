@@ -1,0 +1,147 @@
+{% extends 'portal_base.html' %}
+{% load static %}
+{% block title %}Reception — The Obsidian{% endblock %}
+
+{% block sidebar %}
+<div class="portal-sidebar-section">
+  <span class="portal-sidebar-label">RECEPTION</span>
+  <a href="{% url 'dashboard:reception' %}" class="active"><span class="nav-icon">📋</span>Overview</a>
+  <a href="{% url 'maintenance:board' %}"><span class="nav-icon">🔧</span>Maintenance</a>
+  <a href="{% url 'complaints:queue' %}"><span class="nav-icon">📋</span>Complaints</a>
+  {% if user.profile.role == 'manager' %}
+  <a href="{% url 'dashboard:manager' %}"><span class="nav-icon">📊</span>Manager View</a>
+  <a href="{% url 'maintenance:audit' %}"><span class="nav-icon">📋</span>Audit Log</a>
+  {% endif %}
+</div>
+{% endblock %}
+
+{% block main %}
+<div class="portal-page-title">
+  <p>◆ &nbsp; R E C E P T I O N</p>
+  <h1>Today at <em>The Obsidian.</em></h1>
+</div>
+
+<div class="stats-row mb-4">
+  <div class="stat-card"><span class="stat-card-label">ARRIVALS</span><div class="stat-card-value">{{ arrivals|length }}</div><div class="stat-card-sub">Due in today</div></div>
+  <div class="stat-card"><span class="stat-card-label">DEPARTURES</span><div class="stat-card-value">{{ departures|length }}</div><div class="stat-card-sub">Checking out</div></div>
+  <div class="stat-card"><span class="stat-card-label">ROOMS</span><div class="stat-card-value">{{ rooms|length }}</div><div class="stat-card-sub">Total</div></div>
+  <div class="stat-card"><span class="stat-card-label">REQUESTS</span><div class="stat-card-value">{{ requests|length }}</div><div class="stat-card-sub">Awaiting action</div></div>
+</div>
+
+<div class="grid-2 mb-4">
+  <!-- Arrivals with balance to collect -->
+  <div class="card">
+    <div class="card-title">Today's Arrivals</div>
+    <div class="card-sub">{{ today }}</div>
+    {% for b in arrivals %}
+    <div class="reception-row">
+      <div>
+        <strong>{{ b.guest.get_full_name|default:b.guest.email }}</strong><br>
+        <span class="text-muted">{{ b.room.name }} · Room {{ b.room.room_number }}</span>
+      </div>
+      <div class="reception-row-right">
+        <span class="portal-role-badge">{{ b.get_status_display|upper }}</span>
+        <span class="text-sm">Balance: <span class="text-gold">£{{ b.balance_owed }}</span></span>
+        {# Check-in action — staff only, POST form #}
+        <form method="post" action="{% url 'dashboard:check_in' b.pk %}">
+          {% csrf_token %}
+          <button type="submit" class="btn btn-gold btn-sm">Check In</button>
+        </form>
+      </div>
+    </div>
+    {% empty %}<p class="text-muted">No arrivals today.</p>{% endfor %}
+  </div>
+
+  <!-- Departures with balance owed -->
+  <div class="card">
+    <div class="card-title">Today's Departures</div>
+    <div class="card-sub">Collect any outstanding balance</div>
+    {% for b in departures %}
+    <div class="reception-row">
+      <div>
+        <strong>{{ b.guest.get_full_name|default:b.guest.email }}</strong><br>
+        <span class="text-muted">{{ b.room.name }}</span>
+      </div>
+      <div class="reception-row-right">
+        <span class="text-sm">Owed: <span class="value owed">£{{ b.balance_owed }}</span></span>
+        {# Check-out action — staff only, POST form #}
+        <form method="post" action="{% url 'dashboard:check_out' b.pk %}">
+          {% csrf_token %}
+          <button type="submit" class="btn btn-outline btn-sm">Check Out</button>
+        </form>
+      </div>
+    </div>
+    {% empty %}<p class="text-muted">No departures today.</p>{% endfor %}
+  </div>
+</div>
+
+<!-- In-house guests: check anyone out, including early departures -->
+<div class="card mb-4">
+  <div class="card-title">In-House Guests</div>
+  <div class="card-sub">All checked-in guests — check out here, including early departures</div>
+  {% for b in in_house %}
+  <div class="reception-row">
+    <div>
+      <strong>{{ b.guest.get_full_name|default:b.guest.email }}</strong><br>
+      <span class="text-muted">{{ b.room.name }} · Room {{ b.room.room_number }} · due out {{ b.check_out }}</span>
+    </div>
+    <div class="reception-row-right">
+      {% if b.check_out > today %}<span class="text-sm text-gold">Early check-out</span>{% endif %}
+      {# Check-out action works regardless of the booked departure date. #}
+      <form method="post" action="{% url 'dashboard:check_out' b.pk %}">
+        {% csrf_token %}
+        <button type="submit" class="btn btn-outline btn-sm">Check Out</button>
+      </form>
+    </div>
+  </div>
+  {% empty %}<p class="text-muted">No guests currently checked in.</p>{% endfor %}
+</div>
+
+<!-- Room board -->
+<div class="portal-page-title"><h1 class="h-sm">Room <em>Board.</em></h1></div>
+<div class="legend">
+  <div class="legend-item"><div class="legend-dot legend-dot--vacant"></div>Vacant</div>
+  <div class="legend-item"><div class="legend-dot legend-dot--occupied"></div>Occupied</div>
+  <div class="legend-item"><div class="legend-dot legend-dot--booked"></div>Booked</div>
+  <div class="legend-item"><div class="legend-dot legend-dot--maintenance"></div>Maintenance</div>
+</div>
+<div class="grid-4">
+  {% for room in rooms %}
+  <div class="card room-tile room-tile--{{ room.status }}">
+    <div class="card-title room-num">{{ room.room_number }}</div>
+    <div class="text-muted">{{ room.name }}</div>
+    <div class="mt-1"><span class="portal-role-badge">{{ room.get_status_display|upper }}</span></div>
+    <div class="mt-1 text-sm">{% if room.is_clean %}<span class="value paid">✓ Clean</span>{% else %}<span class="value owed">⚠ Needs cleaning</span>{% endif %}</div>
+    {# Staff housekeeping actions — POST forms, role-protected views #}
+    <div class="room-tile-actions mt-2">
+      <form method="post" action="{% url 'dashboard:toggle_clean' room.pk %}">
+        {% csrf_token %}
+        <button type="submit" class="btn btn-ghost btn-xs">{% if room.is_clean %}Mark dirty{% else %}Mark clean{% endif %}</button>
+      </form>
+      <form method="post" action="{% url 'dashboard:toggle_maintenance' room.pk %}">
+        {% csrf_token %}
+        <button type="submit" class="btn btn-ghost btn-xs">{% if room.status == 'maintenance' %}Clear maint.{% else %}Maintenance{% endif %}</button>
+      </form>
+    </div>
+  </div>
+  {% endfor %}
+</div>
+
+<!-- Concierge requests needing action -->
+<div class="portal-page-title mt-4"><h1 class="h-sm">Requests <em>to action.</em></h1></div>
+{% for r in requests %}
+<div class="card mb-2">
+  <div class="flex justify-between items-center">
+    <div>
+      <strong>{{ r.get_request_type_display }}</strong> — {{ r.guest.get_full_name|default:r.guest.email }}<br>
+      <span class="text-muted">{{ r.detail }}</span><br>
+      <span class="text-sm">Status: {{ r.get_status_display }}</span>
+    </div>
+    <a href="{% url 'concierge:manage' r.pk %}" class="btn btn-gold btn-sm">Manage</a>
+  </div>
+</div>
+{% empty %}<p class="text-muted">No requests awaiting action.</p>{% endfor %}
+
+{# Staff relocations follow-up panel #}
+{% include 'dashboard/_relocations_panel.html' %}
+{% endblock %}

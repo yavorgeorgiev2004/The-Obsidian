@@ -1,0 +1,53 @@
+{% extends 'portal_base.html' %}
+{% load static %}
+{% block title %}Set Maintenance — The Obsidian{% endblock %}
+
+{% block sidebar %}
+<div class="portal-sidebar-section">
+  <a href="{% url 'dashboard:reception' %}"><span class="nav-icon">←</span>Back to Reception</a>
+  <a href="{% url 'maintenance:board' %}"><span class="nav-icon">🔧</span>Maintenance Board</a>
+</div>
+{% endblock %}
+
+{% block main %}
+<div class="portal-page-title">
+  <p>◆ &nbsp; M A I N T E N A N C E</p>
+  <h1>Take Room {{ room.room_number }} <em>out of service.</em></h1>
+</div>
+
+<div class="suggestion-banner">
+  Choose the issue type. The expected ready date is set automatically from the category and can be adjusted. The room is only blocked for this window — it stays bookable for later dates, and any bookings caught in the window are sent to relocation.
+</div>
+
+{# Category default days are carried as data attributes for the prefill script. #}
+<form method="post" id="maintenanceForm" data-today="{% now 'Y-m-d' %}">
+  {% csrf_token %}
+
+  <div class="form-group">
+    <label class="form-label">Issue Category</label>
+    <select name="category" class="form-control" id="categorySelect">
+      {% for cat in categories %}
+      <option value="{{ cat.value }}" data-days="{{ cat.days }}">{{ cat.label }}</option>
+      {% endfor %}
+    </select>
+  </div>
+
+  <div class="form-group">
+    <label class="form-label">Expected Ready Date</label>
+    <input type="date" name="expected_ready" class="form-control" id="expectedReady">
+    <p class="field-hint">Defaults from the category. Adjust if the repair will take longer or shorter.</p>
+  </div>
+
+  <div class="form-group">
+    <label class="form-label">Notes (optional)</label>
+    <textarea name="notes" class="form-control" rows="3" placeholder="Describe the issue…"></textarea>
+  </div>
+
+  <button type="submit" class="btn btn-gold w-full mt-2">Place Under Maintenance ◆</button>
+  <a href="{% url 'dashboard:reception' %}" class="btn btn-ghost w-full mt-2">Cancel</a>
+</form>
+{% endblock %}
+
+{% block extra_js %}
+<script src="{% static 'js/maintenance.js' %}"></script>
+{% endblock %}

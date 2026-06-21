@@ -1,0 +1,69 @@
+{% extends 'portal_base.html' %}
+{% load static %}
+{% block title %}Confirm Booking — The Obsidian{% endblock %}
+
+{% block sidebar %}
+<div class="portal-sidebar-section">
+  <span class="portal-sidebar-label">MY ACCOUNT</span>
+  <a href="{% url 'dashboard:guest' %}"><span class="nav-icon">🛏</span>My Bookings</a>
+  <a href="{% url 'bookings:search' %}" class="active"><span class="nav-icon">➕</span>New Booking</a>
+</div>
+{% endblock %}
+
+{% block main %}
+<div class="portal-page-title">
+  <p>◆ &nbsp; C O N F I R M &nbsp; & &nbsp; E N H A N C E</p>
+  <h1>Complete your <em>reservation.</em></h1>
+</div>
+
+<form method="post" action="{% url 'bookings:create' %}" id="bookingForm">
+  {% csrf_token %}
+  <!-- Carry the chosen dates and type through as hidden fields -->
+  <input type="hidden" name="check_in"  value="{{ check_in }}">
+  <input type="hidden" name="check_out" value="{{ check_out }}">
+  <input type="hidden" name="room_type" value="{{ room_type }}">
+  <input type="hidden" name="guests"    value="{{ guests }}">
+
+  <div class="card mb-3">
+    <div class="card-title">{{ room_preview.name }}</div>
+    <div class="card-sub">{{ check_in }} → {{ check_out }} · {{ nights }} night{{ nights|pluralize }} · {{ guests }} guest{{ guests|pluralize }}</div>
+    <p class="text-muted">£{{ room_preview.price_per_night|floatformat:0 }} per night · room total calculated at checkout</p>
+  </div>
+
+  <div class="form-group">
+    <label class="form-label">Special Requests</label>
+    <textarea name="special_requests" class="form-control" rows="3" placeholder="Dietary needs, accessibility, occasion details..."></textarea>
+  </div>
+
+  <hr class="divider">
+
+  <p class="card-title">Enhance your <em>stay.</em></p>
+  <p class="card-sub">Pre-order before arrival — everything ready when you walk in.</p>
+
+  <div class="grid-2" id="packageGrid">
+    {% for pkg in packages %}
+    <label class="pkg-select" data-price="{{ pkg.price }}">
+      <input type="checkbox" name="packages" value="{{ pkg.package_id }}">
+      <span class="pkg-check">✓</span>
+      <span class="pkg-select-icon">{{ pkg.icon }}</span>
+      <span>
+        <span class="pkg-select-name">{{ pkg.name }}</span>
+        <span class="pkg-select-desc">{{ pkg.description }}</span>
+        <span class="pkg-select-price">£{{ pkg.price|floatformat:0 }}</span>
+      </span>
+    </label>
+    {% endfor %}
+  </div>
+
+  <div class="live-total">
+    <span class="live-total-label">Packages selected total</span>
+    <span class="live-total-amount" id="liveTotal">£0</span>
+  </div>
+
+  <button type="submit" class="btn btn-gold w-full mt-3">Continue to Payment ◆</button>
+</form>
+{% endblock %}
+
+{% block extra_js %}
+<script src="{% static 'js/booking.js' %}"></script>
+{% endblock %}

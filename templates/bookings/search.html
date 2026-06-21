@@ -1,0 +1,50 @@
+{% extends 'portal_base.html' %}
+{% load static %}
+{% block title %}Book a Stay — The Obsidian{% endblock %}
+
+{% block sidebar %}
+<div class="portal-sidebar-section">
+  <span class="portal-sidebar-label">MY ACCOUNT</span>
+  <a href="{% url 'dashboard:guest' %}"><span class="nav-icon">🛏</span>My Bookings</a>
+  <a href="{% url 'bookings:search' %}" class="active"><span class="nav-icon">➕</span>New Booking</a>
+  <a href="{% url 'concierge:create' %}"><span class="nav-icon">🤫</span>Concierge</a>
+</div>
+{% endblock %}
+
+{% block main %}
+<div class="portal-page-title">
+  <p>◆ &nbsp; N E W &nbsp; B O O K I N G</p>
+  <h1>When would you like to <em>stay?</em></h1>
+</div>
+
+<div class="search-hero">
+  <form method="get" action="{% url 'bookings:gallery' %}" class="search-card">
+    <p class="card-sub">Choose your dates and we will show you every suite available.</p>
+    <div class="search-row">
+      <div class="form-group">
+        <label class="form-label">Check In</label>
+        <input type="date" name="check_in" value="{{ default_in }}" min="{{ default_in }}" class="form-control" required>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Check Out</label>
+        <input type="date" name="check_out" value="{{ default_out }}" min="{{ default_in }}" class="form-control" required>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Guests</label>
+        <select name="guests" class="form-control">
+          <option value="1">1 Guest</option>
+          <option value="2" selected>2 Guests</option>
+          <option value="3">3 Guests</option>
+          <option value="4">4 Guests</option>
+          <option value="6">6 Guests</option>
+        </select>
+      </div>
+    </div>
+    <button type="submit" class="btn-availability w-full">Check Availability ◆</button>
+  </form>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script src="{% static 'js/booking.js' %}"></script>
+{% endblock %}

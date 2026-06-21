@@ -1,0 +1,132 @@
+{% extends 'portal_base.html' %}
+{% block title %}My Account — The Obsidian{% endblock %}
+
+{% block sidebar %}
+<div class="portal-sidebar-section">
+  <span class="portal-sidebar-label">MY ACCOUNT</span>
+  <a href="{% url 'dashboard:guest' %}" class="active"><span class="nav-icon">🛏</span>My Bookings</a>
+  <a href="{% url 'bookings:search' %}"><span class="nav-icon">➕</span>New Booking</a>
+  <a href="{% url 'concierge:my_requests' %}"><span class="nav-icon">🤫</span>Concierge</a>
+  <a href="{% url 'complaints:my_complaints' %}"><span class="nav-icon">📋</span>Complaints</a>
+</div>
+<div class="portal-sidebar-section">
+  <span class="portal-sidebar-label">EXPLORE</span>
+  <a href="{% url 'rooms:list' %}"><span class="nav-icon">🏨</span>Rooms</a>
+  <a href="{% url 'packages:list' %}"><span class="nav-icon">✨</span>Packages</a>
+  <a href="{% url 'memberships:home' %}"><span class="nav-icon">◆</span>Membership</a>
+</div>
+{% endblock %}
+
+{% block main %}
+<div class="portal-page-title">
+  <p>◆ &nbsp; M Y &nbsp; A C C O U N T</p>
+  <h1>Your <em>reservations.</em></h1>
+</div>
+
+{# Alert the guest to any booking disrupted by maintenance that needs a decision #}
+{% for offer in pending_offers %}
+<div class="suggestion-banner mb-4">
+  <strong>Action needed:</strong> your booking BK{{ offer.booking.pk }} ({{ offer.original_room.name }}) is affected by maintenance.
+  <a href="{% url 'relocations:decide' offer.pk %}" class="text-gold">Choose how to proceed →</a>
+</div>
+{% endfor %}
+
+<div class="stats-row mb-4">
+  <div class="stat-card">
+    <span class="stat-card-label">DIAMOND POINTS</span>
+    <div class="stat-card-value">{{ profile.loyalty_points }}</div>
+    <div class="stat-card-sub">◆ {{ profile.get_loyalty_tier_display }} Member</div>
+  </div>
+  <div class="stat-card">
+    <span class="stat-card-label">BOOKINGS</span>
+    <div class="stat-card-value">{{ bookings|length }}</div>
+    <div class="stat-card-sub">Active reservations</div>
+  </div>
+  <div class="stat-card">
+    <span class="stat-card-label">POINTS VALUE</span>
+    <div class="stat-card-value stat-card-value--sm">£{{ profile.loyalty_points|floatformat:0 }}</div>
+    <div class="stat-card-sub">1,000 pts = £10</div>
+  </div>
+  <div class="stat-card">
+    <span class="stat-card-label">ACCOUNT CREDIT</span>
+    <div class="stat-card-value stat-card-value--sm">£{{ profile.credit_balance }}</div>
+    <div class="stat-card-sub">Applied to future bookings</div>
+  </div>
+  <div class="stat-card">
+    <span class="stat-card-label">TIER</span>
+    <div class="stat-card-value text-gold stat-card-value--sm">◆ {{ profile.get_loyalty_tier_display|upper }}</div>
+    <div class="stat-card-sub">Diamond Circle</div>
+  </div>
+</div>
+
+{# Note explaining how credit and any cash back works. #}
+{% if profile.credit_balance > 0 %}
+<div class="suggestion-banner mb-4">
+  You hold <strong>£{{ profile.credit_balance }}</strong> in account credit. It is applied automatically to your next booking. If you would prefer this returned as cash, please speak to our front desk during your stay — refunds are handled in person at the hotel.
+</div>
+{% endif %}
+
+{% for b in bookings %}
+<div class="card mb-2 {% if b.status == 'cancelled' %}booking-cancelled{% endif %}">
+  {% if b.status == 'cancelled' %}<span class="cancelled-stamp">CANCELLED</span>{% endif %}
+  <div class="flex justify-between items-center mb-2">
+    <div>
+      <div class="text-gold text-sm">◆ BK{{ b.pk }}</div>
+      <div class="card-title">{{ b.room.name }} — Room {{ b.room.room_number }}</div>
+    </div>
+    <span class="portal-role-badge">{{ b.get_status_display|upper }}</span>
+  </div>
+  <div class="grid-4 mb-2">
+    <div><span class="text-muted">CHECK IN</span><br>{{ b.check_in }}</div>
+    <div><span class="text-muted">CHECK OUT</span><br>{{ b.check_out }}</div>
+    <div><span class="text-muted">NIGHTS</span><br>{{ b.nights }}</div>
+    <div><span class="text-muted">GUESTS</span><br>{{ b.guests_count }}</div>
+  </div>
+
+  {% if b.packages.all %}
+  <div class="mb-2">
+    {% for p in b.packages.all %}<span class="pkg-tag">{{ p.icon }} {{ p.name }}</span>{% endfor %}
+  </div>
+  {% endif %}
+
+  <!-- Full payment breakdown for the guest -->
+  <div class="payment-box">
+    <div class="payment-row"><span class="label">Grand total</span><span class="value gold">£{{ b.grand_total }}</span></div>
+    <div class="payment-row"><span class="label">Deposit (25%)</span><span class="value">£{{ b.deposit_amount }}</span></div>
+    <div class="payment-row"><span class="label">Amount paid</span><span class="value paid">£{{ b.amount_paid }}</span></div>
+    <div class="payment-row total"><span class="label">Balance due at hotel</span><span class="value owed">£{{ b.balance_owed }}</span></div>
+    {# Show payment state by what is actually due, not just the deposit flag. #}
+    {% if not b.needs_payment %}
+      {% if b.is_fully_paid %}
+        <span class="payment-status paid">✓ PAID IN FULL</span>
+      {% else %}
+        <span class="payment-status paid">✓ DEPOSIT SECURED</span>
+      {% endif %}
+    {% else %}
+      <span class="payment-status unpaid">AWAITING DEPOSIT</span>
+    {% endif %}
+  </div>
+
+  {# Only offer payment when a deposit is genuinely still due, which also avoids a zero charge. #}
+  {% if b.needs_payment and b.status != 'cancelled' %}
+  <div class="mt-2">
+    <a href="{% url 'bookings:pay_deposit' b.pk %}" class="btn btn-gold btn-sm">Pay Deposit Now ◆</a>
+    <p class="field-hint mt-1">This booking is held but not confirmed until the deposit is paid.</p>
+  </div>
+  {% elif b.status == 'confirmed' and not b.is_fully_paid %}
+  <p class="field-hint mt-2">◆ Secured. Your remaining balance of £{{ b.balance_owed }} is payable at the hotel.</p>
+  {% endif %}
+
+  {% if b.special_requests %}<p class="text-muted mt-2">📝 {{ b.special_requests }}</p>{% endif %}
+
+  {% if b.status != 'cancelled' and b.status != 'checked-out' %}
+  <div class="flex gap-1 mt-2">
+    <a href="{% url 'bookings:edit' b.pk %}" class="btn btn-outline btn-sm">Edit Booking</a>
+    <a href="{% url 'bookings:cancel' b.pk %}" class="btn btn-danger btn-sm">Cancel</a>
+  </div>
+  {% endif %}
+</div>
+{% empty %}
+<div class="alert alert-info">You have no bookings yet. <a href="{% url 'bookings:search' %}" class="text-gold">Make your first reservation →</a></div>
+{% endfor %}
+{% endblock %}

@@ -1,0 +1,25 @@
+{% extends 'portal_base.html' %}
+{% load static %}
+{% block title %}Join — The Obsidian{% endblock %}
+{% block sidebar %}
+<div class="portal-sidebar-section">
+  <a href="{% url 'memberships:home' %}"><span class="nav-icon">←</span>Back to Membership</a>
+</div>
+{% endblock %}
+{% block main %}
+<div class="portal-page-title">
+  <p>◆ &nbsp; {% if is_renewal %}R E N E W{% else %}J O I N{% endif %}</p>
+  <h1>{{ tier_label }} <em>Membership.</em></h1>
+</div>
+<div class="payment-box">
+  <div class="payment-row"><span class="label">Tier</span><span class="value">{{ tier_label }}</span></div>
+  <div class="payment-row"><span class="label">Benefit</span><span class="value gold">{{ discount }}% off room rates</span></div>
+  <div class="payment-row"><span class="label">Term</span><span class="value">One year (no auto-renewal)</span></div>
+  <div class="payment-row total"><span class="label">Total today</span><span class="value gold">£{{ price|floatformat:0 }}</span></div>
+</div>
+<form method="post">
+  {% csrf_token %}
+  <button type="submit" class="btn btn-gold w-full mt-3">Confirm & Pay £{{ price|floatformat:0 }} ◆</button>
+  <a href="{% url 'memberships:home' %}" class="btn btn-ghost w-full mt-2">Cancel</a>
+</form>
+{% endblock %}

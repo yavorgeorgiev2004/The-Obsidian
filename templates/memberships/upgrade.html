@@ -1,0 +1,27 @@
+{% extends 'portal_base.html' %}
+{% load static %}
+{% block title %}Upgrade — The Obsidian{% endblock %}
+{% block sidebar %}
+<div class="portal-sidebar-section">
+  <a href="{% url 'memberships:home' %}"><span class="nav-icon">←</span>Back to Membership</a>
+</div>
+{% endblock %}
+{% block main %}
+<div class="portal-page-title">
+  <p>◆ &nbsp; U P G R A D E</p>
+  <h1>Upgrade to <em>{{ tier_label }}.</em></h1>
+</div>
+<div class="suggestion-banner">
+  You pay only the prorated difference for the time remaining on your membership ({{ days_remaining }} days). Your expiry date stays the same; your higher benefits apply immediately.
+</div>
+<div class="payment-box">
+  <div class="payment-row"><span class="label">Upgrade to</span><span class="value">{{ tier_label }}</span></div>
+  <div class="payment-row"><span class="label">Days remaining</span><span class="value">{{ days_remaining }}</span></div>
+  <div class="payment-row total"><span class="label">Prorated cost</span><span class="value gold">£{{ cost }}</span></div>
+</div>
+<form method="post">
+  {% csrf_token %}
+  <button type="submit" class="btn btn-gold w-full mt-3">Confirm Upgrade — £{{ cost }} ◆</button>
+  <a href="{% url 'memberships:home' %}" class="btn btn-ghost w-full mt-2">Cancel</a>
+</form>
+{% endblock %}

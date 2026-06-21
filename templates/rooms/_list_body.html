@@ -1,0 +1,56 @@
+{% load static %}
+{# Shared rooms-list body, grouped by type with availability, in either shell. #}
+<div class="room-list-wrap">
+  <p class="page-label">◆ &nbsp; R O O M S &nbsp; & &nbsp; S U I T E S</p>
+  <h2 class="page-title-lg">Choose your <em>sanctuary.</em></h2>
+
+  <form method="get" class="date-filter" id="roomDateFilter">
+    <div>
+      <label>CHECK IN</label>
+      <input type="date" name="check_in" id="roomCheckIn" value="{{ default_in }}">
+    </div>
+    <div>
+      <label>CHECK OUT</label>
+      <input type="date" name="check_out" id="roomCheckOut" value="{{ default_out }}">
+    </div>
+    <button type="submit" class="btn-availability">Check Availability</button>
+  </form>
+
+  {% if date_error %}<p class="filter-note filter-note--error">◆ {{ date_error }}</p>{% endif %}
+  {% if filtered %}<p class="filter-note">◆ Showing availability for your dates</p>{% endif %}
+
+  <div class="room-type-grid">
+    {% for rt in room_types %}
+    <div class="room-type-card room-type-card--{{ rt.type }}">
+      {# Decorative panel header — styled gradient, consistent with the site #}
+      <div class="room-type-card-banner"><span class="room-type-card-diamond">◆</span></div>
+
+      <div class="room-type-card-body">
+        <h3>{{ rt.name }}</h3>
+        <div class="room-divider">◆ ————</div>
+        <p class="room-type-card-meta">Sleeps {{ rt.max_guests }}{% if rt.description %} · {{ rt.description|truncatewords:12 }}{% endif %}</p>
+
+        {# Availability label driven by the live count #}
+        {% if rt.status == 'full' %}
+          <p class="room-type-availability full">Fully booked for these dates</p>
+        {% elif rt.status == 'last-one' %}
+          <p class="room-type-availability last">◆ Only 1 left</p>
+        {% else %}
+          <p class="room-type-availability ok">◆ {{ rt.available }} of {{ rt.total }} available</p>
+        {% endif %}
+
+        <div class="room-type-card-footer">
+          <span class="room-price">From <strong>£{{ rt.price|floatformat:0 }}</strong> / night</span>
+          {% if rt.status == 'full' %}
+            <span class="btn-gold-sm btn-disabled">Unavailable</span>
+          {% else %}
+            <a href="{% url 'bookings:search' %}" class="btn-gold-sm">Reserve</a>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+    {% empty %}
+    <p class="text-muted">No rooms to display.</p>
+    {% endfor %}
+  </div>
+</div>

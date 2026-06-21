@@ -1,0 +1,47 @@
+{% extends 'portal_base.html' %}
+{% load static %}
+{% block title %}Handle Complaint — The Obsidian{% endblock %}
+{% block sidebar %}
+<div class="portal-sidebar-section">
+  <a href="{% url 'complaints:queue' %}"><span class="nav-icon">←</span>Back to Queue</a>
+</div>
+{% endblock %}
+{% block main %}
+<div class="portal-page-title">
+  <p>◆ &nbsp; H A N D L E &nbsp; C O M P L A I N T</p>
+  <h1>{{ complaint.get_category_display }}</h1>
+</div>
+<div class="card mb-2">
+  <p class="text-muted">From {{ complaint.guest.get_full_name|default:complaint.guest.email }}</p>
+  <p>{{ complaint.detail }}</p>
+  {% if complaint.booking %}<p class="text-sm">Booking BK{{ complaint.booking.pk }}</p>{% endif %}
+  <p class="text-sm text-muted">Current status: {{ complaint.get_status_display }}</p>
+</div>
+
+{% if complaint.status == 'open' %}
+<form method="post" class="mb-2">
+  {% csrf_token %}
+  <input type="hidden" name="action" value="progress">
+  <button type="submit" class="btn btn-outline">Mark In Progress</button>
+</form>
+{% endif %}
+
+<form method="post">
+  {% csrf_token %}
+  <input type="hidden" name="action" value="resolve">
+  <div class="form-group">
+    <label class="form-label">Resolution</label>
+    <textarea name="resolution" class="form-control" rows="4" placeholder="Describe how this was resolved..."></textarea>
+  </div>
+  {% if is_manager %}
+  <div class="form-group">
+    <label class="form-label">Account credit to award (optional, £)</label>
+    <input type="number" name="credit_awarded" class="form-control" min="0" step="0.01" placeholder="0.00">
+    <p class="field-hint">As a manager, you may award account credit as compensation.</p>
+  </div>
+  {% else %}
+  <p class="field-hint">Only a manager can award account credit on a complaint.</p>
+  {% endif %}
+  <button type="submit" class="btn btn-gold w-full mt-2">Resolve Complaint ◆</button>
+</form>
+{% endblock %}

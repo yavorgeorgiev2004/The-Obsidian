@@ -1,0 +1,35 @@
+{% load static %}
+{% comment %}
+Staff relocations follow-up panel. Lists offers so staff can chase
+guests who have not yet decided, and record decisions taken by phone.
+{% endcomment %}
+<div class="portal-page-title mt-4"><h1 class="h-sm">Relocations <em>follow-up.</em></h1></div>
+
+{% for offer in relocations %}
+<div class="card mb-2">
+  <div class="flex justify-between items-center mb-1">
+    <strong>BK{{ offer.booking.pk }} — {{ offer.guest.get_full_name|default:offer.guest.email }}</strong>
+    {% if offer.status == 'pending' %}
+      <span class="payment-status unpaid">AWAITING GUEST</span>
+    {% else %}
+      <span class="payment-status paid">RESOLVED — {{ offer.guest_choice|upper }}</span>
+    {% endif %}
+  </div>
+  <p class="text-muted">
+    {{ offer.get_resolution_display }} · {{ offer.original_room.name }}
+    {% if offer.new_room %}→ {{ offer.new_room.name }}{% endif %}
+    · {{ offer.booking.check_in }} → {{ offer.booking.check_out }}
+    {% if offer.bonus_credit %}· bonus £{{ offer.bonus_credit }}{% endif %}
+  </p>
+
+  {% if offer.status == 'pending' %}
+    {# Show the guest's email so staff can contact them to follow up #}
+    <p class="text-sm">Contact guest: <a href="mailto:{{ offer.guest.email }}" class="text-gold">{{ offer.guest.email }}</a></p>
+    {% if offer.needs_guest_decision %}
+    <a href="{% url 'relocations:staff_record' offer.pk %}" class="btn btn-outline btn-sm mt-1">Record guest's decision</a>
+    {% endif %}
+  {% endif %}
+</div>
+{% empty %}
+<p class="text-muted">No relocations to follow up.</p>
+{% endfor %}

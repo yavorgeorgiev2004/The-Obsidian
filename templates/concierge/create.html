@@ -1,0 +1,34 @@
+{% extends 'portal_base.html' %}
+{% block title %}Concierge — The Obsidian{% endblock %}
+{% block sidebar %}
+<div class="portal-sidebar-section">
+  <span class="portal-sidebar-label">MY ACCOUNT</span>
+  <a href="{% url 'dashboard:guest' %}"><span class="nav-icon">🛏</span>My Bookings</a>
+  <a href="{% url 'concierge:my_requests' %}"><span class="nav-icon">📋</span>My Requests</a>
+  <a href="{% url 'concierge:create' %}" class="active"><span class="nav-icon">🤫</span>New Request</a>
+</div>
+{% endblock %}
+{% block main %}
+<div class="portal-page-title">
+  <p>◆ &nbsp; T H E &nbsp; S I L E N T &nbsp; C O N C I E R G E</p>
+  <h1>Nothing is <em>too much to ask.</em></h1>
+</div>
+<form method="post" class="card card--form">
+  {% csrf_token %}
+  <div class="form-group">
+    <label class="form-label">Request Type</label>
+    {{ form.request_type }}
+  </div>
+  <div class="form-group">
+    <label class="form-label">Your Request</label>
+    {{ form.detail }}
+    {% if form.detail.errors %}<span class="field-error">{{ form.detail.errors.0 }}</span>{% endif %}
+  </div>
+  <div class="form-group">
+    <label class="form-label">Preferred Date & Time</label>
+    {{ form.requested_time }}
+    <span class="field-hint">We will confirm this time or suggest an alternative.</span>
+  </div>
+  <button type="submit" class="btn btn-gold w-full">Submit Request ◆</button>
+</form>
+{% endblock %}
