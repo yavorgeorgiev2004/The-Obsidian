@@ -588,7 +588,7 @@ The items below are known and understood. Some are infrastructural limitations t
 
 - **Membership has no enforced paywall on the deployed build.** The membership join and upgrade flow is built to take a Stripe card payment before activating, but on the submitted build the payment step is not reliably enforcing before the membership becomes active. There was not time to fully resolve and re-verify the membership payment gate before submission. Account credit is correctly excluded from buying membership, and the tier, discount, expiry and prorated-upgrade logic all work; the outstanding issue is solely the enforcement of the card payment step.
 
-- A custom **404 page** that redirects to the homepage would satisfy the distinction guidance on invalid-page handling and is a recommended future addition.
+
 
 ---
 ## 12. Deployment
