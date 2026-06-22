@@ -22,7 +22,7 @@ The deployed application can be found here: **[https://web-production-b1210.up.r
 8. [Security](#8-security)
 9. [Testing](#9-testing)
 10. [Validation](#10-validation)
-11. [Bugs](#11-bugs)
+11. [Bugs](#11-bugs-and-fixes)
 12. [Deployment](#12-deployment)
 13. [How to Use the Application](#13-how-to-use-the-application)
 14. [Technologies Used](#14-technologies-used)
