@@ -93,24 +93,43 @@ The application is fully responsive. CSS breakpoints at 1100px, 900px, 700px and
 
 ## 4. Wireframes
 
-Wireframes were produced for every key screen in both desktop and mobile layouts, to plan the structure before styling and to confirm the responsive behaviour was intentional. Each is provided as an individual PDF in `docs/wireframes/`:
+Wireframes were produced for every key screen in both desktop and mobile layouts, to plan the structure before styling and to confirm the responsive behaviour was intentional. Each shows the screen at desktop and mobile widths, reflecting the decision to optimise the guest journey for mobile while the staff dashboards are laid out primarily for desktop.
 
-| Screen | Wireframe |
-|---|---|
-| Homepage | [wireframe_homepage.pdf](docs/wireframes/wireframe_homepage.pdf) |
-| Login & Register | [wireframe_login_register.pdf](docs/wireframes/wireframe_login_register.pdf) |
-| Booking · Search Dates | [wireframe_booking_search.pdf](docs/wireframes/wireframe_booking_search.pdf) |
-| Booking · Room Gallery | [wireframe_booking_gallery.pdf](docs/wireframes/wireframe_booking_gallery.pdf) |
-| Booking · Checkout | [wireframe_booking_checkout.pdf](docs/wireframes/wireframe_booking_checkout.pdf) |
-| Guest Dashboard | [wireframe_guest_dashboard.pdf](docs/wireframes/wireframe_guest_dashboard.pdf) |
-| Reception Dashboard | [wireframe_reception_dashboard.pdf](docs/wireframes/wireframe_reception_dashboard.pdf) |
-| Manager Dashboard | [wireframe_manager_dashboard.pdf](docs/wireframes/wireframe_manager_dashboard.pdf) |
-| Membership | [wireframe_membership.pdf](docs/wireframes/wireframe_membership.pdf) |
-| Concierge | [wireframe_concierge.pdf](docs/wireframes/wireframe_concierge.pdf) |
-| Complaints | [wireframe_complaints.pdf](docs/wireframes/wireframe_complaints.pdf) |
-| Maintenance Board | [wireframe_maintenance_board.pdf](docs/wireframes/wireframe_maintenance_board.pdf) |
+### Homepage
+![Homepage wireframe](docs/wireframes/wireframe_homepage.png)
 
-Each wireframe shows the screen at desktop and mobile widths, reflecting the design decision to optimise the guest journey for mobile while the staff dashboards are laid out primarily for desktop.
+### Login & Register
+![Login and register wireframe](docs/wireframes/wireframe_login_register.png)
+
+### Booking — Search Dates
+![Booking search wireframe](docs/wireframes/wireframe_booking_search.png)
+
+### Booking — Room Gallery
+![Booking gallery wireframe](docs/wireframes/wireframe_booking_gallery.png)
+
+### Booking — Checkout
+![Booking checkout wireframe](docs/wireframes/wireframe_booking_checkout.png)
+
+### Guest Dashboard
+![Guest dashboard wireframe](docs/wireframes/wireframe_guest_dashboard.png)
+
+### Reception Dashboard
+![Reception dashboard wireframe](docs/wireframes/wireframe_reception_dashboard.png)
+
+### Manager Dashboard
+![Manager dashboard wireframe](docs/wireframes/wireframe_manager_dashboard.png)
+
+### Membership
+![Membership wireframe](docs/wireframes/wireframe_membership.png)
+
+### Concierge
+![Concierge wireframe](docs/wireframes/wireframe_concierge.png)
+
+### Complaints
+![Complaints wireframe](docs/wireframes/wireframe_complaints.png)
+
+### Maintenance Board
+![Maintenance board wireframe](docs/wireframes/wireframe_maintenance_board.png)
 
 ---
 
