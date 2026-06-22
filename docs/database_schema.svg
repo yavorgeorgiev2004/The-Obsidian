@@ -1,0 +1,381 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1500" height="1640" viewBox="0 0 1500 1640">
+<rect width="1500" height="1640" fill="#0d1117"/>
+<defs><marker id="arrow_2ea043" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8,3 L0,6 z" fill="#2ea043"/></marker></defs>
+<defs><marker id="arrow_da3633" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8,3 L0,6 z" fill="#da3633"/></marker></defs>
+<defs><marker id="arrow_6e7681" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8,3 L0,6 z" fill="#6e7681"/></marker></defs>
+<text x="750.0" y="42" font-family="Georgia,serif" font-size="26" font-weight="bold" fill="#c9a84c" text-anchor="middle">The Obsidian — Database Schema</text>
+<text x="750.0" y="64" font-family="Helvetica,Arial" font-size="13" fill="#8b949e" text-anchor="middle">PostgreSQL · Django ORM · 13 tables · 12 custom models</text>
+<rect x="610" y="90" width="240" height="242" rx="7" fill="#161b22" stroke="#30363d" stroke-width="1.5"/>
+<path d="M610,97 q0,-7 7,-7 h226 q7,0 7,7 v27 h-240 z" fill="#5a4fcf"/>
+<text x="730.0" y="112" font-family="Helvetica,Arial" font-size="14" font-weight="bold" fill="#ffffff" text-anchor="middle">auth_user  (Django built-in)</text>
+<text x="622" y="141" font-family="Helvetica,Arial" font-size="12.5" fill="#c9d1d9">id</text>
+<text x="810" y="141" font-family="Helvetica,Arial" font-size="10.5" fill="#6e7681" text-anchor="end">INT</text>
+<rect x="814" y="129" width="26" height="15" rx="3" fill="#b8860b"/>
+<text x="827" y="140" font-family="Helvetica,Arial" font-size="9" font-weight="bold" fill="#fff" text-anchor="middle">PK</text>
+<line x1="610" y1="150" x2="850" y2="150" stroke="#30363d" stroke-width="0.6"/>
+<text x="622" y="167" font-family="Helvetica,Arial" font-size="12.5" fill="#c9d1d9">username</text>
+<text x="836" y="167" font-family="Helvetica,Arial" font-size="10.5" fill="#6e7681" text-anchor="end">VARCHAR</text>
+<line x1="610" y1="176" x2="850" y2="176" stroke="#30363d" stroke-width="0.6"/>
+<text x="622" y="193" font-family="Helvetica,Arial" font-size="12.5" fill="#c9d1d9">email</text>
+<text x="836" y="193" font-family="Helvetica,Arial" font-size="10.5" fill="#6e7681" text-anchor="end">VARCHAR</text>
+<line x1="610" y1="202" x2="850" y2="202" stroke="#30363d" stroke-width="0.6"/>
+<text x="622" y="219" font-family="Helvetica,Arial" font-size="12.5" fill="#c9d1d9">password</text>
+<text x="836" y="219" font-family="Helvetica,Arial" font-size="10.5" fill="#6e7681" text-anchor="end">VARCHAR</text>
+<line x1="610" y1="228" x2="850" y2="228" stroke="#30363d" stroke-width="0.6"/>
+<text x="622" y="245" font-family="Helvetica,Arial" font-size="12.5" fill="#c9d1d9">first_name</text>
+<text x="836" y="245" font-family="Helvetica,Arial" font-size="10.5" fill="#6e7681" text-anchor="end">VARCHAR</text>
+<line x1="610" y1="254" x2="850" y2="254" stroke="#30363d" stroke-width="0.6"/>
+<text x="622" y="271" font-family="Helvetica,Arial" font-size="12.5" fill="#c9d1d9">last_name</text>
+<text x="836" y="271" font-family="Helvetica,Arial" font-size="10.5" fill="#6e7681" text-anchor="end">VARCHAR</text>
+<line x1="610" y1="280" x2="850" y2="280" stroke="#30363d" stroke-width="0.6"/>
+<text x="622" y="297" font-family="Helvetica,Arial" font-size="12.5" fill="#c9d1d9">is_staff</text>
+<text x="836" y="297" font-family="Helvetica,Arial" font-size="10.5" fill="#6e7681" text-anchor="end">BOOL</text>
+<line x1="610" y1="306" x2="850" y2="306" stroke="#30363d" stroke-width="0.6"/>
+<text x="622" y="323" font-family="Helvetica,Arial" font-size="12.5" fill="#c9d1d9">date_joined</text>
+<text x="836" y="323" font-family="Helvetica,Arial" font-size="10.5" fill="#6e7681" text-anchor="end">DATETIME</text>
+<rect x="60" y="150" width="240" height="216" rx="7" fill="#161b22" stroke="#30363d" stroke-width="1.5"/>
+<path d="M60,157 q0,-7 7,-7 h226 q7,0 7,7 v27 h-240 z" fill="#2ea043"/>
+<text x="180.0" y="172" font-family="Helvetica,Arial" font-size="14" font-weight="bold" fill="#ffffff" text-anchor="middle">accounts_userprofile</text>
+<text x="72" y="201" font-family="Helvetica,Arial" font-size="12.5" fill="#c9d1d9">id</text>
+<text x="260" y="201" font-family="Helvetica,Arial" font-size="10.5" fill="#6e7681" text-anchor="end">INT</text>
+<rect x="264" y="189" width="26" height="15" rx="3" fill="#b8860b"/>
+<text x="277" y="200" font-family="Helvetica,Arial" font-size="9" font-weight="bold" fill="#fff" text-anchor="middle">PK</text>
+<line x1="60" y1="210" x2="300" y2="210" stroke="#30363d" stroke-width="0.6"/>
+<text x="72" y="227" font-family="Helvetica,Arial" font-size="12.5" fill="#c9d1d9">user_id</text>
+<text x="260" y="227" font-family="Helvetica,Arial" font-size="10.5" fill="#6e7681" text-anchor="end">INT</text>
+<rect x="264" y="215" width="26" height="15" rx="3" fill="#1f6feb"/>
+<text x="277" y="226" font-family="Helvetica,Arial" font-size="9" font-weight="bold" fill="#fff" text-anchor="middle">FK</text>
+<line x1="60" y1="236" x2="300" y2="236" stroke="#30363d" stroke-width="0.6"/>
+<text x="72" y="253" font-family="Helvetica,Arial" font-size="12.5" fill="#c9d1d9">role</text>
+<text x="286" y="253" font-family="Helvetica,Arial" font-size="10.5" fill="#6e7681" text-anchor="end">VARCHAR</text>
+<line x1="60" y1="262" x2="300" y2="262" stroke="#30363d" stroke-width="0.6"/>
+<text x="72" y="279" font-family="Helvetica,Arial" font-size="12.5" fill="#c9d1d9">phone</text>
+<text x="286" y="279" font-family="Helvetica,Arial" font-size="10.5" fill="#6e7681" text-anchor="end">VARCHAR</text>
+<line x1="60" y1="288" x2="300" y2="288" stroke="#30363d" stroke-width="0.6"/>
+<text x="72" y="305" font-family="Helvetica,Arial" font-size="12.5" fill="#c9d1d9">loyalty_points</text>
+<text x="286" y="305" font-family="Helvetica,Arial" font-size="10.5" fill="#6e7681" text-anchor="end">INT</text>
+<line x1="60" y1="314" x2="300" y2="314" stroke="#30363d" stroke-width="0.6"/>
+<text x="72" y="331" font-family="Helvetica,Arial" font-size="12.5" fill="#c9d1d9">loyalty_tier</text>
+<text x="286" y="331" font-family="Helvetica,Arial" font-size="10.5" fill="#6e7681" text-anchor="end">VARCHAR</text>
+<line x1="60" y1="340" x2="300" y2="340" stroke="#30363d" stroke-width="0.6"/>
+<text x="72" y="357" font-family="Helvetica,Arial" font-size="12.5" fill="#c9d1d9">credit_balance</text>
+<text x="286" y="357" font-family="Helvetica,Arial" font-size="10.5" fill="#6e7681" text-anchor="end">DECIMAL</text>
+<rect x="60" y="400" width="240" height="164" rx="7" fill="#161b22" stroke="#30363d" stroke-width="1.5"/>
+<path d="M60,407 q0,-7 7,-7 h226 q7,0 7,7 v27 h-240 z" fill="#2ea043"/>
+<text x="180.0" y="422" font-family="Helvetica,Arial" font-size="14" font-weight="bold" fill="#ffffff" text-anchor="middle">memberships_membership</text>
+<text x="72" y="451" font-family="Helvetica,Arial" font-size="12.5" fill="#c9d1d9">id</text>
+<text x="260" y="451" font-family="Helvetica,Arial" font-size="10.5" fill="#6e7681" text-anchor="end">INT</text>
+<rect x="264" y="439" width="26" height="15" rx="3" fill="#b8860b"/>
+<text x="277" y="450" font-family="Helvetica,Arial" font-size="9" font-weight="bold" fill="#fff" text-anchor="middle">PK</text>
+<line x1="60" y1="460" x2="300" y2="460" stroke="#30363d" stroke-width="0.6"/>
+<text x="72" y="477" font-family="Helvetica,Arial" font-size="12.5" fill="#c9d1d9">member_id</text>
+<text x="260" y="477" font-family="Helvetica,Arial" font-size="10.5" fill="#6e7681" text-anchor="end">INT</text>
+<rect x="264" y="465" width="26" height="15" rx="3" fill="#1f6feb"/>
+<text x="277" y="476" font-family="Helvetica,Arial" font-size="9" font-weight="bold" fill="#fff" text-anchor="middle">FK</text>
+<line x1="60" y1="486" x2="300" y2="486" stroke="#30363d" stroke-width="0.6"/>
+<text x="72" y="503" font-family="Helvetica,Arial" font-size="12.5" fill="#c9d1d9">tier</text>
+<text x="286" y="503" font-family="Helvetica,Arial" font-size="10.5" fill="#6e7681" text-anchor="end">VARCHAR</text>
+<line x1="60" y1="512" x2="300" y2="512" stroke="#30363d" stroke-width="0.6"/>
+<text x="72" y="529" font-family="Helvetica,Arial" font-size="12.5" fill="#c9d1d9">started_at</text>
+<text x="286" y="529" font-family="Helvetica,Arial" font-size="10.5" fill="#6e7681" text-anchor="end">DATE</text>
+<line x1="60" y1="538" x2="300" y2="538" stroke="#30363d" stroke-width="0.6"/>
+<text x="72" y="555" font-family="Helvetica,Arial" font-size="12.5" fill="#c9d1d9">expires_at</text>
+<text x="286" y="555" font-family="Helvetica,Arial" font-size="10.5" fill="#6e7681" text-anchor="end">DATE</text>
+<rect x="1180" y="150" width="240" height="242" rx="7" fill="#161b22" stroke="#30363d" stroke-width="1.5"/>
+<path d="M1180,157 q0,-7 7,-7 h226 q7,0 7,7 v27 h-240 z" fill="#3d444d"/>
+<text x="1300.0" y="172" font-family="Helvetica,Arial" font-size="14" font-weight="bold" fill="#ffffff" text-anchor="middle">rooms_room</text>
+<text x="1192" y="201" font-family="Helvetica,Arial" font-size="12.5" fill="#c9d1d9">id</text>
+<text x="1380" y="201" font-family="Helvetica,Arial" font-size="10.5" fill="#6e7681" text-anchor="end">INT</text>
+<rect x="1384" y="189" width="26" height="15" rx="3" fill="#b8860b"/>
+<text x="1397" y="200" font-family="Helvetica,Arial" font-size="9" font-weight="bold" fill="#fff" text-anchor="middle">PK</text>
+<line x1="1180" y1="210" x2="1420" y2="210" stroke="#30363d" stroke-width="0.6"/>
+<text x="1192" y="227" font-family="Helvetica,Arial" font-size="12.5" fill="#c9d1d9">room_number</text>
+<text x="1406" y="227" font-family="Helvetica,Arial" font-size="10.5" fill="#6e7681" text-anchor="end">VARCHAR</text>
+<line x1="1180" y1="236" x2="1420" y2="236" stroke="#30363d" stroke-width="0.6"/>
+<text x="1192" y="253" font-family="Helvetica,Arial" font-size="12.5" fill="#c9d1d9">name</text>
+<text x="1406" y="253" font-family="Helvetica,Arial" font-size="10.5" fill="#6e7681" text-anchor="end">VARCHAR</text>
+<line x1="1180" y1="262" x2="1420" y2="262" stroke="#30363d" stroke-width="0.6"/>
+<text x="1192" y="279" font-family="Helvetica,Arial" font-size="12.5" fill="#c9d1d9">room_type</text>
+<text x="1406" y="279" font-family="Helvetica,Arial" font-size="10.5" fill="#6e7681" text-anchor="end">VARCHAR</text>
+<line x1="1180" y1="288" x2="1420" y2="288" stroke="#30363d" stroke-width="0.6"/>
+<text x="1192" y="305" font-family="Helvetica,Arial" font-size="12.5" fill="#c9d1d9">price_per_night</text>
+<text x="1406" y="305" font-family="Helvetica,Arial" font-size="10.5" fill="#6e7681" text-anchor="end">DECIMAL</text>
+<line x1="1180" y1="314" x2="1420" y2="314" stroke="#30363d" stroke-width="0.6"/>
+<text x="1192" y="331" font-family="Helvetica,Arial" font-size="12.5" fill="#c9d1d9">status</text>
+<text x="1406" y="331" font-family="Helvetica,Arial" font-size="10.5" fill="#6e7681" text-anchor="end">VARCHAR</text>
+<line x1="1180" y1="340" x2="1420" y2="340" stroke="#30363d" stroke-width="0.6"/>
+<text x="1192" y="357" font-family="Helvetica,Arial" font-size="12.5" fill="#c9d1d9">is_clean</text>
+<text x="1406" y="357" font-family="Helvetica,Arial" font-size="10.5" fill="#6e7681" text-anchor="end">BOOL</text>
+<line x1="1180" y1="366" x2="1420" y2="366" stroke="#30363d" stroke-width="0.6"/>
+<text x="1192" y="383" font-family="Helvetica,Arial" font-size="12.5" fill="#c9d1d9">description</text>
+<text x="1406" y="383" font-family="Helvetica,Arial" font-size="10.5" fill="#6e7681" text-anchor="end">TEXT</text>
+<rect x="1180" y="470" width="240" height="190" rx="7" fill="#161b22" stroke="#30363d" stroke-width="1.5"/>
+<path d="M1180,477 q0,-7 7,-7 h226 q7,0 7,7 v27 h-240 z" fill="#3d444d"/>
+<text x="1300.0" y="492" font-family="Helvetica,Arial" font-size="14" font-weight="bold" fill="#ffffff" text-anchor="middle">packages_package</text>
+<text x="1192" y="521" font-family="Helvetica,Arial" font-size="12.5" fill="#c9d1d9">id</text>
+<text x="1380" y="521" font-family="Helvetica,Arial" font-size="10.5" fill="#6e7681" text-anchor="end">INT</text>
+<rect x="1384" y="509" width="26" height="15" rx="3" fill="#b8860b"/>
+<text x="1397" y="520" font-family="Helvetica,Arial" font-size="9" font-weight="bold" fill="#fff" text-anchor="middle">PK</text>
+<line x1="1180" y1="530" x2="1420" y2="530" stroke="#30363d" stroke-width="0.6"/>
+<text x="1192" y="547" font-family="Helvetica,Arial" font-size="12.5" fill="#c9d1d9">package_id</text>
+<text x="1406" y="547" font-family="Helvetica,Arial" font-size="10.5" fill="#6e7681" text-anchor="end">VARCHAR</text>
+<line x1="1180" y1="556" x2="1420" y2="556" stroke="#30363d" stroke-width="0.6"/>
+<text x="1192" y="573" font-family="Helvetica,Arial" font-size="12.5" fill="#c9d1d9">name</text>
+<text x="1406" y="573" font-family="Helvetica,Arial" font-size="10.5" fill="#6e7681" text-anchor="end">VARCHAR</text>
+<line x1="1180" y1="582" x2="1420" y2="582" stroke="#30363d" stroke-width="0.6"/>
+<text x="1192" y="599" font-family="Helvetica,Arial" font-size="12.5" fill="#c9d1d9">category</text>
+<text x="1406" y="599" font-family="Helvetica,Arial" font-size="10.5" fill="#6e7681" text-anchor="end">VARCHAR</text>
+<line x1="1180" y1="608" x2="1420" y2="608" stroke="#30363d" stroke-width="0.6"/>
+<text x="1192" y="625" font-family="Helvetica,Arial" font-size="12.5" fill="#c9d1d9">price</text>
+<text x="1406" y="625" font-family="Helvetica,Arial" font-size="10.5" fill="#6e7681" text-anchor="end">DECIMAL</text>
+<line x1="1180" y1="634" x2="1420" y2="634" stroke="#30363d" stroke-width="0.6"/>
+<text x="1192" y="651" font-family="Helvetica,Arial" font-size="12.5" fill="#c9d1d9">is_active</text>
+<text x="1406" y="651" font-family="Helvetica,Arial" font-size="10.5" fill="#6e7681" text-anchor="end">BOOL</text>
+<rect x="610" y="470" width="240" height="398" rx="7" fill="#161b22" stroke="#30363d" stroke-width="1.5"/>
+<path d="M610,477 q0,-7 7,-7 h226 q7,0 7,7 v27 h-240 z" fill="#a14232"/>
+<text x="730.0" y="492" font-family="Helvetica,Arial" font-size="14" font-weight="bold" fill="#ffffff" text-anchor="middle">bookings_booking</text>
+<text x="622" y="521" font-family="Helvetica,Arial" font-size="12.5" fill="#c9d1d9">id</text>
+<text x="810" y="521" font-family="Helvetica,Arial" font-size="10.5" fill="#6e7681" text-anchor="end">INT</text>
+<rect x="814" y="509" width="26" height="15" rx="3" fill="#b8860b"/>
+<text x="827" y="520" font-family="Helvetica,Arial" font-size="9" font-weight="bold" fill="#fff" text-anchor="middle">PK</text>
+<line x1="610" y1="530" x2="850" y2="530" stroke="#30363d" stroke-width="0.6"/>
+<text x="622" y="547" font-family="Helvetica,Arial" font-size="12.5" fill="#c9d1d9">guest_id</text>
+<text x="810" y="547" font-family="Helvetica,Arial" font-size="10.5" fill="#6e7681" text-anchor="end">INT</text>
+<rect x="814" y="535" width="26" height="15" rx="3" fill="#1f6feb"/>
+<text x="827" y="546" font-family="Helvetica,Arial" font-size="9" font-weight="bold" fill="#fff" text-anchor="middle">FK</text>
+<line x1="610" y1="556" x2="850" y2="556" stroke="#30363d" stroke-width="0.6"/>
+<text x="622" y="573" font-family="Helvetica,Arial" font-size="12.5" fill="#c9d1d9">room_id</text>
+<text x="810" y="573" font-family="Helvetica,Arial" font-size="10.5" fill="#6e7681" text-anchor="end">INT</text>
+<rect x="814" y="561" width="26" height="15" rx="3" fill="#1f6feb"/>
+<text x="827" y="572" font-family="Helvetica,Arial" font-size="9" font-weight="bold" fill="#fff" text-anchor="middle">FK</text>
+<line x1="610" y1="582" x2="850" y2="582" stroke="#30363d" stroke-width="0.6"/>
+<text x="622" y="599" font-family="Helvetica,Arial" font-size="12.5" fill="#c9d1d9">check_in</text>
+<text x="836" y="599" font-family="Helvetica,Arial" font-size="10.5" fill="#6e7681" text-anchor="end">DATE</text>
+<line x1="610" y1="608" x2="850" y2="608" stroke="#30363d" stroke-width="0.6"/>
+<text x="622" y="625" font-family="Helvetica,Arial" font-size="12.5" fill="#c9d1d9">check_out</text>
+<text x="836" y="625" font-family="Helvetica,Arial" font-size="10.5" fill="#6e7681" text-anchor="end">DATE</text>
+<line x1="610" y1="634" x2="850" y2="634" stroke="#30363d" stroke-width="0.6"/>
+<text x="622" y="651" font-family="Helvetica,Arial" font-size="12.5" fill="#c9d1d9">status</text>
+<text x="836" y="651" font-family="Helvetica,Arial" font-size="10.5" fill="#6e7681" text-anchor="end">VARCHAR</text>
+<line x1="610" y1="660" x2="850" y2="660" stroke="#30363d" stroke-width="0.6"/>
+<text x="622" y="677" font-family="Helvetica,Arial" font-size="12.5" fill="#c9d1d9">room_total</text>
+<text x="836" y="677" font-family="Helvetica,Arial" font-size="10.5" fill="#6e7681" text-anchor="end">DECIMAL</text>
+<line x1="610" y1="686" x2="850" y2="686" stroke="#30363d" stroke-width="0.6"/>
+<text x="622" y="703" font-family="Helvetica,Arial" font-size="12.5" fill="#c9d1d9">packages_total</text>
+<text x="836" y="703" font-family="Helvetica,Arial" font-size="10.5" fill="#6e7681" text-anchor="end">DECIMAL</text>
+<line x1="610" y1="712" x2="850" y2="712" stroke="#30363d" stroke-width="0.6"/>
+<text x="622" y="729" font-family="Helvetica,Arial" font-size="12.5" fill="#c9d1d9">membership_discount</text>
+<text x="836" y="729" font-family="Helvetica,Arial" font-size="10.5" fill="#6e7681" text-anchor="end">DECIMAL</text>
+<line x1="610" y1="738" x2="850" y2="738" stroke="#30363d" stroke-width="0.6"/>
+<text x="622" y="755" font-family="Helvetica,Arial" font-size="12.5" fill="#c9d1d9">grand_total</text>
+<text x="836" y="755" font-family="Helvetica,Arial" font-size="10.5" fill="#6e7681" text-anchor="end">DECIMAL</text>
+<line x1="610" y1="764" x2="850" y2="764" stroke="#30363d" stroke-width="0.6"/>
+<text x="622" y="781" font-family="Helvetica,Arial" font-size="12.5" fill="#c9d1d9">amount_paid</text>
+<text x="836" y="781" font-family="Helvetica,Arial" font-size="10.5" fill="#6e7681" text-anchor="end">DECIMAL</text>
+<line x1="610" y1="790" x2="850" y2="790" stroke="#30363d" stroke-width="0.6"/>
+<text x="622" y="807" font-family="Helvetica,Arial" font-size="12.5" fill="#c9d1d9">balance_owed</text>
+<text x="836" y="807" font-family="Helvetica,Arial" font-size="10.5" fill="#6e7681" text-anchor="end">DECIMAL</text>
+<line x1="610" y1="816" x2="850" y2="816" stroke="#30363d" stroke-width="0.6"/>
+<text x="622" y="833" font-family="Helvetica,Arial" font-size="12.5" fill="#c9d1d9">deposit_paid</text>
+<text x="836" y="833" font-family="Helvetica,Arial" font-size="10.5" fill="#6e7681" text-anchor="end">BOOL</text>
+<line x1="610" y1="842" x2="850" y2="842" stroke="#30363d" stroke-width="0.6"/>
+<text x="622" y="859" font-family="Helvetica,Arial" font-size="12.5" fill="#c9d1d9">stripe_payment_intent</text>
+<text x="836" y="859" font-family="Helvetica,Arial" font-size="10.5" fill="#6e7681" text-anchor="end">VARCHAR</text>
+<rect x="610" y="930" width="240" height="138" rx="7" fill="#161b22" stroke="#30363d" stroke-width="1.5"/>
+<path d="M610,937 q0,-7 7,-7 h226 q7,0 7,7 v27 h-240 z" fill="#a14232"/>
+<text x="730.0" y="952" font-family="Helvetica,Arial" font-size="14" font-weight="bold" fill="#ffffff" text-anchor="middle">bookings_bookingpackage</text>
+<text x="622" y="981" font-family="Helvetica,Arial" font-size="12.5" fill="#c9d1d9">id</text>
+<text x="810" y="981" font-family="Helvetica,Arial" font-size="10.5" fill="#6e7681" text-anchor="end">INT</text>
+<rect x="814" y="969" width="26" height="15" rx="3" fill="#b8860b"/>
+<text x="827" y="980" font-family="Helvetica,Arial" font-size="9" font-weight="bold" fill="#fff" text-anchor="middle">PK</text>
+<line x1="610" y1="990" x2="850" y2="990" stroke="#30363d" stroke-width="0.6"/>
+<text x="622" y="1007" font-family="Helvetica,Arial" font-size="12.5" fill="#c9d1d9">booking_id</text>
+<text x="810" y="1007" font-family="Helvetica,Arial" font-size="10.5" fill="#6e7681" text-anchor="end">INT</text>
+<rect x="814" y="995" width="26" height="15" rx="3" fill="#1f6feb"/>
+<text x="827" y="1006" font-family="Helvetica,Arial" font-size="9" font-weight="bold" fill="#fff" text-anchor="middle">FK</text>
+<line x1="610" y1="1016" x2="850" y2="1016" stroke="#30363d" stroke-width="0.6"/>
+<text x="622" y="1033" font-family="Helvetica,Arial" font-size="12.5" fill="#c9d1d9">package_id</text>
+<text x="810" y="1033" font-family="Helvetica,Arial" font-size="10.5" fill="#6e7681" text-anchor="end">INT</text>
+<rect x="814" y="1021" width="26" height="15" rx="3" fill="#1f6feb"/>
+<text x="827" y="1032" font-family="Helvetica,Arial" font-size="9" font-weight="bold" fill="#fff" text-anchor="middle">FK</text>
+<line x1="610" y1="1042" x2="850" y2="1042" stroke="#30363d" stroke-width="0.6"/>
+<text x="622" y="1059" font-family="Helvetica,Arial" font-size="12.5" fill="#c9d1d9">price_at_booking</text>
+<text x="836" y="1059" font-family="Helvetica,Arial" font-size="10.5" fill="#6e7681" text-anchor="end">DECIMAL</text>
+<rect x="940" y="930" width="240" height="190" rx="7" fill="#161b22" stroke="#30363d" stroke-width="1.5"/>
+<path d="M940,937 q0,-7 7,-7 h226 q7,0 7,7 v27 h-240 z" fill="#4a3a6a"/>
+<text x="1060.0" y="952" font-family="Helvetica,Arial" font-size="14" font-weight="bold" fill="#ffffff" text-anchor="middle">concierge_request</text>
+<text x="952" y="981" font-family="Helvetica,Arial" font-size="12.5" fill="#c9d1d9">id</text>
+<text x="1140" y="981" font-family="Helvetica,Arial" font-size="10.5" fill="#6e7681" text-anchor="end">INT</text>
+<rect x="1144" y="969" width="26" height="15" rx="3" fill="#b8860b"/>
+<text x="1157" y="980" font-family="Helvetica,Arial" font-size="9" font-weight="bold" fill="#fff" text-anchor="middle">PK</text>
+<line x1="940" y1="990" x2="1180" y2="990" stroke="#30363d" stroke-width="0.6"/>
+<text x="952" y="1007" font-family="Helvetica,Arial" font-size="12.5" fill="#c9d1d9">guest_id</text>
+<text x="1140" y="1007" font-family="Helvetica,Arial" font-size="10.5" fill="#6e7681" text-anchor="end">INT</text>
+<rect x="1144" y="995" width="26" height="15" rx="3" fill="#1f6feb"/>
+<text x="1157" y="1006" font-family="Helvetica,Arial" font-size="9" font-weight="bold" fill="#fff" text-anchor="middle">FK</text>
+<line x1="940" y1="1016" x2="1180" y2="1016" stroke="#30363d" stroke-width="0.6"/>
+<text x="952" y="1033" font-family="Helvetica,Arial" font-size="12.5" fill="#c9d1d9">request_type</text>
+<text x="1166" y="1033" font-family="Helvetica,Arial" font-size="10.5" fill="#6e7681" text-anchor="end">VARCHAR</text>
+<line x1="940" y1="1042" x2="1180" y2="1042" stroke="#30363d" stroke-width="0.6"/>
+<text x="952" y="1059" font-family="Helvetica,Arial" font-size="12.5" fill="#c9d1d9">status</text>
+<text x="1166" y="1059" font-family="Helvetica,Arial" font-size="10.5" fill="#6e7681" text-anchor="end">VARCHAR</text>
+<line x1="940" y1="1068" x2="1180" y2="1068" stroke="#30363d" stroke-width="0.6"/>
+<text x="952" y="1085" font-family="Helvetica,Arial" font-size="12.5" fill="#c9d1d9">proposed_time</text>
+<text x="1166" y="1085" font-family="Helvetica,Arial" font-size="10.5" fill="#6e7681" text-anchor="end">DATETIME</text>
+<line x1="940" y1="1094" x2="1180" y2="1094" stroke="#30363d" stroke-width="0.6"/>
+<text x="952" y="1111" font-family="Helvetica,Arial" font-size="12.5" fill="#c9d1d9">handled_by_id</text>
+<text x="1140" y="1111" font-family="Helvetica,Arial" font-size="10.5" fill="#6e7681" text-anchor="end">INT</text>
+<rect x="1144" y="1099" width="26" height="15" rx="3" fill="#1f6feb"/>
+<text x="1157" y="1110" font-family="Helvetica,Arial" font-size="9" font-weight="bold" fill="#fff" text-anchor="middle">FK</text>
+<rect x="60" y="720" width="240" height="216" rx="7" fill="#161b22" stroke="#30363d" stroke-width="1.5"/>
+<path d="M60,727 q0,-7 7,-7 h226 q7,0 7,7 v27 h-240 z" fill="#4a3a6a"/>
+<text x="180.0" y="742" font-family="Helvetica,Arial" font-size="14" font-weight="bold" fill="#ffffff" text-anchor="middle">complaints_complaint</text>
+<text x="72" y="771" font-family="Helvetica,Arial" font-size="12.5" fill="#c9d1d9">id</text>
+<text x="260" y="771" font-family="Helvetica,Arial" font-size="10.5" fill="#6e7681" text-anchor="end">INT</text>
+<rect x="264" y="759" width="26" height="15" rx="3" fill="#b8860b"/>
+<text x="277" y="770" font-family="Helvetica,Arial" font-size="9" font-weight="bold" fill="#fff" text-anchor="middle">PK</text>
+<line x1="60" y1="780" x2="300" y2="780" stroke="#30363d" stroke-width="0.6"/>
+<text x="72" y="797" font-family="Helvetica,Arial" font-size="12.5" fill="#c9d1d9">guest_id</text>
+<text x="260" y="797" font-family="Helvetica,Arial" font-size="10.5" fill="#6e7681" text-anchor="end">INT</text>
+<rect x="264" y="785" width="26" height="15" rx="3" fill="#1f6feb"/>
+<text x="277" y="796" font-family="Helvetica,Arial" font-size="9" font-weight="bold" fill="#fff" text-anchor="middle">FK</text>
+<line x1="60" y1="806" x2="300" y2="806" stroke="#30363d" stroke-width="0.6"/>
+<text x="72" y="823" font-family="Helvetica,Arial" font-size="12.5" fill="#c9d1d9">booking_id</text>
+<text x="260" y="823" font-family="Helvetica,Arial" font-size="10.5" fill="#6e7681" text-anchor="end">INT</text>
+<rect x="264" y="811" width="26" height="15" rx="3" fill="#1f6feb"/>
+<text x="277" y="822" font-family="Helvetica,Arial" font-size="9" font-weight="bold" fill="#fff" text-anchor="middle">FK</text>
+<line x1="60" y1="832" x2="300" y2="832" stroke="#30363d" stroke-width="0.6"/>
+<text x="72" y="849" font-family="Helvetica,Arial" font-size="12.5" fill="#c9d1d9">category</text>
+<text x="286" y="849" font-family="Helvetica,Arial" font-size="10.5" fill="#6e7681" text-anchor="end">VARCHAR</text>
+<line x1="60" y1="858" x2="300" y2="858" stroke="#30363d" stroke-width="0.6"/>
+<text x="72" y="875" font-family="Helvetica,Arial" font-size="12.5" fill="#c9d1d9">status</text>
+<text x="286" y="875" font-family="Helvetica,Arial" font-size="10.5" fill="#6e7681" text-anchor="end">VARCHAR</text>
+<line x1="60" y1="884" x2="300" y2="884" stroke="#30363d" stroke-width="0.6"/>
+<text x="72" y="901" font-family="Helvetica,Arial" font-size="12.5" fill="#c9d1d9">handled_by_id</text>
+<text x="260" y="901" font-family="Helvetica,Arial" font-size="10.5" fill="#6e7681" text-anchor="end">INT</text>
+<rect x="264" y="889" width="26" height="15" rx="3" fill="#1f6feb"/>
+<text x="277" y="900" font-family="Helvetica,Arial" font-size="9" font-weight="bold" fill="#fff" text-anchor="middle">FK</text>
+<line x1="60" y1="910" x2="300" y2="910" stroke="#30363d" stroke-width="0.6"/>
+<text x="72" y="927" font-family="Helvetica,Arial" font-size="12.5" fill="#c9d1d9">credit_awarded</text>
+<text x="286" y="927" font-family="Helvetica,Arial" font-size="10.5" fill="#6e7681" text-anchor="end">DECIMAL</text>
+<rect x="60" y="1010" width="240" height="216" rx="7" fill="#161b22" stroke="#30363d" stroke-width="1.5"/>
+<path d="M60,1017 q0,-7 7,-7 h226 q7,0 7,7 v27 h-240 z" fill="#4a3a6a"/>
+<text x="180.0" y="1032" font-family="Helvetica,Arial" font-size="14" font-weight="bold" fill="#ffffff" text-anchor="middle">relocations_offer</text>
+<text x="72" y="1061" font-family="Helvetica,Arial" font-size="12.5" fill="#c9d1d9">id</text>
+<text x="260" y="1061" font-family="Helvetica,Arial" font-size="10.5" fill="#6e7681" text-anchor="end">INT</text>
+<rect x="264" y="1049" width="26" height="15" rx="3" fill="#b8860b"/>
+<text x="277" y="1060" font-family="Helvetica,Arial" font-size="9" font-weight="bold" fill="#fff" text-anchor="middle">PK</text>
+<line x1="60" y1="1070" x2="300" y2="1070" stroke="#30363d" stroke-width="0.6"/>
+<text x="72" y="1087" font-family="Helvetica,Arial" font-size="12.5" fill="#c9d1d9">booking_id</text>
+<text x="260" y="1087" font-family="Helvetica,Arial" font-size="10.5" fill="#6e7681" text-anchor="end">INT</text>
+<rect x="264" y="1075" width="26" height="15" rx="3" fill="#1f6feb"/>
+<text x="277" y="1086" font-family="Helvetica,Arial" font-size="9" font-weight="bold" fill="#fff" text-anchor="middle">FK</text>
+<line x1="60" y1="1096" x2="300" y2="1096" stroke="#30363d" stroke-width="0.6"/>
+<text x="72" y="1113" font-family="Helvetica,Arial" font-size="12.5" fill="#c9d1d9">guest_id</text>
+<text x="260" y="1113" font-family="Helvetica,Arial" font-size="10.5" fill="#6e7681" text-anchor="end">INT</text>
+<rect x="264" y="1101" width="26" height="15" rx="3" fill="#1f6feb"/>
+<text x="277" y="1112" font-family="Helvetica,Arial" font-size="9" font-weight="bold" fill="#fff" text-anchor="middle">FK</text>
+<line x1="60" y1="1122" x2="300" y2="1122" stroke="#30363d" stroke-width="0.6"/>
+<text x="72" y="1139" font-family="Helvetica,Arial" font-size="12.5" fill="#c9d1d9">original_room_id</text>
+<text x="260" y="1139" font-family="Helvetica,Arial" font-size="10.5" fill="#6e7681" text-anchor="end">INT</text>
+<rect x="264" y="1127" width="26" height="15" rx="3" fill="#1f6feb"/>
+<text x="277" y="1138" font-family="Helvetica,Arial" font-size="9" font-weight="bold" fill="#fff" text-anchor="middle">FK</text>
+<line x1="60" y1="1148" x2="300" y2="1148" stroke="#30363d" stroke-width="0.6"/>
+<text x="72" y="1165" font-family="Helvetica,Arial" font-size="12.5" fill="#c9d1d9">new_room_id</text>
+<text x="260" y="1165" font-family="Helvetica,Arial" font-size="10.5" fill="#6e7681" text-anchor="end">INT</text>
+<rect x="264" y="1153" width="26" height="15" rx="3" fill="#1f6feb"/>
+<text x="277" y="1164" font-family="Helvetica,Arial" font-size="9" font-weight="bold" fill="#fff" text-anchor="middle">FK</text>
+<line x1="60" y1="1174" x2="300" y2="1174" stroke="#30363d" stroke-width="0.6"/>
+<text x="72" y="1191" font-family="Helvetica,Arial" font-size="12.5" fill="#c9d1d9">resolution</text>
+<text x="286" y="1191" font-family="Helvetica,Arial" font-size="10.5" fill="#6e7681" text-anchor="end">VARCHAR</text>
+<line x1="60" y1="1200" x2="300" y2="1200" stroke="#30363d" stroke-width="0.6"/>
+<text x="72" y="1217" font-family="Helvetica,Arial" font-size="12.5" fill="#c9d1d9">bonus_credit</text>
+<text x="286" y="1217" font-family="Helvetica,Arial" font-size="10.5" fill="#6e7681" text-anchor="end">DECIMAL</text>
+<rect x="1180" y="800" width="240" height="242" rx="7" fill="#161b22" stroke="#30363d" stroke-width="1.5"/>
+<path d="M1180,807 q0,-7 7,-7 h226 q7,0 7,7 v27 h-240 z" fill="#4a3a6a"/>
+<text x="1300.0" y="822" font-family="Helvetica,Arial" font-size="14" font-weight="bold" fill="#ffffff" text-anchor="middle">maintenance_log</text>
+<text x="1192" y="851" font-family="Helvetica,Arial" font-size="12.5" fill="#c9d1d9">id</text>
+<text x="1380" y="851" font-family="Helvetica,Arial" font-size="10.5" fill="#6e7681" text-anchor="end">INT</text>
+<rect x="1384" y="839" width="26" height="15" rx="3" fill="#b8860b"/>
+<text x="1397" y="850" font-family="Helvetica,Arial" font-size="9" font-weight="bold" fill="#fff" text-anchor="middle">PK</text>
+<line x1="1180" y1="860" x2="1420" y2="860" stroke="#30363d" stroke-width="0.6"/>
+<text x="1192" y="877" font-family="Helvetica,Arial" font-size="12.5" fill="#c9d1d9">room_id</text>
+<text x="1380" y="877" font-family="Helvetica,Arial" font-size="10.5" fill="#6e7681" text-anchor="end">INT</text>
+<rect x="1384" y="865" width="26" height="15" rx="3" fill="#1f6feb"/>
+<text x="1397" y="876" font-family="Helvetica,Arial" font-size="9" font-weight="bold" fill="#fff" text-anchor="middle">FK</text>
+<line x1="1180" y1="886" x2="1420" y2="886" stroke="#30363d" stroke-width="0.6"/>
+<text x="1192" y="903" font-family="Helvetica,Arial" font-size="12.5" fill="#c9d1d9">category</text>
+<text x="1406" y="903" font-family="Helvetica,Arial" font-size="10.5" fill="#6e7681" text-anchor="end">VARCHAR</text>
+<line x1="1180" y1="912" x2="1420" y2="912" stroke="#30363d" stroke-width="0.6"/>
+<text x="1192" y="929" font-family="Helvetica,Arial" font-size="12.5" fill="#c9d1d9">started</text>
+<text x="1406" y="929" font-family="Helvetica,Arial" font-size="10.5" fill="#6e7681" text-anchor="end">DATE</text>
+<line x1="1180" y1="938" x2="1420" y2="938" stroke="#30363d" stroke-width="0.6"/>
+<text x="1192" y="955" font-family="Helvetica,Arial" font-size="12.5" fill="#c9d1d9">expected_ready</text>
+<text x="1406" y="955" font-family="Helvetica,Arial" font-size="10.5" fill="#6e7681" text-anchor="end">DATE</text>
+<line x1="1180" y1="964" x2="1420" y2="964" stroke="#30363d" stroke-width="0.6"/>
+<text x="1192" y="981" font-family="Helvetica,Arial" font-size="12.5" fill="#c9d1d9">status</text>
+<text x="1406" y="981" font-family="Helvetica,Arial" font-size="10.5" fill="#6e7681" text-anchor="end">VARCHAR</text>
+<line x1="1180" y1="990" x2="1420" y2="990" stroke="#30363d" stroke-width="0.6"/>
+<text x="1192" y="1007" font-family="Helvetica,Arial" font-size="12.5" fill="#c9d1d9">created_by_id</text>
+<text x="1380" y="1007" font-family="Helvetica,Arial" font-size="10.5" fill="#6e7681" text-anchor="end">INT</text>
+<rect x="1384" y="995" width="26" height="15" rx="3" fill="#1f6feb"/>
+<text x="1397" y="1006" font-family="Helvetica,Arial" font-size="9" font-weight="bold" fill="#fff" text-anchor="middle">FK</text>
+<line x1="1180" y1="1016" x2="1420" y2="1016" stroke="#30363d" stroke-width="0.6"/>
+<text x="1192" y="1033" font-family="Helvetica,Arial" font-size="12.5" fill="#c9d1d9">cleared_by_id</text>
+<text x="1380" y="1033" font-family="Helvetica,Arial" font-size="10.5" fill="#6e7681" text-anchor="end">INT</text>
+<rect x="1384" y="1021" width="26" height="15" rx="3" fill="#1f6feb"/>
+<text x="1397" y="1032" font-family="Helvetica,Arial" font-size="9" font-weight="bold" fill="#fff" text-anchor="middle">FK</text>
+<rect x="1180" y="1110" width="240" height="164" rx="7" fill="#161b22" stroke="#30363d" stroke-width="1.5"/>
+<path d="M1180,1117 q0,-7 7,-7 h226 q7,0 7,7 v27 h-240 z" fill="#4a3a6a"/>
+<text x="1300.0" y="1132" font-family="Helvetica,Arial" font-size="14" font-weight="bold" fill="#ffffff" text-anchor="middle">maintenance_staffactionlog</text>
+<text x="1192" y="1161" font-family="Helvetica,Arial" font-size="12.5" fill="#c9d1d9">id</text>
+<text x="1380" y="1161" font-family="Helvetica,Arial" font-size="10.5" fill="#6e7681" text-anchor="end">INT</text>
+<rect x="1384" y="1149" width="26" height="15" rx="3" fill="#b8860b"/>
+<text x="1397" y="1160" font-family="Helvetica,Arial" font-size="9" font-weight="bold" fill="#fff" text-anchor="middle">PK</text>
+<line x1="1180" y1="1170" x2="1420" y2="1170" stroke="#30363d" stroke-width="0.6"/>
+<text x="1192" y="1187" font-family="Helvetica,Arial" font-size="12.5" fill="#c9d1d9">staff_id</text>
+<text x="1380" y="1187" font-family="Helvetica,Arial" font-size="10.5" fill="#6e7681" text-anchor="end">INT</text>
+<rect x="1384" y="1175" width="26" height="15" rx="3" fill="#1f6feb"/>
+<text x="1397" y="1186" font-family="Helvetica,Arial" font-size="9" font-weight="bold" fill="#fff" text-anchor="middle">FK</text>
+<line x1="1180" y1="1196" x2="1420" y2="1196" stroke="#30363d" stroke-width="0.6"/>
+<text x="1192" y="1213" font-family="Helvetica,Arial" font-size="12.5" fill="#c9d1d9">action</text>
+<text x="1406" y="1213" font-family="Helvetica,Arial" font-size="10.5" fill="#6e7681" text-anchor="end">VARCHAR</text>
+<line x1="1180" y1="1222" x2="1420" y2="1222" stroke="#30363d" stroke-width="0.6"/>
+<text x="1192" y="1239" font-family="Helvetica,Arial" font-size="12.5" fill="#c9d1d9">detail</text>
+<text x="1406" y="1239" font-family="Helvetica,Arial" font-size="10.5" fill="#6e7681" text-anchor="end">VARCHAR</text>
+<line x1="1180" y1="1248" x2="1420" y2="1248" stroke="#30363d" stroke-width="0.6"/>
+<text x="1192" y="1265" font-family="Helvetica,Arial" font-size="12.5" fill="#c9d1d9">room_id</text>
+<text x="1380" y="1265" font-family="Helvetica,Arial" font-size="10.5" fill="#6e7681" text-anchor="end">INT</text>
+<rect x="1384" y="1253" width="26" height="15" rx="3" fill="#1f6feb"/>
+<text x="1397" y="1264" font-family="Helvetica,Arial" font-size="9" font-weight="bold" fill="#fff" text-anchor="middle">FK</text>
+<path d="M610,175 L300,200" stroke="#2ea043" stroke-width="2" fill="none" marker-end="url(#arrow_2ea043)"/>
+<text x="460" y="180" font-family="Helvetica,Arial" font-size="11" font-weight="bold" fill="#2ea043" text-anchor="middle">1:1</text>
+<path d="M610,230 L300,440" stroke="#2ea043" stroke-width="2" fill="none" marker-end="url(#arrow_2ea043)"/>
+<text x="460" y="360" font-family="Helvetica,Arial" font-size="11" font-weight="bold" fill="#2ea043" text-anchor="middle">1:1</text>
+<path d="M720,290 L730,470" stroke="#da3633" stroke-width="2" fill="none" stroke-dasharray="7,5" marker-end="url(#arrow_da3633)"/>
+<text x="800" y="400" font-family="Helvetica,Arial" font-size="11" font-weight="bold" fill="#da3633" text-anchor="middle">1:many (guest)</text>
+<path d="M1180,260 L850,520" stroke="#da3633" stroke-width="2" fill="none" stroke-dasharray="7,5" marker-end="url(#arrow_da3633)"/>
+<text x="1020" y="360" font-family="Helvetica,Arial" font-size="11" font-weight="bold" fill="#da3633" text-anchor="middle">1:many (room)</text>
+<path d="M720,810 L720,930" stroke="#da3633" stroke-width="2" fill="none" stroke-dasharray="7,5" marker-end="url(#arrow_da3633)"/>
+<text x="760" y="880" font-family="Helvetica,Arial" font-size="11" font-weight="bold" fill="#da3633" text-anchor="middle">M:N via</text>
+<path d="M1180,560 L850,975" stroke="#6e7681" stroke-width="2" fill="none" marker-end="url(#arrow_6e7681)"/>
+<text x="1015" y="690" font-family="Helvetica,Arial" font-size="11" font-weight="bold" fill="#6e7681" text-anchor="middle">M:N pkg</text>
+<path d="M850,560 L1080,930" stroke="#da3633" stroke-width="2" fill="none" stroke-dasharray="7,5" marker-end="url(#arrow_da3633)"/>
+<text x="980" y="740" font-family="Helvetica,Arial" font-size="11" font-weight="bold" fill="#da3633" text-anchor="middle">1:many</text>
+<path d="M610,560 L300,760" stroke="#6e7681" stroke-width="2" fill="none" marker-end="url(#arrow_6e7681)"/>
+<text x="460" y="650" font-family="Helvetica,Arial" font-size="11" font-weight="bold" fill="#6e7681" text-anchor="middle">0..1</text>
+<path d="M610,640 L300,1050" stroke="#da3633" stroke-width="2" fill="none" stroke-dasharray="7,5" marker-end="url(#arrow_da3633)"/>
+<text x="440" y="860" font-family="Helvetica,Arial" font-size="11" font-weight="bold" fill="#da3633" text-anchor="middle">1:many</text>
+<path d="M1300,420 L1300,800" stroke="#da3633" stroke-width="2" fill="none" stroke-dasharray="7,5" marker-end="url(#arrow_da3633)"/>
+<text x="1340" y="610" font-family="Helvetica,Arial" font-size="11" font-weight="bold" fill="#da3633" text-anchor="middle">1:many</text>
+<path d="M850,700 L1180,1140" stroke="#6e7681" stroke-width="2" fill="none" marker-end="url(#arrow_6e7681)"/>
+<text x="1030" y="930" font-family="Helvetica,Arial" font-size="11" font-weight="bold" fill="#6e7681" text-anchor="middle">audit</text>
+<rect x="60" y="1550" width="1380" height="56" rx="6" fill="#161b22" stroke="#30363d"/>
+<text x="750.0" y="1568" font-family="Helvetica,Arial" font-size="12" font-weight="bold" fill="#8b949e" text-anchor="middle">Legend</text>
+<line x1="120" y1="1588" x2="165" y2="1588" stroke="#2ea043" stroke-width="2.5" marker-end="url(#arrow_2ea043)"/>
+<text x="175" y="1592" font-family="Helvetica,Arial" font-size="12" fill="#c9d1d9">One-to-one  (OneToOneField)</text>
+<line x1="560" y1="1588" x2="605" y2="1588" stroke="#da3633" stroke-width="2.5" stroke-dasharray="7,5" marker-end="url(#arrow_da3633)"/>
+<text x="615" y="1592" font-family="Helvetica,Arial" font-size="12" fill="#c9d1d9">One-to-many  (ForeignKey)</text>
+<line x1="1000" y1="1588" x2="1045" y2="1588" stroke="#6e7681" stroke-width="2.5" marker-end="url(#arrow_6e7681)"/>
+<text x="1055" y="1592" font-family="Helvetica,Arial" font-size="12" fill="#c9d1d9">Audit / lookup reference</text>
+</svg>
