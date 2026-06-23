@@ -15,7 +15,8 @@ document.addEventListener('DOMContentLoaded', function () {
   const successUrl   = paymentEl.dataset.successUrl;
 
   // Initialise Stripe and create the card input
-  const stripe   = Stripe(publicKey);
+  
+  const stripe   = Stripe(publicKey, { locale: 'en-GB' });
   const elements = stripe.elements();
   const card     = elements.create('card', {
     style: {
