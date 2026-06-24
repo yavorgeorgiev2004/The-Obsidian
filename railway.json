@@ -4,7 +4,7 @@
     "builder": "NIXPACKS"
   },
   "deploy": {
-    "startCommand": "gunicorn obsidian_hotel.wsgi",
+    "startCommand": "python manage.py migrate --noinput && python manage.py collectstatic --noinput && gunicorn obsidian_hotel.wsgi",
     "restartPolicyType": "ON_FAILURE",
     "restartPolicyMaxRetries": 10
   }

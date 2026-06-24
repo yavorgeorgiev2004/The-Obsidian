@@ -1,2 +1,1 @@
-release: python manage.py migrate && python manage.py collectstatic --noinput
-web: gunicorn obsidian_hotel.wsgi
+web: python manage.py migrate --noinput && python manage.py collectstatic --noinput && gunicorn obsidian_hotel.wsgi
